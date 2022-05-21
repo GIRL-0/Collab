@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "346897974988",
+    "project_id": "collab-32ba4",
+    "storage_bucket": "collab-32ba4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346897974988:android:8e9e5878c0a926e79c2469",
+        "android_client_info": {
+          "package_name": "com.example.collab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346897974988-amljd8g5gphov696nvnjd86v2p73hvag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBHpdKrnn9z450V4lW0HJGH9MjwgD7wkEk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346897974988-amljd8g5gphov696nvnjd86v2p73hvag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
