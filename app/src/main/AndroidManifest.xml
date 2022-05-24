@@ -10,6 +10,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Collab">
         <activity
+            android:name=".DashBoardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TeamProjectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TeamInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateTeamActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SearchTeamActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
