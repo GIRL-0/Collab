@@ -48,7 +48,7 @@
                 android:gravity="center"
                 android:hint="팀명으로 검색하세요"
                 android:textAlignment="center"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
 
             <Button
                 android:id="@+id/teamSearchBtn"
@@ -72,7 +72,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/teamRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="450dp"
+            android:layout_height="match_parent"
             android:layout_margin="10dp" />
 
     </LinearLayout>
