@@ -65,6 +65,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
+                        android:inputType="textMultiLine"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="13sp" />
@@ -93,6 +94,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
+                        android:inputType="textMultiLine"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="13sp" />
@@ -122,7 +124,6 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:inputType="textMultiLine"
-                        android:lines="2"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="13sp" />

@@ -45,8 +45,7 @@
         android:fontFamily="@font/digital_regular"
         android:hint="수정할 상세 진행 사항 내용"
         android:inputType="textMultiLine"
-        android:lines="2"
-        android:padding="3dp"
+        android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="13sp" />

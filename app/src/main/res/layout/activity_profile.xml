@@ -17,10 +17,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:fontFamily="@font/digital_bold"
             android:text="프로필을 설정하세요"
             android:textColor="@color/black"
-            android:layout_margin="10dp"
             android:textSize="15sp" />
 
         <View
@@ -61,9 +61,9 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center"
                         android:fontFamily="@font/digital_regular"
                         android:text="이름: "
-                        android:layout_gravity="center"
                         android:textColor="@color/black"
                         android:textSize="13sp" />
 
@@ -71,8 +71,8 @@
                         android:id="@+id/userName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/digital_regular"
                         android:layout_gravity="center"
+                        android:fontFamily="@font/digital_regular"
                         android:text="박건령"
                         android:textColor="@color/black"
                         android:textSize="13sp" />
@@ -87,8 +87,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/digital_regular"
                         android:layout_gravity="center"
+                        android:fontFamily="@font/digital_regular"
                         android:text="분야: "
                         android:textColor="@color/black"
                         android:textSize="13sp" />
@@ -97,8 +97,9 @@
                         android:id="@+id/userMajorTag"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/digital_regular"
                         android:layout_gravity="center"
+                        android:fontFamily="@font/digital_regular"
+                        android:inputType="textMultiLine"
                         android:text="#개발자 #UI"
                         android:textColor="@color/black"
                         android:textSize="13sp" />
@@ -126,7 +127,6 @@
                         android:layout_marginTop="2dp"
                         android:fontFamily="@font/digital_regular"
                         android:inputType="textMultiLine"
-                        android:lines="2"
                         android:text="건국대학교 소프트웨어 19학번"
                         android:textColor="@color/black"
                         android:textSize="13sp" />
