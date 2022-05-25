@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
+    tools:context=".DashBoardActivity">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp">
+
+        <TextView
+            android:id="@+id/projectName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="COLLAB"
+            android:textColor="@color/olive_green"
+            android:fontFamily="@font/digital_bold"
+            android:textSize="17sp"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:id="@+id/teamSetting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_setting"
+                app:tint="@color/deep_green"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="팀 관리"
+                android:textSize="13sp"
+                android:fontFamily="@font/digital_bold"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="3dp"
+            android:layout_marginHorizontal="5dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="전체 진행률"
+                android:fontFamily="@font/digital_bold"
+                android:textSize="13sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/black_green"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/totalProgressRateNum"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="65"
+                android:textSize="13sp"
+                android:textColor="@color/black_green"
+                android:fontFamily="@font/digital_bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text=" %"
+                android:textSize="13sp"
+                android:textColor="@color/black_green"
+                android:fontFamily="@font/digital_regular"/>
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/totalProgressRate"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="3dp"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:progress="65"
+            android:progressTint="@color/olive_green"
+            android:scaleY="4" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="10dp"
+        android:background="@color/black_green" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="팀 일정"
+            android:fontFamily="@font/digital_bold"
+            android:textSize="13sp"
+            android:textColor="@color/black_green"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/teamPlanAddBtn"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginHorizontal="10dp"
+            app:tint="@color/deep_green"
+            android:src="@drawable/ic_plus"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/teamPlanRecyclerView"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="10dp"
+        android:background="@color/black_green" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="3dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="팀 공지"
+            android:fontFamily="@font/digital_bold"
+            android:textSize="13sp"
+            android:textColor="@color/black_green"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/teamNoticeAddBtn"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginHorizontal="10dp"
+            app:tint="@color/deep_green"
+            android:src="@drawable/ic_plus"/>
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/teamNoticeRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginVertical="5dp"
+        android:layout_marginHorizontal="15dp"
+        android:layout_weight="7"/>
+
+</LinearLayout>
