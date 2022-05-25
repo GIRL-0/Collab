@@ -118,6 +118,7 @@
             android:layout_height="15dp"
             android:progress="65"
             android:progressTint="@color/olive_green"
+            android:progressBackgroundTint="@color/gray"
             android:scaleY="4" />
     </LinearLayout>
 
