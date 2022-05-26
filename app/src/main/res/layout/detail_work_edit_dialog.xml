@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="300dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="3dp"
     android:background="@drawable/edge"
@@ -9,7 +9,7 @@
     android:padding="10dp">
 
     <ImageView
-        android:id="@+id/noticeAddCancelBtn"
+        android:id="@+id/detailWorkAddCancelBtn"
         android:layout_width="17dp"
         android:layout_height="17dp"
         android:layout_gravity="right"
@@ -24,7 +24,7 @@
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/digital_bold"
         android:gravity="center"
-        android:text="팀 공지 추가"
+        android:text="상세 진행 사항 수정"
         android:textColor="@color/black_green"
         android:textSize="14sp" />
 
@@ -36,29 +36,41 @@
         android:background="@color/black_green" />
 
     <EditText
-        android:id="@+id/noticeContentEdit"
+        android:id="@+id/detailWorkContentEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="13dp"
         android:layout_marginVertical="10dp"
         android:background="@drawable/edge"
         android:fontFamily="@font/digital_regular"
-        android:hint="공지 내용"
+        android:hint="수정할 상세 진행 사항 내용"
         android:inputType="textMultiLine"
         android:padding="5dp"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="13sp" />
 
+    <CheckBox
+        android:id="@+id/alarmCheck"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="수정한 사항을 팀원들에게 알리겠습니까?"
+        android:fontFamily="@font/digital_regular"
+        android:textColor="@color/black"
+        android:textSize="12sp"/>
+
     <Button
-        android:id="@+id/noticeAddBtn"
+        android:id="@+id/detailWorkEditBtn"
         android:layout_width="65dp"
         android:layout_height="40dp"
         android:layout_gravity="right"
         android:layout_marginHorizontal="15dp"
         android:layout_marginVertical="5dp"
         android:fontFamily="@font/digital_bold"
-        android:text="추가"
+        android:text="수정"
         android:textSize="12sp" />
 
 

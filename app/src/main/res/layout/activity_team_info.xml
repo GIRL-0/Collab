@@ -35,6 +35,7 @@
                     android:gravity="center"
                     android:text="팀 이름: "
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="14sp" />
 
                 <TextView
@@ -45,6 +46,7 @@
                     android:gravity="center"
                     android:text="7890팀"
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -63,6 +65,7 @@
                     android:gravity="center"
                     android:text="주제: "
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="14sp" />
 
                 <TextView
@@ -71,8 +74,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:gravity="center"
+                    android:inputType="textMultiLine"
                     android:text="팀 프로젝트 보조 앱"
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="14sp" />
 
             </LinearLayout>
@@ -90,6 +95,7 @@
                     android:gravity="center"
                     android:text="상세 설명"
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="14sp" />
 
                 <TextView
@@ -102,6 +108,7 @@
                     android:inputType="textMultiLine"
                     android:text="프로젝트 팀원을 구하거나 팀을 구할 수 있음."
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="14sp" />
 
 
@@ -121,6 +128,7 @@
                     android:gravity="center"
                     android:text="진행 기간"
                     android:textAlignment="center"
+                    android:textColor="@color/black"
                     android:textSize="14sp" />
 
                 <LinearLayout
@@ -137,6 +145,7 @@
                         android:gravity="center"
                         android:text="2022-05-18"
                         android:textAlignment="center"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <TextView
@@ -146,6 +155,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text=" ~ "
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <TextView
@@ -158,6 +168,7 @@
                         android:gravity="center"
                         android:text="2022-06-10"
                         android:textAlignment="center"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
 
                 </LinearLayout>

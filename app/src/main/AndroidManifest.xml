@@ -10,6 +10,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Collab">
         <activity
+            android:name=".ManageTeamActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreatePlanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TeamCalendarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalCalendarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetailWorkActivity"
+            android:exported="false" />
+        <activity
+            android:name=".WorkActivity"
+            android:exported="false" />
+        <activity
             android:name=".DashBoardActivity"
             android:exported="false" />
         <activity
