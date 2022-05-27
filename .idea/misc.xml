@@ -6,9 +6,28 @@
         <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1905" />
         <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/drawable/ic_android_black_24dp.xml" value="0.1905" />
         <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1905" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/activity_create_plan.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/activity_create_team.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/activity_dash_board.xml" value="0.24947916666666667" />
         <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/activity_main.xml" value="0.23489583333333333" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/activity_manage_team.xml" value="0.24320652173913043" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/activity_personal_calendar.xml" value="0.24320652173913043" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/activity_profile.xml" value="0.264" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/activity_team_calendar.xml" value="0.12107396149949341" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/activity_team_info.xml" value="0.24320652173913043" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/activity_team_project.xml" value="0.24320652173913043" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/activity_team_search.xml" value="0.24320652173913043" />
         <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/fragment_find_team.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/name_card_row.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/plan_row.xml" value="0.12107396149949341" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/profile_alarm_row.xml" value="0.12107396149949341" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/request_member_dialog.xml" value="0.264" />
         <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/team_find_row.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/team_info_row.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/team_notice_add_dialog.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/team_notice_row.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/team_plan_row.xml" value="0.24947916666666667" />
+        <entry key="..\:/Users/USER_20211026/Desktop/code/Kotlin/Project_Collab/app/src/main/res/layout/work_add_dialog.xml" value="0.24947916666666667" />
       </map>
     </option>
   </component>
