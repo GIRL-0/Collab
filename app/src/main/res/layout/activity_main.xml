@@ -7,5 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/calButton"
+        android:layout_width="129dp"
+        android:layout_height="67dp"
+        android:text="Button" />
 
 </LinearLayout>
