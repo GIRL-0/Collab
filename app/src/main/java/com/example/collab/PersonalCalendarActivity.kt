@@ -3,6 +3,7 @@ package com.example.collab
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.collab.databinding.ActivityPersonalCalendarBinding
 import com.example.collab.databinding.ActivityProfileBinding
 
@@ -14,6 +15,7 @@ class PersonalCalendarActivity : AppCompatActivity() {
         binding = ActivityPersonalCalendarBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initlayout()
+        initCal()
     }
     private fun initlayout() {
         binding.apply{
@@ -37,5 +39,9 @@ class PersonalCalendarActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+    }
+
+    private fun initCal() {
+
     }
 }
