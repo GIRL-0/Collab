@@ -17,12 +17,8 @@ class PersonalCalendarAdapter (val items:ArrayList<CalendarData>):RecyclerView.A
         val planDate = itemView.findViewById<TextView>(R.id.planDate)
         val planTime = itemView.findViewById<TextView>(R.id.planTime)
         val planContent = itemView.findViewById<TextView>(R.id.planContent)
-        val calendarLinearLayout = itemView.findViewById<TextView>(R.id.calendarLinearLayout)
         init {
             planDate.setOnClickListener{
-                itemClickListener?.OnItemClick(items[adapterPosition])
-            }
-            calendarLinearLayout.setOnClickListener{
                 itemClickListener?.OnItemClick(items[adapterPosition])
             }
         }
