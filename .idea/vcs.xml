@@ -2,7 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Collab" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Collab_KuProject" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Collab" vcs="" />
+    <mapping directory="$PROJECT_DIR$/Collab_KuProject" vcs="" />
   </component>
 </project>
