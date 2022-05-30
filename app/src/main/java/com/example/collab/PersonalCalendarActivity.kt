@@ -91,11 +91,11 @@ class PersonalCalendarActivity : AppCompatActivity() {
         adapter = PersonalCalendarAdapter(calendarData)
         personalCalendarRecyclerView.adapter = adapter
 
-//        adapter.itemClickListener = object : PersonalCalendarAdapter.OnItemClickListener {
-//            override fun OnItemClick(data: CalendarData) {
-//                Toast.makeText(applicationContext, data.planDate, Toast.LENGTH_SHORT).show()
-//            }
-//        }
+        adapter.itemClickListener = object : PersonalCalendarAdapter.OnItemClickListener {
+            override fun OnItemClick(data: CalendarData) {
+                Toast.makeText(applicationContext, data.planDate, Toast.LENGTH_SHORT).show()
+            }
+        }
 
 //        val simpleItemTouchCallback = object : ItemTouchHelper.SimpleCallback(
 //            ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT
