@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/calendarLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -13,6 +14,7 @@
         android:layout_gravity="center"
         android:layout_margin="3dp"
         android:gravity="center"
+        android:onClick="@{()->viewModel.onClick()}"
         android:orientation="horizontal">
 
         <TextView
@@ -59,8 +61,8 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:fontFamily="@font/digital_regular"
-            android:text="2차 회의"
             android:inputType="textMultiLine"
+            android:text="2차 회의"
             android:textColor="@color/black"
             android:textSize="13sp" />
 
