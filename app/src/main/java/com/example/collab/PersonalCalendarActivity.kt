@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.collab.databinding.ActivityPersonalCalendarBinding
@@ -27,10 +26,21 @@ class PersonalCalendarActivity : AppCompatActivity() {
         initCal()
         initCalendarData()
         initRecyclerView()
+        initDialog()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun initDialog() {
+        binding.personalPlanAddBtn.setOnClickListener {
+            Toast.makeText(applicationContext, "일정 추가", Toast.LENGTH_SHORT).show()
+            val dialog = CreatePlanDialog(this)
+            dialog.showDialog()
+            dialog.setOnClickListener(object : CreatePlanDialog.OnDialogClickListener {
+                override fun onClicked(name: String)
+                {
+                    Toast.makeText(applicationContext, "완료", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
     }
 
     private fun initlayout() {
@@ -58,19 +68,18 @@ class PersonalCalendarActivity : AppCompatActivity() {
     }
 
     private fun initCal() {
-        binding.apply {
-            personalCalendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
-                var toast = String.format("%d / %d / %d", year, month + 1, dayOfMonth)
-                Toast.makeText(applicationContext, toast, Toast.LENGTH_SHORT).show()
-
-            }
-            personalPlanAddBtn.setOnClickListener {
-                Toast.makeText(applicationContext, "personalPlanAddBtn", Toast.LENGTH_SHORT).show()
-            }
-
-
+        binding.personalCalendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            var toast = String.format("%d / %d / %d", year, month + 1, dayOfMonth)
+            Toast.makeText(applicationContext, toast, Toast.LENGTH_SHORT).show()
         }
+
+        binding.personalPlanAddBtn.setOnClickListener {
+//            Toast.makeText(applicationContext, "personalPlanAddBtn", Toast.LENGTH_SHORT).show()
+        }
+
+
     }
+
 
     private fun initCalendarData() {
         val scan = Scanner(resources.openRawResource(R.raw.words))
