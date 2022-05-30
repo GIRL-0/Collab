@@ -10,18 +10,22 @@ class PersonalCalendarAdapter (val items:ArrayList<CalendarData>):RecyclerView.A
     interface OnItemClickListener{
         fun OnItemClick(data:CalendarData)
     }
-//    var itemClickListener:OnItemClickListener?=null
+    var itemClickListener:OnItemClickListener?=null
 
     // 아이템 뷰를 저장하는 뷰홀더 클래스
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val planDate = itemView.findViewById<TextView>(R.id.planDate)
         val planTime = itemView.findViewById<TextView>(R.id.planTime)
         val planContent = itemView.findViewById<TextView>(R.id.planContent)
-//        init {
-//            textView.setOnClickListener{
-//                itemClickListener?.OnItemClick(items[adapterPosition])
-//            }
-//        }
+        val calendarLinearLayout = itemView.findViewById<TextView>(R.id.calendarLinearLayout)
+        init {
+            planDate.setOnClickListener{
+                itemClickListener?.OnItemClick(items[adapterPosition])
+            }
+            calendarLinearLayout.setOnClickListener{
+                itemClickListener?.OnItemClick(items[adapterPosition])
+            }
+        }
     }
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴
