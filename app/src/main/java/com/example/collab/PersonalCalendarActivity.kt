@@ -31,20 +31,6 @@ class PersonalCalendarActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    private fun initRecyclerView() {
-        TODO("Not yet implemented")
-    }
-
-    private fun initCalendarData() {
-        val scan = Scanner(resources.openRawResource(R.raw.words))
-        while (scan.hasNextLine()) {
-            val val1 = scan.nextLine()
-            val val2 = scan.nextLine()
-            val val3 = scan.nextLine()
-            calendarData.add(CalendarData(val1, val2, val3))
-        }
-    }
-
     private fun initlayout() {
         binding.apply {
             teamSearchTabMenu.setOnClickListener {
@@ -82,5 +68,19 @@ class PersonalCalendarActivity : AppCompatActivity() {
 
 
         }
+    }
+
+    private fun initCalendarData() {
+        val scan = Scanner(resources.openRawResource(R.raw.words))
+        while (scan.hasNextLine()) {
+            val val1 = scan.nextLine()
+            val val2 = scan.nextLine()
+            val val3 = scan.nextLine()
+            calendarData.add(CalendarData(val1, val2, val3))
+        }
+    }
+
+    private fun initRecyclerView() {
+        TODO("Not yet implemented")
     }
 }
