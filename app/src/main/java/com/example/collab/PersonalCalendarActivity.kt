@@ -5,6 +5,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.collab.databinding.ActivityPersonalCalendarBinding
 import java.util.*
@@ -81,6 +83,31 @@ class PersonalCalendarActivity : AppCompatActivity() {
     }
 
     private fun initRecyclerView() {
-        TODO("Not yet implemented")
-    }
+        personalCalendarRecyclerView = findViewById<RecyclerView>(R.id.personalPlanRecyclerView)
+        personalCalendarRecyclerView.layoutManager = LinearLayoutManager(this,
+            LinearLayoutManager.VERTICAL, false)
+        adapter=PersonalCalendarAdapter(calendarData)
+        adapter.itemClickListener = object:PersonalCalendarAdapter.OnItemClickListener{
+            override fun OnItemClick(data:CalendarData){
+                Toast.makeText(applicationContext, data.planDate, Toast.LENGTH_SHORT).show()
+            }
+        }
+        personalCalendarRecyclerView.adapter=adapter
+
+        val simpleItemTouchCallback = object : ItemTouchHelper.SimpleCallback(
+            ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT ) {
+            override fun onMove(p0: RecyclerView,
+                                p1:RecyclerView.ViewHolder,
+                                p2: RecyclerView.ViewHolder): Boolean {
+                adapter.moveItem(p1.adapterPosition, p2.adapterPosition)
+                return true
+            }
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder,
+                                  direction: Int) {
+                adapter.removeItem(viewHolder.adapterPosition)
+            }
+
+        }
+        val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
+        itemTouchHelper.attachToRecyclerView(personalCalendarRecyclerView)    }
 }
