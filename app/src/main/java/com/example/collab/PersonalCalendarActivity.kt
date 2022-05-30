@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.view.get
 import com.example.collab.databinding.ActivityPersonalCalendarBinding
 import com.example.collab.databinding.ActivityProfileBinding
 
@@ -42,6 +43,13 @@ class PersonalCalendarActivity : AppCompatActivity() {
     }
 
     private fun initCal() {
+        binding.apply{
+            personalCalendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
+                var toast = String.format("%d / %d / %d", year, month + 1, dayOfMonth)
+                Toast.makeText(applicationContext, toast, Toast.LENGTH_SHORT).show()
 
+
+            }
+        }
     }
 }
