@@ -5,7 +5,7 @@ import android.content.Context
 import android.view.WindowManager
 import android.widget.EditText
 
-class CreatePlanDialog(context: Context){
+class CreatePlanDialog(context: PersonalCalendarActivity){
     private val dialog = Dialog(context)
     private lateinit var onClickListener: OnDialogClickListener
 
@@ -16,22 +16,22 @@ class CreatePlanDialog(context: Context){
 
     fun showDialog()
     {
-        dialog.setContentView(R.layout.custom_dialog)
-        dialog.window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        dialog.setContentView(R.layout.activity_create_plan)
+        dialog.window!!.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT)
         dialog.setCanceledOnTouchOutside(true)
         dialog.setCancelable(true)
         dialog.show()
 
-        val edit_name = dialog.findViewById<EditText>(R.id.name_edit)
+        val edit_name = dialog.findViewById<EditText>(R.id.planTitle)
 
-        dialog.cancel_button.setOnClickListener {
-            dialog.dismiss()
-        }
-
-        dialog.finish_button.setOnClickListener {
-            onClickListener.onClicked(edit_name.text.toString())
-            dialog.dismiss()
-        }
+//        dialog.binding.setOnClickListener {
+//            dialog.dismiss()
+//        }
+//
+//        dialog.finish_button.setOnClickListener {
+//            onClickListener.onClicked(edit_name.text.toString())
+//            dialog.dismiss()
+//        }
 
     }
 
