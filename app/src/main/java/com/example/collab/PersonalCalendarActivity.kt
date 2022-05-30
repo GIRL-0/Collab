@@ -1,14 +1,21 @@
 package com.example.collab
 
+import PersonalCalendarAdapter
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.example.collab.databinding.ActivityPersonalCalendarBinding
-import com.example.collab.databinding.ActivityProfileBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PersonalCalendarActivity : AppCompatActivity() {
-    lateinit var binding : ActivityPersonalCalendarBinding
+    lateinit var binding: ActivityPersonalCalendarBinding
+    lateinit var personalCalendarRecyclerView: RecyclerView
+    val calendarData: ArrayList<CalendarData> = ArrayList()
+    lateinit var adapter: PersonalCalendarAdapter
+
     var context = this
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -16,14 +23,35 @@ class PersonalCalendarActivity : AppCompatActivity() {
         setContentView(binding.root)
         initlayout()
         initCal()
+        initCalendarData()
+        initRecyclerView()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
+
+    private fun initRecyclerView() {
+        TODO("Not yet implemented")
+    }
+
+    private fun initCalendarData() {
+        val scan = Scanner(resources.openRawResource(R.raw.words))
+        while (scan.hasNextLine()) {
+            val val1 = scan.nextLine()
+            val val2 = scan.nextLine()
+            val val3 = scan.nextLine()
+            calendarData.add(CalendarData(val1, val2, val3))
+        }
+    }
+
     private fun initlayout() {
-        binding.apply{
+        binding.apply {
             teamSearchTabMenu.setOnClickListener {
                 var intent = Intent(context, SearchTeamActivity::class.java)
                 startActivity(intent)
             }
-            teamProjectTabMenu.setOnClickListener{
+            teamProjectTabMenu.setOnClickListener {
                 var intent = Intent(context, TeamProjectActivity::class.java)
                 startActivity(intent)
             }
@@ -42,6 +70,17 @@ class PersonalCalendarActivity : AppCompatActivity() {
     }
 
     private fun initCal() {
+        binding.apply {
+            personalCalendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
+                var toast = String.format("%d / %d / %d", year, month + 1, dayOfMonth)
+                Toast.makeText(applicationContext, toast, Toast.LENGTH_SHORT).show()
 
+            }
+            personalPlanAddBtn.setOnClickListener {
+                Toast.makeText(applicationContext, "personalPlanAddBtn", Toast.LENGTH_SHORT).show()
+            }
+
+
+        }
     }
 }
