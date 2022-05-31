@@ -2,12 +2,10 @@ package com.example.collab
 
 import PersonalCalendarAdapter
 import android.content.Intent
-import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.collab.databinding.ActivityPersonalCalendarBinding
@@ -20,8 +18,6 @@ class PersonalCalendarActivity : AppCompatActivity() {
     val calendarData: ArrayList<CalendarData> = ArrayList()
     var context = this
     lateinit var adapter: PersonalCalendarAdapter
-
-    lateinit var planDialog: PlanDialog
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,12 +36,6 @@ class PersonalCalendarActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         Log.d("life_cycle", "onResume")
-//        Toast.makeText(applicationContext, "onResume() 실행", Toast.LENGTH_SHORT).show()
-//        initlayout()
-//        initCal()
-//        initCalendarData()
-//        initRecyclerView()
-//        initDialog()
     }
 
     private fun initDialog() {
@@ -53,9 +43,10 @@ class PersonalCalendarActivity : AppCompatActivity() {
         binding.personalPlanAddBtn.setOnClickListener {
             val dialog = PlanDialog(this)
             dialog.showDialog()
-            dialog.setOnClickListener(object : PlanDialog.OnDialogClickListener {
-                override fun onClicked(name: String) {
+            dialog.onDismissedListener(object : PlanDialog.onPlanCreateClickListener {
+                override fun onPlanCreateClick(name: String) {
                     binding.titleTextView.text = name
+                    initRecyclerView()
                 }
             })
         }
@@ -73,9 +64,7 @@ class PersonalCalendarActivity : AppCompatActivity() {
     private fun initCalendarData() {
         val scan = Scanner(resources.openRawResource(R.raw.words))
         while (scan.hasNextLine()) {
-            /**
-             * 데이터베이스 연결
-             */
+            //TODO: 데이터베이스 불러오기
             val val1 = scan.nextLine()
             val val2 = scan.nextLine()
             val val3 = scan.nextLine()
@@ -91,9 +80,9 @@ class PersonalCalendarActivity : AppCompatActivity() {
             this,
             LinearLayoutManager.VERTICAL, false
         )
+
         adapter = PersonalCalendarAdapter(calendarData)
         personalCalendarRecyclerView.adapter = adapter
-
         adapter.itemClickListener = object : PersonalCalendarAdapter.OnItemClickListener {
             override fun OnItemClick(data: CalendarData) {
                 Toast.makeText(applicationContext, data.planDate, Toast.LENGTH_SHORT).show()
@@ -125,28 +114,4 @@ class PersonalCalendarActivity : AppCompatActivity() {
             }
         }
     }
-
-    //        val simpleItemTouchCallback = object : ItemTouchHelper.SimpleCallback(
-//            ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT
-//        ) {
-//            override fun onMove(
-//                p0: RecyclerView,
-//                p1: RecyclerView.ViewHolder,
-//                p2: RecyclerView.ViewHolder
-//            ): Boolean {
-//                adapter.moveItem(p1.adapterPosition, p2.adapterPosition)
-//                return true
-//            }
-//
-//            override fun onSwiped(
-//                viewHolder: RecyclerView.ViewHolder,
-//                direction: Int
-//            ) {
-//                adapter.removeItem(viewHolder.adapterPosition)
-//            }
-//
-//        }
-//
-//        val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
-//        itemTouchHelper.attachToRecyclerView(personalCalendarRecyclerView)
 }
