@@ -2,14 +2,16 @@ package com.example.collab
 
 import PersonalCalendarAdapter
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.collab.databinding.ActivityPersonalCalendarBinding
 import java.util.*
-import kotlin.collections.ArrayList
+
 
 class PersonalCalendarActivity : AppCompatActivity() {
     lateinit var binding: ActivityPersonalCalendarBinding
@@ -22,6 +24,17 @@ class PersonalCalendarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPersonalCalendarBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        Log.d("life_cycle","onCreate")
+        initlayout()
+        initCal()
+        initCalendarData()
+        initRecyclerView()
+        initDialog()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("life_cycle","onResume")
         initlayout()
         initCal()
         initCalendarData()
@@ -34,14 +47,60 @@ class PersonalCalendarActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "일정 추가", Toast.LENGTH_SHORT).show()
             val dialog = CreatePlanDialog(this)
             dialog.showDialog()
-            dialog.setOnClickListener(object : CreatePlanDialog.OnDialogClickListener {
-                override fun onClicked(name: String)
-                {
-                    Toast.makeText(applicationContext, "완료", Toast.LENGTH_SHORT).show()
-                }
-            })
+
+//            dialog.setOnClickListener(object : CreatePlanDialog.OnDialogClickListener {
+//                override fun onClicked(name: String)
+//                {
+//                    Toast.makeText(applicationContext, "완료", Toast.LENGTH_SHORT).show()
+//                }
+//            })
         }
     }
+
+    private fun initCal() {
+        binding.personalCalendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
+            var toast = String.format("%d / %d / %d", year, month + 1, dayOfMonth)
+            Toast.makeText(applicationContext, toast, Toast.LENGTH_SHORT).show()
+        }
+
+        binding.personalPlanAddBtn.setOnClickListener {
+//            Toast.makeText(applicationContext, "personalPlanAddBtn", Toast.LENGTH_SHORT).show()
+        }
+
+
+    }
+
+    private fun initCalendarData() {
+        val scan = Scanner(resources.openRawResource(R.raw.words))
+        while (scan.hasNextLine()) {
+            /**
+             * 데이터베이스 연결
+             */
+            val val1 = scan.nextLine()
+            val val2 = scan.nextLine()
+            val val3 = scan.nextLine()
+            calendarData.add(CalendarData(val1, val2, val3))
+        }
+    }
+
+
+    private fun initRecyclerView() {
+        personalCalendarRecyclerView = findViewById(R.id.personalPlanRecyclerView)
+        personalCalendarRecyclerView.layoutManager = LinearLayoutManager(
+            this,
+            LinearLayoutManager.VERTICAL, false
+        )
+        adapter = PersonalCalendarAdapter(calendarData)
+        personalCalendarRecyclerView.adapter = adapter
+
+        adapter.itemClickListener = object : PersonalCalendarAdapter.OnItemClickListener {
+            override fun OnItemClick(data: CalendarData) {
+                Toast.makeText(applicationContext, data.planDate, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+
 
     private fun initlayout() {
         binding.apply {
@@ -67,46 +126,7 @@ class PersonalCalendarActivity : AppCompatActivity() {
         }
     }
 
-    private fun initCal() {
-        binding.personalCalendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            var toast = String.format("%d / %d / %d", year, month + 1, dayOfMonth)
-            Toast.makeText(applicationContext, toast, Toast.LENGTH_SHORT).show()
-        }
-
-        binding.personalPlanAddBtn.setOnClickListener {
-//            Toast.makeText(applicationContext, "personalPlanAddBtn", Toast.LENGTH_SHORT).show()
-        }
-
-
-    }
-
-
-    private fun initCalendarData() {
-        val scan = Scanner(resources.openRawResource(R.raw.words))
-        while (scan.hasNextLine()) {
-            val val1 = scan.nextLine()
-            val val2 = scan.nextLine()
-            val val3 = scan.nextLine()
-            calendarData.add(CalendarData(val1, val2, val3))
-        }
-    }
-
-    private fun initRecyclerView() {
-        personalCalendarRecyclerView = findViewById(R.id.personalPlanRecyclerView)
-        personalCalendarRecyclerView.layoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.VERTICAL, false
-        )
-        adapter = PersonalCalendarAdapter(calendarData)
-        personalCalendarRecyclerView.adapter = adapter
-
-        adapter.itemClickListener = object : PersonalCalendarAdapter.OnItemClickListener {
-            override fun OnItemClick(data: CalendarData) {
-                Toast.makeText(applicationContext, data.planDate, Toast.LENGTH_SHORT).show()
-            }
-        }
-
-//        val simpleItemTouchCallback = object : ItemTouchHelper.SimpleCallback(
+    //        val simpleItemTouchCallback = object : ItemTouchHelper.SimpleCallback(
 //            ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT
 //        ) {
 //            override fun onMove(
@@ -129,5 +149,4 @@ class PersonalCalendarActivity : AppCompatActivity() {
 //
 //        val itemTouchHelper = ItemTouchHelper(simpleItemTouchCallback)
 //        itemTouchHelper.attachToRecyclerView(personalCalendarRecyclerView)
-    }
 }
