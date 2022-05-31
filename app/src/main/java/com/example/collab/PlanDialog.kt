@@ -6,17 +6,16 @@ import android.content.Intent
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
+import java.io.File
+import java.io.FileWriter
+import java.util.*
 
 
-class CreatePlanDialog(context: PersonalCalendarActivity) {
+class PlanDialog(context: PersonalCalendarActivity) {
     var context = this
     private val dialog = Dialog(context)
     private lateinit var onClickListener: OnDialogClickListener
-    val calendarData: ArrayList<CalendarData> = ArrayList()
-
-    interface OnDialogClickListener {
-        fun onClicked(name: String)
-    }
 
     fun setOnClickListener(listener: OnDialogClickListener) {
         onClickListener = listener
@@ -33,20 +32,24 @@ class CreatePlanDialog(context: PersonalCalendarActivity) {
         dialog.show()
 
         dialog.findViewById<Button>(R.id.detailWorkAddBtn).setOnClickListener {
+            onClickListener.onClicked("확인")
             var planTitle = dialog.findViewById<TextView>(R.id.planTitle).text.toString()
             var planStartTime = dialog.findViewById<TextView>(R.id.planStartTime).text.toString()
             var planFinishTime = dialog.findViewById<TextView>(R.id.planFinishTime).text.toString()
             /**
              * 데이터베이스 연결
              */
-            calendarData.add(CalendarData(planTitle, planStartTime, planFinishTime))
-            /*****************/
-
-            /*****************/
-
+            Toast.makeText(dialog.context, "데이터베이스 연결하기", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
         }
 
+        dialog.setOnDismissListener {
+
+        }
+    }
+
+    interface OnDialogClickListener {
+        fun onClicked(name: String)
     }
 
 }
