@@ -2,6 +2,7 @@ package com.example.collab
 
 import PersonalCalendarAdapter
 import android.content.Intent
+import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -17,14 +18,18 @@ class PersonalCalendarActivity : AppCompatActivity() {
     lateinit var binding: ActivityPersonalCalendarBinding
     lateinit var personalCalendarRecyclerView: RecyclerView
     val calendarData: ArrayList<CalendarData> = ArrayList()
+    var context = this
     lateinit var adapter: PersonalCalendarAdapter
 
-    var context = this
+    lateinit var planDialog: PlanDialog
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPersonalCalendarBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        Log.d("life_cycle","onCreate")
+        Log.d("life_cycle", "onCreate")
+//        Toast.makeText(applicationContext, "onCreate() 실행", Toast.LENGTH_SHORT).show()
         initlayout()
         initCal()
         initCalendarData()
@@ -34,39 +39,34 @@ class PersonalCalendarActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        Log.d("life_cycle","onResume")
-        initlayout()
-        initCal()
-        initCalendarData()
-        initRecyclerView()
-        initDialog()
+        Log.d("life_cycle", "onResume")
+//        Toast.makeText(applicationContext, "onResume() 실행", Toast.LENGTH_SHORT).show()
+//        initlayout()
+//        initCal()
+//        initCalendarData()
+//        initRecyclerView()
+//        initDialog()
     }
 
     private fun initDialog() {
+        Toast.makeText(applicationContext, "일정 추가", Toast.LENGTH_SHORT).show()
         binding.personalPlanAddBtn.setOnClickListener {
-            Toast.makeText(applicationContext, "일정 추가", Toast.LENGTH_SHORT).show()
-            val dialog = CreatePlanDialog(this)
+            val dialog = PlanDialog(this)
             dialog.showDialog()
-
-//            dialog.setOnClickListener(object : CreatePlanDialog.OnDialogClickListener {
-//                override fun onClicked(name: String)
-//                {
-//                    Toast.makeText(applicationContext, "완료", Toast.LENGTH_SHORT).show()
-//                }
-//            })
+            dialog.setOnClickListener(object : PlanDialog.OnDialogClickListener {
+                override fun onClicked(name: String) {
+                    binding.titleTextView.text = name
+                }
+            })
         }
     }
+
 
     private fun initCal() {
         binding.personalCalendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
             var toast = String.format("%d / %d / %d", year, month + 1, dayOfMonth)
             Toast.makeText(applicationContext, toast, Toast.LENGTH_SHORT).show()
         }
-
-        binding.personalPlanAddBtn.setOnClickListener {
-//            Toast.makeText(applicationContext, "personalPlanAddBtn", Toast.LENGTH_SHORT).show()
-        }
-
 
     }
 
@@ -85,6 +85,7 @@ class PersonalCalendarActivity : AppCompatActivity() {
 
 
     private fun initRecyclerView() {
+        Toast.makeText(applicationContext, "initRecyclerView()", Toast.LENGTH_SHORT).show()
         personalCalendarRecyclerView = findViewById(R.id.personalPlanRecyclerView)
         personalCalendarRecyclerView.layoutManager = LinearLayoutManager(
             this,
@@ -99,7 +100,6 @@ class PersonalCalendarActivity : AppCompatActivity() {
             }
         }
     }
-
 
 
     private fun initlayout() {
