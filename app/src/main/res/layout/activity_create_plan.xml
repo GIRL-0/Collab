@@ -63,6 +63,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/digital_regular"
                 android:gravity="center"
+                android:hint="제목"
                 android:inputType="textMultiLine"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
