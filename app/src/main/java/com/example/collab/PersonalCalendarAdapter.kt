@@ -19,7 +19,7 @@ class PersonalCalendarAdapter (val items:ArrayList<CalendarData>):RecyclerView.A
         val planContent = itemView.findViewById<TextView>(R.id.planContent)
         init {
             planDate.setOnClickListener{
-                itemClickListener?.OnItemClick(items[adapterPosition])
+                itemClickListener?.OnItemClick(items[bindingAdapterPosition])
             }
         }
     }
