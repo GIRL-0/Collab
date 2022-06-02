@@ -39,26 +39,22 @@ class PersonalCalendarActivity : AppCompatActivity() {
     }
 
     private fun initDialog() {
-        Toast.makeText(applicationContext, "일정 추가", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(applicationContext, "일정 추가", Toast.LENGTH_SHORT).show()
         binding.personalPlanAddBtn.setOnClickListener {
-            val dialog = PlanDialog(this)
+            val dialog = PersonalCalendarPlanDialog(this)
             dialog.showDialog()
-            dialog.onDismissedListener(object : PlanDialog.onPlanCreateClickListener {
+            dialog.onDismissedClickListener(object : PersonalCalendarPlanDialog.onPlanCreateClickListener {
                 override fun onPlanCreateClick(name: String) {
-                    binding.titleTextView.text = name
-                    initRecyclerView()
-                }
-            })
+//                    binding.titleTextView.text = name
+                    initRecyclerView()}})
         }
     }
-
 
     private fun initCal() {
         binding.personalCalendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
             var toast = String.format("%d / %d / %d", year, month + 1, dayOfMonth)
             Toast.makeText(applicationContext, toast, Toast.LENGTH_SHORT).show()
         }
-
     }
 
     private fun initCalendarData() {
@@ -74,13 +70,12 @@ class PersonalCalendarActivity : AppCompatActivity() {
 
 
     private fun initRecyclerView() {
-        Toast.makeText(applicationContext, "initRecyclerView()", Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "initCalendarRecyclerView()", Toast.LENGTH_SHORT).show()
         personalCalendarRecyclerView = findViewById(R.id.personalPlanRecyclerView)
         personalCalendarRecyclerView.layoutManager = LinearLayoutManager(
             this,
             LinearLayoutManager.VERTICAL, false
         )
-
         adapter = PersonalCalendarAdapter(calendarData)
         personalCalendarRecyclerView.adapter = adapter
         adapter.itemClickListener = object : PersonalCalendarAdapter.OnItemClickListener {
@@ -95,14 +90,17 @@ class PersonalCalendarActivity : AppCompatActivity() {
         binding.apply {
             teamSearchTabMenu.setOnClickListener {
                 var intent = Intent(context, SearchTeamActivity::class.java)
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             teamProjectTabMenu.setOnClickListener {
                 var intent = Intent(context, TeamProjectActivity::class.java)
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             createTeamTabMenu.setOnClickListener {
                 var intent = Intent(context, CreateTeamActivity::class.java)
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             calendarTabMenu.setOnClickListener {
@@ -110,6 +108,7 @@ class PersonalCalendarActivity : AppCompatActivity() {
             }
             profileTabMenu.setOnClickListener {
                 var intent = Intent(context, ProfileActivity::class.java)
+//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
         }
