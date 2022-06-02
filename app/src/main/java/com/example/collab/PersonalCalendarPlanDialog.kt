@@ -8,13 +8,13 @@ import android.widget.TextView
 import android.widget.Toast
 
 
-class PlanDialog(context: PersonalCalendarActivity) {
+class PersonalCalendarPlanDialog(context: PersonalCalendarActivity) {
     var context = this
     private val dialog = Dialog(context)
-    private lateinit var onDismissedListener: onPlanCreateClickListener
+    private lateinit var onDismissedClickListener: onPlanCreateClickListener
 
-    fun onDismissedListener(listener: onPlanCreateClickListener) {
-        onDismissedListener = listener
+    fun onDismissedClickListener(listener: onPlanCreateClickListener) {
+        onDismissedClickListener = listener
     }
 
     fun showDialog() {
@@ -28,7 +28,7 @@ class PlanDialog(context: PersonalCalendarActivity) {
         dialog.show()
 
         dialog.findViewById<Button>(R.id.detailWorkAddBtn).setOnClickListener {
-            onDismissedListener.onPlanCreateClick("확인")
+            onDismissedClickListener.onPlanCreateClick("확인")
             var planTitle = dialog.findViewById<TextView>(R.id.planTitle).text.toString()
             var planStartTime = dialog.findViewById<TextView>(R.id.planStartTime).text.toString()
             var planFinishTime = dialog.findViewById<TextView>(R.id.planFinishTime).text.toString()
@@ -41,8 +41,10 @@ class PlanDialog(context: PersonalCalendarActivity) {
         dialog.findViewById<CalendarView>(R.id.calendar).setOnDateChangeListener { calendarView, year, month, dayOfMonth ->
             var toast = String.format("%d / %d / %d", year, month + 1, dayOfMonth)
             Toast.makeText(dialog.context, toast, Toast.LENGTH_SHORT).show()
-            dialog.findViewById<TextView>(R.id.planStartTime).text = year.toString()+"-"+(month+1).toString()+"-"+dayOfMonth.toString()+"/12:00"
-            dialog.findViewById<TextView>(R.id.planFinishTime).text = year.toString()+"-"+(month+1).toString()+"-"+(dayOfMonth+1).toString()+"/12:00"
+            dialog.findViewById<TextView>(R.id.planStartTime).text =
+                year.toString()+"-"+(month+1).toString()+"-"+dayOfMonth.toString()+"/12:00"
+            dialog.findViewById<TextView>(R.id.planFinishTime).text =
+                year.toString()+"-"+(month+1).toString()+"-"+(dayOfMonth+1).toString()+"/12:00"
         }
 //        dialog.setOnDismissListener {}
     }
