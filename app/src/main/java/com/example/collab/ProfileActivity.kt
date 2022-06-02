@@ -1,17 +1,19 @@
 package com.example.collab
 
-import PersonalCalendarAdapter
+import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.collab.databinding.ActivityProfileBinding
-import java.util.ArrayList
+import java.util.*
 
 class ProfileActivity : AppCompatActivity() {
-    lateinit var binding : ActivityProfileBinding
+    lateinit var binding: ActivityProfileBinding
     lateinit var profileNoticeRecyclerView: RecyclerView
     val profileNoticeData: ArrayList<ProfileNoticeData> = ArrayList()
     var context = this
@@ -22,8 +24,58 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initlayout()
+        initProfile()
+        initProfileNoticeData()
         initRecyclerView()
 
+    }
+
+    private val GALLERY = 1
+    private fun initProfile() {
+        var textUserName = binding.userName.text.toString()
+        var textUserMajorTag = binding.userMajorTag.text.toString()
+        var textUserIntroduce = binding.userIntroduce.text.toString()
+        //TODO: 데이터베이스에 저장하고 호출시마다 프로필 업데이트
+        var userProfileImg = binding.userImg
+
+        userProfileImg.setOnClickListener {
+            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            intent.setType("image/*")
+            startActivityForResult(intent, GALLERY)
+
+        }
+        Toast.makeText(applicationContext, textUserName, Toast.LENGTH_SHORT).show()
+
+    }
+
+    @Override
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == GALLERY) {
+                var ImageData: Uri? = data?.data
+                Toast.makeText(this, ImageData.toString(), Toast.LENGTH_SHORT).show()
+                try {
+                    val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, ImageData)
+                    //TODO: 데이터베이스에 저장하고 다시 ImageView로 불러오기
+                    binding.userImg.setImageBitmap(bitmap)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+    }
+
+    private fun initProfileNoticeData() {
+        val scan = Scanner(resources.openRawResource(R.raw.words))
+        while (scan.hasNextLine()) {
+            //TODO: 데이터베이스 불러오기
+            val val1 = scan.nextLine()
+            val val2 = scan.nextLine()
+            val val3 = scan.nextLine()
+            profileNoticeData.add(ProfileNoticeData(val3))
+        }
     }
 
     private fun initRecyclerView() {
@@ -44,12 +96,12 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun initlayout() {
-        binding.apply{
+        binding.apply {
             teamSearchTabMenu.setOnClickListener {
                 var intent = Intent(context, SearchTeamActivity::class.java)
                 startActivity(intent)
             }
-            teamProjectTabMenu.setOnClickListener{
+            teamProjectTabMenu.setOnClickListener {
                 var intent = Intent(context, TeamProjectActivity::class.java)
                 startActivity(intent)
             }
