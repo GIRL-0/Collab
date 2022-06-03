@@ -49,11 +49,6 @@ class LoginActivity : AppCompatActivity() {
             startActivityForResult(signInIntent, 9001)
         }
 
-//        val logoutBtn = findViewById<TextView>(R.id.titleTextView)
-//        logoutBtn.setOnClickListener {
-//            firebaseAuthSignOut()
-//        }
-
     }
 
 
