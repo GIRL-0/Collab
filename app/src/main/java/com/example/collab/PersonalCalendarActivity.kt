@@ -4,11 +4,17 @@ import PersonalCalendarAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.collab.databinding.ActivityPersonalCalendarBinding
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import java.util.*
 
 
@@ -111,6 +117,20 @@ class PersonalCalendarActivity : AppCompatActivity() {
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
+            titleTextView.setOnClickListener {
+                Toast.makeText(applicationContext, "Signout", Toast.LENGTH_SHORT).show()
+                firebaseAuthSignOut()
+            }
         }
+    }
+
+    private fun firebaseAuthSignOut() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        val googleSignInClient = GoogleSignIn.getClient(this, gso)
+        Firebase.auth.signOut()
+        googleSignInClient!!.signOut()
     }
 }
