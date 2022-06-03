@@ -111,11 +111,6 @@ class PersonalCalendarActivity : AppCompatActivity() {
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
-            titleTextView.setOnClickListener {
-                var intent = Intent(context, LoginActivity::class.java)
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-                startActivity(intent)
-            }
         }
     }
 }
