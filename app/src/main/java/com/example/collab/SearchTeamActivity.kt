@@ -7,10 +7,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.collab.databinding.ActivityTeamSearchBinding
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ktx.database
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_team_search.*
 import kotlinx.android.synthetic.main.team_info_row.*
 import kotlinx.android.synthetic.main.team_info_row.view.*
@@ -19,24 +23,31 @@ import kotlin.collections.ArrayList
 
 class SearchTeamActivity : AppCompatActivity() {
     lateinit var binding : ActivityTeamSearchBinding
-    //lateinit var layoutManager: LinearLayoutManager
+    lateinit var rdb: DatabaseReference
+    lateinit var layoutManager: LinearLayoutManager
     var firestore : FirebaseFirestore ?= null
     var context = this
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTeamSearchBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        rdb = Firebase.database.getReference("Team")
         firestore = FirebaseFirestore.getInstance()
-        teamRecyclerView.adapter = RecyclerViewAdapter()
+        teamRecyclerView.adapter = SearchTeamAdapter()
         teamRecyclerView.layoutManager = LinearLayoutManager(this)
         initlayout()
-//        teamSearchBtn.setOnClickListener {
-//            (teamRecyclerView.adapter as RecyclerViewAdapter).searchTeam(teamSearchEdit.text.toString())
-//        }
+        teamSearchBtn.setOnClickListener {
+            (teamRecyclerView.adapter as SearchTeamAdapter).searchTeam(teamSearchEdit.text.toString())
+        }
     }
+
+
+
     
-    inner class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    inner class SearchTeamAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         var teamInfo: ArrayList<TeamData> = arrayListOf()
+
 
         init {
             firestore?.collection("Team")
@@ -70,22 +81,29 @@ class SearchTeamActivity : AppCompatActivity() {
             return teamInfo.size
         }
 
-//        fun searchTeam(searchWord: String) {
-//            firestore?.collection("Team")
-//                ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                    teamInfo.clear()
-//                    for (snapshot in querySnapshot!!.documents) {
-//                        if (snapshot.getString(teamName.text.toString())!!.contains(searchWord)) {
-//                            var item = snapshot.toObject(TeamData::class.java)
-//                            teamInfo.add(item!!)
-//                        }
-//                    }
-//                    notifyDataSetChanged()
-//                }
-//
-//        }
-    }
+        fun searchTeam(searchWord: String) {
+            firestore?.collection("Team")
+                ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                    teamInfo.clear()
 
+                    for (snapshot in querySnapshot!!.documents) {
+                        if (snapshot.toString().contains(searchWord)) {
+                            var item = snapshot.toObject(TeamData::class.java)
+                            teamInfo.add(item!!)
+                        }
+                        else{
+                            Toast.makeText(
+                                applicationContext,
+                                "검색 결과가 없습니다",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                    notifyDataSetChanged()
+                }
+
+        }
+}
 
         private fun initlayout() {
 

@@ -13,6 +13,7 @@
         <entry key="..\:/Users/bhs12/Hyeseon/Konkuk/Android/Collab/app/src/main/res/layout/activity_create_team.xml" value="0.18181818181818182" />
         <entry key="..\:/Users/bhs12/Hyeseon/Konkuk/Android/Collab/app/src/main/res/layout/activity_dash_board.xml" value="0.264" />
         <entry key="..\:/Users/bhs12/Hyeseon/Konkuk/Android/Collab/app/src/main/res/layout/activity_detail_work.xml" value="0.16" />
+        <entry key="..\:/Users/bhs12/Hyeseon/Konkuk/Android/Collab/app/src/main/res/layout/activity_join.xml" value="0.13323201621073963" />
         <entry key="..\:/Users/bhs12/Hyeseon/Konkuk/Android/Collab/app/src/main/res/layout/activity_login.xml" value="0.27447916666666666" />
         <entry key="..\:/Users/bhs12/Hyeseon/Konkuk/Android/Collab/app/src/main/res/layout/activity_main.xml" value="0.20742753623188406" />
         <entry key="..\:/Users/bhs12/Hyeseon/Konkuk/Android/Collab/app/src/main/res/layout/activity_manage_team.xml" value="0.2" />
@@ -21,7 +22,7 @@
         <entry key="..\:/Users/bhs12/Hyeseon/Konkuk/Android/Collab/app/src/main/res/layout/activity_team_calendar.xml" value="0.1480978260869565" />
         <entry key="..\:/Users/bhs12/Hyeseon/Konkuk/Android/Collab/app/src/main/res/layout/activity_team_info.xml" value="0.4" />
         <entry key="..\:/Users/bhs12/Hyeseon/Konkuk/Android/Collab/app/src/main/res/layout/activity_team_project.xml" value="0.20742753623188406" />
-        <entry key="..\:/Users/bhs12/Hyeseon/Konkuk/Android/Collab/app/src/main/res/layout/activity_team_search.xml" value="0.264" />
+        <entry key="..\:/Users/bhs12/Hyeseon/Konkuk/Android/Collab/app/src/main/res/layout/activity_team_search.xml" value="0.2" />
         <entry key="..\:/Users/bhs12/Hyeseon/Konkuk/Android/Collab/app/src/main/res/layout/activity_work.xml" value="0.4" />
         <entry key="..\:/Users/bhs12/Hyeseon/Konkuk/Android/Collab/app/src/main/res/layout/detail_work_add_dialog.xml" value="0.4" />
         <entry key="..\:/Users/bhs12/Hyeseon/Konkuk/Android/Collab/app/src/main/res/layout/detail_work_edit_dialog.xml" value="0.16" />
@@ -41,7 +42,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Collab/app/src/main/res/layout/activity_join.xml" value="0.264" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Collab/app/src/main/res/layout/activity_login.xml" value="0.25364583333333335" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Collab/app/src/main/res/layout/activity_personal_calendar.xml" value="0.25364583333333335" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Collab/app/src/main/res/layout/activity_profile.xml" value="0.264" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Collab/app/src/main/res/layout/activity_profile.xml" value="0.15416666666666667" />
       </map>
     </option>
   </component>
