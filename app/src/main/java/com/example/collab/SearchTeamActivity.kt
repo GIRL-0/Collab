@@ -150,5 +150,7 @@ class SearchTeamActivity : AppCompatActivity() {
                 }
             }
         }
+        //teamRecyclerView.adapter = SearchTeamAdapter(teamInfo)
+        //teamRecyclerView.layoutManager = LinearLayoutManager(this)
 
     }

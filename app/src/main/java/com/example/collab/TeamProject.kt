@@ -1,6 +1,6 @@
 package com.example.collab
 
-data class TeamProject(var master:String, var teamName:String, var teamSubject:String)
+data class TeamProject(var teamName:String, var subject:String)
 {
-    constructor():this("noinfo","noinfo","noinfo")
+    constructor():this("noinfo","noinfo")
 }
