@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.collab.databinding.ActivityProfileBinding
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -45,32 +46,22 @@ class ProfileActivity : AppCompatActivity() {
         var textUserIntroduce = binding.userIntroduce.text.toString()
 
         //TODO: 데이터베이스에 저장하고 호출시마다 프로필 업데이트
-        val email = "wereter31@naver.com"
+        val userData = hashMapOf(
+            "email" to email,
+            "field" to null,
+            "introduction" to null,
+            "name" to name ,
+            "rating" to null,
+            "teams" to null,
+        )
         val db = Firebase.firestore
-        val docRef = db.collection("User").document("wereter31@naver.com")
-        docRef.get()
-            .addOnSuccessListener { document ->
-                if (document != null) {
-                    Log.d(TAG, "DocumentSnapshot data: ${document.id} => ${document.data}")
-                    var testVal = document.data?.get("name")
-                } else {
-                    Log.d(TAG, "No such document")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.d(TAG, "get failed with ", exception)
-            }
+
+        db.collection("User").document(email!!)
+            .set(userData)
+            .addOnSuccessListener { Log.d("테스트", "DocumentSnapshot successfully written!") }
+            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
 
         Log.d("테스트", "$test")
-//        docRef.get()
-//            .addOnSuccessListener { result ->
-//                for (document in result) {
-//                    Log.d("테스트", "${document.id} => ${document.data}")
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.w(TAG, "Error getting documents.", exception)
-//            }
 
 
         //TODO: 데이터베이스에 저장하고 호출시마다 프로필 업데이트
