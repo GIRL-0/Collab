@@ -11,6 +11,8 @@ import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.collab.UserInfo.userInfoEmail
+import com.example.collab.UserInfo.userInfoName
 import com.example.collab.databinding.ActivityProfileBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -45,26 +47,27 @@ class ProfileActivity : AppCompatActivity() {
         var textUserMajorTag = binding.userMajorTag.text.toString()
         var textUserIntroduce = binding.userIntroduce.text.toString()
 
-        //TODO: 데이터베이스에 저장하고 호출시마다 프로필 업데이트
-        val userData = hashMapOf(
-            "email" to email,
-            "field" to null,
-            "introduction" to null,
-            "name" to name ,
-            "rating" to null,
-            "teams" to null,
-        )
-        val db = Firebase.firestore
+        //TODO: db에서 로딩해 xml init
+        binding.userRatingTitle.setOnClickListener {
+            val userData = hashMapOf(
+                "email" to userInfoEmail,
+                "field" to binding.userMajorTag.text.toString(),
+                "introduction" to binding.userIntroduce.text.toString(),
+                "name" to binding.userName.text.toString() ,
+                "rating" to null,
+                "teams" to null,
+            )
 
-        db.collection("User").document(email!!)
-            .set(userData)
-            .addOnSuccessListener { Log.d("테스트", "DocumentSnapshot successfully written!") }
-            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+            val db = Firebase.firestore
+            db.collection("User").document(userInfoEmail!!)
+                .set(userData)
+                .addOnSuccessListener { Log.d("테스트", "DocumentSnapshot successfully written!") }
+                .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
 
-        Log.d("테스트", "$test")
+            Log.d("테스트", "$test")
+        }
+        //TODO: db에서 로딩해 xml init
 
-
-        //TODO: 데이터베이스에 저장하고 호출시마다 프로필 업데이트
 
         var userProfileImg = binding.userImg
 

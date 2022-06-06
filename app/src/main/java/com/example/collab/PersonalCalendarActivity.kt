@@ -96,17 +96,14 @@ class PersonalCalendarActivity : AppCompatActivity() {
         binding.apply {
             teamSearchTabMenu.setOnClickListener {
                 var intent = Intent(context, SearchTeamActivity::class.java)
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             teamProjectTabMenu.setOnClickListener {
                 var intent = Intent(context, TeamProjectActivity::class.java)
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             createTeamTabMenu.setOnClickListener {
                 var intent = Intent(context, CreateTeamActivity::class.java)
-//                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
             calendarTabMenu.setOnClickListener {
