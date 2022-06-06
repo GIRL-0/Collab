@@ -1,26 +1,22 @@
 package com.example.collab
 
-import android.content.Context
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
-import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.collab.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.auth.api.signin.SignInAccount
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import org.w3c.dom.Text
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
@@ -75,6 +71,17 @@ class LoginActivity : AppCompatActivity() {
                     val email = auth.currentUser?.email
                     val name = auth.currentUser?.displayName
                     val photoUrl = auth.currentUser?.photoUrl
+                    //TODO: db 연동
+                    val userData = LoginUserData("","", name!!,"",Array(10) { "" })
+                    val db = Firebase.firestore
+                    db.collection("User").document(email!!)
+                        .set(userData)
+                        .addOnSuccessListener { Log.d("테스트", "DocumentSnapshot successfully written!") }
+                        .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+
+                    //TODO: db 연동
+
+
                     Toast.makeText(
                         applicationContext,
                         "Login Success with ${email.toString()} ${name.toString()}",
