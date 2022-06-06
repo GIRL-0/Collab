@@ -15,6 +15,7 @@ import com.example.collab.databinding.ActivityProfileBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.android.synthetic.main.activity_team_search.*
 import java.util.*
 
 class ProfileActivity : AppCompatActivity() {
@@ -23,7 +24,7 @@ class ProfileActivity : AppCompatActivity() {
     val profileNoticeData: ArrayList<ProfileNoticeData> = ArrayList()
     var context = this
     lateinit var adapter: ProfileNoticeAdapter
-    var firestore : FirebaseFirestore?= null
+    var firestore: FirebaseFirestore? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,17 +47,31 @@ class ProfileActivity : AppCompatActivity() {
         //TODO: 데이터베이스에 저장하고 호출시마다 프로필 업데이트
         val email = "wereter31@naver.com"
         val db = Firebase.firestore
-        val test = db.collection("User")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d(TAG, "${document.id} => ${document.data}")
+        val docRef = db.collection("User").document("wereter31@naver.com")
+        docRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    Log.d(TAG, "DocumentSnapshot data: ${document.id} => ${document.data}")
+                    var testVal = document.data?.get("name")
+                } else {
+                    Log.d(TAG, "No such document")
                 }
             }
             .addOnFailureListener { exception ->
-                Log.w(TAG, "Error getting documents.", exception)
+                Log.d(TAG, "get failed with ", exception)
             }
-        Log.d("테스트용", "${test.result}")
+
+        Log.d("테스트", "$test")
+//        docRef.get()
+//            .addOnSuccessListener { result ->
+//                for (document in result) {
+//                    Log.d("테스트", "${document.id} => ${document.data}")
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.w(TAG, "Error getting documents.", exception)
+//            }
+
 
         //TODO: 데이터베이스에 저장하고 호출시마다 프로필 업데이트
 
