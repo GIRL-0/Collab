@@ -101,42 +101,4 @@ class LoginActivity : AppCompatActivity() {
         googleSignInClient!!.signOut()
     }
 
-//
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == 1004) {
-//            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-//            var account: GoogleSignInAccount? = null
-//            try {
-//                account = task.getResult(ApiException::class.java)
-//                firebaseAuthWithGoogle(account!!.idToken)
-//            } catch (e: ApiException) {
-//                Toast.makeText(this, "Failed Google Login $e", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//    }
-//
-//    private fun firebaseAuthWithGoogle(idToken: String?) {
-//        val credential = GoogleAuthProvider.getCredential(idToken, null)
-//        auth.signInWithCredential(credential)
-//            .addOnCompleteListener(this,
-//                OnCompleteListener<AuthResult?> { task ->
-//                    if (task.isSuccessful) {
-//                        val email = auth.currentUser?.email
-//                        val name = auth.currentUser?.displayName
-//                        val photoUrl = auth.currentUser?.photoUrl
-//                        Toast.makeText(applicationContext, "Login Success ${email.toString()} ${name.toString()} ${photoUrl.toString()}",
-//                            Toast.LENGTH_SHORT).show()
-//                    }
-//                    else{
-//                        Toast.makeText(applicationContext, "Login Fail",
-//                            Toast.LENGTH_SHORT).show()
-//                    }
-//                })
-//
-//    }
-//
-//
-
-
 }

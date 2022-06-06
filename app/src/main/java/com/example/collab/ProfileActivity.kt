@@ -1,15 +1,20 @@
 package com.example.collab
 
 import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.collab.databinding.ActivityProfileBinding
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import java.util.*
 
 class ProfileActivity : AppCompatActivity() {
@@ -18,6 +23,8 @@ class ProfileActivity : AppCompatActivity() {
     val profileNoticeData: ArrayList<ProfileNoticeData> = ArrayList()
     var context = this
     lateinit var adapter: ProfileNoticeAdapter
+    var firestore : FirebaseFirestore?= null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +42,24 @@ class ProfileActivity : AppCompatActivity() {
         var textUserName = binding.userName.text.toString()
         var textUserMajorTag = binding.userMajorTag.text.toString()
         var textUserIntroduce = binding.userIntroduce.text.toString()
+
         //TODO: 데이터베이스에 저장하고 호출시마다 프로필 업데이트
+        val email = "wereter31@naver.com"
+        val db = Firebase.firestore
+        val test = db.collection("User")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents.", exception)
+            }
+        Log.d("테스트용", "${test.result}")
+
+        //TODO: 데이터베이스에 저장하고 호출시마다 프로필 업데이트
+
         var userProfileImg = binding.userImg
 
         userProfileImg.setOnClickListener {
