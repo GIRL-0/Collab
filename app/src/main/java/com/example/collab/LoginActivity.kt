@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.collab.UserInfo.userInfoEmail
+import com.example.collab.UserInfo.userInfoName
 import com.example.collab.databinding.ActivityLoginBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -23,9 +25,6 @@ class LoginActivity : AppCompatActivity() {
     var context = this
     private var googleSignInClient: GoogleSignInClient? = null
     private lateinit var auth: FirebaseAuth
-
-    //    private lateinit var client: GoogleSignInClient
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,16 +70,23 @@ class LoginActivity : AppCompatActivity() {
                     val email = auth.currentUser?.email
                     val name = auth.currentUser?.displayName
                     val photoUrl = auth.currentUser?.photoUrl
-                    //TODO: db 연동
-                    val userData = LoginUserData("","", name!!,"",Array(10) { "" })
+                    userInfoEmail = email!!
+                    userInfoName = name!!
+
+                    //db 연동
+                    val userData = hashMapOf(
+                        "email" to email,
+                        "field" to null,
+                        "introduction" to null,
+                        "name" to name ,
+                        "rating" to null,
+                        "teams" to null,
+                    )
                     val db = Firebase.firestore
                     db.collection("User").document(email!!)
                         .set(userData)
                         .addOnSuccessListener { Log.d("테스트", "DocumentSnapshot successfully written!") }
                         .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
-
-                    //TODO: db 연동
-
 
                     Toast.makeText(
                         applicationContext,
@@ -102,10 +108,4 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
-
-    private fun firebaseAuthSignOut() {
-        Firebase.auth.signOut()
-        googleSignInClient!!.signOut()
-    }
-
 }
