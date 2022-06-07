@@ -1,5 +1,6 @@
 package com.example.collab
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -24,7 +25,14 @@ class WorkActivity : AppCompatActivity() {
         var iteamName = intent.getStringExtra("teamName")
 
         adapter = WorkAdapter(todoList,iteamName!!)
-
+        adapter.itemClickListener = object:WorkAdapter.OnItemClickListener{
+            override fun OnItemClick(data: String, position: Int) {
+                Intent(this@WorkActivity,DetailWorkActivity::class.java).apply{
+                    putExtra("todo", data)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }.run{startActivity(this)}
+            }
+        }
 
         binding.apply{
             teamName.text = iteamName
