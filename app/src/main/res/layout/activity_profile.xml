@@ -24,7 +24,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:fontFamily="@font/esamanru_bold"
-                android:text="프 로 필 을   설 정 하 세 요"
+                android:letterSpacing="0.1"
+                android:text="프로필을 설정하세요"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
@@ -217,6 +218,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/changePfpBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
@@ -226,6 +228,7 @@
                 android:textSize="12sp" />
 
             <Button
+                android:id="@+id/saveChangesBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"

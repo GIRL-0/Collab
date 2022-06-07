@@ -23,7 +23,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:fontFamily="@font/esamanru_bold"
-                android:text="일 정  추 가"
+                android:letterSpacing="0.1"
+                android:text="일정 추가"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 

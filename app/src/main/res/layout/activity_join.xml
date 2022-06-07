@@ -15,6 +15,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="3dp"
         android:fontFamily="@font/esamanru_bold"
+        android:letterSpacing="0.1"
         android:text="회원가입을 위해"
         android:textColor="@color/black_green"
         android:textSize="17sp" />
@@ -32,6 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/esamanru_bold"
+            android:letterSpacing="0.1"
             android:text="프로필"
             android:textColor="@color/olive_green"
             android:textSize="17sp" />
@@ -40,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/esamanru_bold"
+            android:letterSpacing="0.1"
             android:text="을 작성해주세요"
             android:textColor="@color/black_green"
             android:textSize="17sp" />

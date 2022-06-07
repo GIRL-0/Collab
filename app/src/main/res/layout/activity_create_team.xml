@@ -18,8 +18,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:letterSpacing="0.1"
             android:fontFamily="@font/esamanru_bold"
-            android:text="원 하 는   팀 을   만 드 세 요"
+            android:text="원하는 팀을 만드세요"
             android:textColor="@color/black_green"
             android:textSize="15sp" />
 

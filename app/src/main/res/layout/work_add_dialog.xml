@@ -24,7 +24,8 @@
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/esamanru_bold"
         android:gravity="center"
-        android:text="할  일   추 가"
+        android:letterSpacing="0.1"
+        android:text="할 일 추가"
         android:textColor="@color/black_green"
         android:textSize="14sp" />
 
