@@ -1,5 +1,5 @@
 package com.example.collab
 
-data class CalendarData(var planDate:String, var planTime:String, var planContent:String) {
+data class CalendarData(var planContent:String, var planStartDate:String, var planEndDate:String, var planStartTime:String, var planEndTime:String) {
 
 }

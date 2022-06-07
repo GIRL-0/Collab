@@ -78,7 +78,7 @@ class ProfileActivity : AppCompatActivity() {
 
             val db = Firebase.firestore
             db.collection("User").document(userInfoEmail!!)
-                .set(userData)
+                .set(userData, SetOptions.merge())
                 .addOnSuccessListener { Log.d("테스트", "DocumentSnapshot successfully written!") }
                 .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
 
@@ -98,9 +98,7 @@ class ProfileActivity : AppCompatActivity() {
                     binding.userName.setText(document.get("name").toString())
                     binding.userGradeNum.setText(document.get("rating").toString())
                     var profilePath = document.get("profilePic").toString()
-
-                    //TODO : 프로필 사진 작업
-
+                    //프로필 사진
                     Firebase.storage.reference.child("images/$userInfoEmail/$profilePath").downloadUrl.addOnCompleteListener {
                         if (it.isSuccessful) {
                             Glide.with(context).load(it.result).into(binding.userImg)
@@ -157,7 +155,7 @@ class ProfileActivity : AppCompatActivity() {
                 Toast.makeText(this, imageData.toString(), Toast.LENGTH_SHORT).show()
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageData)
-                    //TODO: 데이터베이스에 저장하고 다시 ImageView로 불러오기
+                    //데이터베이스에 저장하고 다시 ImageView로 불러오기
 
                     binding.userImg.setImageBitmap(bitmap)
                 } catch (e: Exception) {
