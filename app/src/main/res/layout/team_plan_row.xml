@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/calendarLinearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
@@ -8,81 +9,100 @@
     android:padding="10dp">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="3dp"
-        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/planPersonName"
+            android:id="@+id/planMember"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginHorizontal="5dp"
             android:fontFamily="@font/esamanru_light"
-            android:text="팀원A"
+            android:inputType="textMultiLine"
+            android:text="팀원 A"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="13sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="5dp"
             android:fontFamily="@font/esamanru_light"
             android:text="/"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/planDate"
+            android:id="@+id/planContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="5dp"
+            android:fontFamily="@font/esamanru_light"
+            android:inputType="textMultiLine"
+            android:text="2차 회의"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/planStartDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:fontFamily="@font/esamanru_light"
             android:text="2022-05-30"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="13sp" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="5dp"
-            android:fontFamily="@font/esamanru_light"
-            android:text="/"
-            android:textColor="@color/black"
-            android:textSize="11sp" />
-
-        <TextView
-            android:id="@+id/planTime"
+            android:id="@+id/planStartTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:fontFamily="@font/esamanru_light"
             android:text="17:30"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="13sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:fontFamily="@font/esamanru_light"
-            android:text="/"
+            android:text="~"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/planContent"
+            android:id="@+id/planEndDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
             android:fontFamily="@font/esamanru_light"
-            android:inputType="textMultiLine"
-            android:text="2차 회의"
+            android:text="2022-05-30"
             android:textColor="@color/black"
-            android:textSize="11sp" />
+            android:textSize="13sp" />
 
+
+        <TextView
+            android:id="@+id/planEndTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="5dp"
+            android:fontFamily="@font/esamanru_light"
+            android:text="20:00"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
     </LinearLayout>
 
 
