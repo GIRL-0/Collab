@@ -67,7 +67,7 @@ class PersonalCalendarActivity : AppCompatActivity() {
     }
 
     private fun initCalendarData() {
-            //TODO: 데이터베이스에 푸쉬하고 가져오기
+            //데이터베이스에 푸쉬하고 가져오기
 //            val db = Firebase.firestore
 //            val docRef = db.collection("User").document(userInfoEmail)
 //            docRef.get()
@@ -98,12 +98,11 @@ class PersonalCalendarActivity : AppCompatActivity() {
 
 
     private fun initRecyclerView() {
-        ////
         val db = Firebase.firestore
         val docRef = db.collection("User").document(userInfoEmail)
         docRef.get()
             .addOnSuccessListener { document ->
-                if (document != null) {
+                if (document?.get("plans") != null){
                     var planData = document.get("plans") as ArrayList<String>
                     for (plan in planData) {
                         val container = plan.split("!")
@@ -131,11 +130,6 @@ class PersonalCalendarActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.d(ContentValues.TAG, "get failed with ", exception)
             }
-        ////
-
-
-
-
     }
 
 

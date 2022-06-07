@@ -39,6 +39,7 @@ class JoinActivity : AppCompatActivity() {
                 "introduction" to userIntro,
                 "name" to userName,
                 "rating" to "0",
+                "plans" to null
             )
 
             val db = Firebase.firestore
