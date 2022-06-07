@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,6 +41,7 @@ class ProfileActivity : AppCompatActivity() {
     var context = this
     lateinit var adapter: ProfileNoticeAdapter
     var storage = FirebaseStorage.getInstance()
+    val starArray = arrayOf("☆☆☆☆☆","★☆☆☆☆", "★★☆☆☆", "★★★☆☆", "★★★★☆", "★★★★★" )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,7 +98,14 @@ class ProfileActivity : AppCompatActivity() {
                     binding.userMajorTag.setText(document.get("field").toString())
                     binding.userIntroduce.setText(document.get("introduction").toString())
                     binding.userName.setText(document.get("name").toString())
-                    binding.userGradeNum.setText(document.get("rating").toString())
+
+                    if(document.get("rating") == null){
+                        binding.userGrade.visibility = LinearLayout.GONE
+                    }else{
+                        binding.userGradeNum.setText(document.get("rating").toString())
+                        binding.userGradeStar.text = starArray[document.get("rating").toString().toInt()]
+                    }
+
                     var profilePath = document.get("profilePic").toString()
                     //프로필 사진
                     Firebase.storage.reference.child("images/$userInfoEmail/$profilePath").downloadUrl.addOnCompleteListener {
