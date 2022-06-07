@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/esamanru_light"
-                    android:inputType="textMultiLine"
+                    android:inputType="textMultiLine|textNoSuggestions"
                     android:text="#개발자 #UI"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
@@ -98,7 +98,7 @@
                     android:layout_marginHorizontal="5dp"
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/esamanru_light"
-                    android:inputType="textMultiLine"
+                    android:inputType="textMultiLine|textNoSuggestions"
                     android:text="건국대학교 소프트웨어 19학번"
                     android:textColor="@color/black"
                     android:textSize="13sp" />
