@@ -31,13 +31,7 @@ class TeamProjectActivity : AppCompatActivity() {
         adapter = TeamProjectAdapter(teamProject)
         adapter.itemClickListener = object: TeamProjectAdapter.OnItemClickListener{
             override fun OnItemClick(data: TeamProject, position: Int) {
-//                Intent(this@SearchTeamActivity, TeamInfoActivity::class.java).apply {
-//                    putExtra("data", teamName.text.toString())
-//                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                }.run { startActivity(this) }
-//                adapter.notifyItemChanged(position)
                 Toast.makeText(applicationContext, "test success", Toast.LENGTH_SHORT).show()
-                adapter.notifyItemChanged(position)
             }
         }
 

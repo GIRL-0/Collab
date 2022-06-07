@@ -11,32 +11,26 @@ import kotlinx.android.synthetic.main.team_info_row.view.*
 class TeamProjectAdapter(val items: ArrayList<TeamProject>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var firestore : FirebaseFirestore?= null
-    var teamProject: ArrayList<TeamProject> = arrayListOf()
     var data : ArrayList<String>? =null
     init {
         firestore = FirebaseFirestore.getInstance()
         val email = "mindonghun99@naver.com"
-        val test = firestore
-            ?.collection("User")
+        firestore?.collection("User")
             ?.document(email)
             ?.addSnapshotListener { value, error ->
-                data = value?.data?.get("team") as ArrayList<String>
+                data = value?.get("team") as ArrayList<String>
                 Log.i("test1", data.toString())
-            }
-
-        for(teamName in data!!){
-
-        }
-        firestore?.collection("Team")
-            ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-                teamProject.clear()
-                for (snapshot in querySnapshot!!.documents) {
-                    Log.i("test", snapshot.id)
-                    var item = snapshot.toObject(TeamProject::class.java)
-                    teamProject.add(item!!)
+                for(team in data!!) {
+                    firestore?.collection("Team")?.document(team)
+                        ?.addSnapshotListener { value2, error ->
+                            var item = value2?.toObject(TeamProject::class.java)
+                            items.add(item!!)
+                            Log.i("test2", item.toString())
+                            notifyDataSetChanged()
+                        }
                 }
-                notifyDataSetChanged()
             }
+
     }
 
     interface OnItemClickListener{
@@ -53,7 +47,7 @@ class TeamProjectAdapter(val items: ArrayList<TeamProject>): RecyclerView.Adapte
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         init {
             view.setOnClickListener {
-                itemClickListener?.OnItemClick(items[adapterPosition], adapterPosition)
+                itemClickListener?.OnItemClick(items[absoluteAdapterPosition], absoluteAdapterPosition)
             }
         }
 
@@ -61,12 +55,12 @@ class TeamProjectAdapter(val items: ArrayList<TeamProject>): RecyclerView.Adapte
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var viewHolder = (holder as ViewHolder).itemView
-        viewHolder.teamName.text = teamProject[position].teamName
-        viewHolder.teamSubject.text = teamProject[position].subject
+        viewHolder.teamName.text = items[position].teamName
+        viewHolder.teamSubject.text = items[position].subject
     }
 
     override fun getItemCount(): Int {
-        return teamProject.size
+        return items.size
     }
 
 //    fun searchTeam(searchWord: String) {

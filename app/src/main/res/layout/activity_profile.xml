@@ -13,15 +13,35 @@
         android:layout_margin="10dp"
         android:layout_weight="10"
         android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
+        
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:fontFamily="@font/digital_bold"
-            android:text="프로필을 설정하세요"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/digital_bold"
+                android:text="프로필을 설정하세요"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/logoutBtn"
+                    android:layout_marginHorizontal="15dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_logout"/>
+
+        </LinearLayout>
+
+        
 
         <View
             android:layout_width="match_parent"
@@ -32,7 +52,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/shadow"
             android:orientation="horizontal">
 
@@ -186,6 +207,33 @@
                 </LinearLayout>
 
             </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="사진 변경"
+                android:layout_marginHorizontal="10dp"
+                android:fontFamily="@font/digital_bold"
+                android:textSize="11sp"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/digital_bold"
+                android:layout_marginHorizontal="10dp"
+                android:textSize="11sp"
+                android:text="변경 사항 수정"/>
+
         </LinearLayout>
 
         <View
