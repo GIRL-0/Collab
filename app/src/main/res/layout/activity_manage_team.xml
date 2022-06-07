@@ -153,6 +153,16 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/editBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:fontFamily="@font/esamanru_medium"
+        android:letterSpacing="0.1"
+        android:text="수정 완료"
+        android:textSize="14sp" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
