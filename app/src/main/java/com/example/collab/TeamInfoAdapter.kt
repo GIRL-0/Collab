@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.collab.UserInfo.userInfoEmail
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.toObject
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_team_info.*
 import kotlinx.android.synthetic.main.manage_team_row.view.*
 import kotlinx.android.synthetic.main.name_card_row.view.*
@@ -69,9 +72,19 @@ class TeamInfoAdapter(val items: ArrayList<UserData>,val name:String): RecyclerV
         viewHolder.userGradeStar.text = items[position].rating.toString()
         viewHolder.userGradeNum.text = items[position].rating.toString()
 
+        var email = items[position].email
+        val docRef = firestore?.collection("User")?.document(email!!)
 
-
-
+        docRef?.get()?.addOnSuccessListener { document->
+            var profilePath = document.get("profilePic").toString()
+            Firebase.storage.reference.child("images/$email/$profilePath").downloadUrl.addOnCompleteListener {
+                if (it.isSuccessful) {
+                    Glide.with(viewHolder).load(it.result).into(viewHolder.userImg)
+                }else{
+                    Log.i("img", email+" fail")
+                }
+            }
+        }
     }
 
     override fun getItemCount(): Int {
