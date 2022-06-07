@@ -2,6 +2,7 @@ package com.example.collab
 
 import android.app.Dialog
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_NO_HISTORY
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowManager
@@ -38,7 +39,7 @@ class WorkActivity : AppCompatActivity() {
                 Intent(this@WorkActivity,DetailWorkActivity::class.java).apply{
                     putExtra("teamName", iteamName)
                     putExtra("todo", data)
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    addFlags(FLAG_ACTIVITY_NO_HISTORY)
                 }.run{startActivity(this)}
             }
         }
@@ -50,6 +51,9 @@ class WorkActivity : AppCompatActivity() {
             workAddBtn.setOnClickListener {
                 workAddDlg()
             }
+
+
+
         }
     }
 
@@ -69,8 +73,8 @@ class WorkActivity : AppCompatActivity() {
             firestore = FirebaseFirestore.getInstance()
             firestore?.collection("Team")
                 ?.document(iteamName)
-                ?.addSnapshotListener { value, error ->
-                    if(value?.contains("todoList")==true){
+                ?.get()?.addOnSuccessListener {
+                    if(it?.contains("todoList")==true){
                         firestore?.collection("Team")
                             ?.document(iteamName)
                             ?.update("todoList", FieldValue.arrayUnion(str))
@@ -84,9 +88,6 @@ class WorkActivity : AppCompatActivity() {
                             ?.set(docData, SetOptions.merge())
                     }
                 }
-
-
-
             dialog.dismiss()
         }
     }

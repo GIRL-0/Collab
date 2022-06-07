@@ -16,6 +16,7 @@ class WorkAdapter(val items: ArrayList<String>,val teamName:String): RecyclerVie
 
     var firestore : FirebaseFirestore?= null
     var todoList : HashMap<String,ArrayList<String>> = HashMap()
+    var progressMap : HashMap<String,Int> = HashMap()
 
     init {
         firestore = FirebaseFirestore.getInstance()
@@ -23,19 +24,28 @@ class WorkAdapter(val items: ArrayList<String>,val teamName:String): RecyclerVie
             ?.document(teamName)
             ?.addSnapshotListener { value, error ->
                 items.clear()
+                todoList.clear()
+                progressMap.clear()
                 if(value?.contains("todoList")==true) {
                     val data = value?.get("todoList") as ArrayList<String>
                     for (tmp in data!!) {
                         items.add(tmp)
-                        Log.i("test","documentPath 주기전")
                         firestore?.collection("Team")
                             ?.document(teamName)
                             ?.collection("info")
                             ?.document("todoList")
                             ?.addSnapshotListener{value2,error->
-                                if(value2?.contains(tmp + "_content")==true) {
-                                    val data2 = value2?.get(tmp + "_content") as ArrayList<String>
-                                    todoList.put(tmp, data2)
+                                if(value2?.exists()==true) {
+                                    if (value2?.contains(tmp + "_content") == true) {
+                                        val data2 =
+                                            value2?.get(tmp + "_content") as ArrayList<String>
+                                        todoList.put(tmp, data2)
+                                    }
+                                    if (value2?.contains(tmp + "_progress") == true) {
+                                        Log.i("testV3", "test")
+                                        val data3 = value2?.get(tmp + "_progress") as Number
+                                        progressMap.put(tmp, data3.toInt())
+                                    }
                                 }
                                 notifyDataSetChanged()
                             }
@@ -85,7 +95,11 @@ class WorkAdapter(val items: ArrayList<String>,val teamName:String): RecyclerVie
             }
             viewHolder.detailWorkListText.text = str
         }
-
+        if(progressMap[todo] != null){
+            val progress = progressMap[todo]!!
+            viewHolder.workProgressRate.progress = progress
+            viewHolder.workProgressNum.text = progress.toString()
+        }
     }
 
     override fun getItemCount(): Int {

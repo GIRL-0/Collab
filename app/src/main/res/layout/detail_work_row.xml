@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/esamanru_light"
         android:text="할일 1의 상세 진행 사항 1"
+        android:checked="false"
         android:textColor="@color/black" />
 
 </LinearLayout>

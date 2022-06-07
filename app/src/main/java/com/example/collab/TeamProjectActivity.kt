@@ -33,7 +33,6 @@ class TeamProjectActivity : AppCompatActivity() {
             override fun OnItemClick(data: TeamProject, position: Int) {
                 Intent(this@TeamProjectActivity,DashBoardActivity::class.java).apply{
                     putExtra("teamName", data.teamName)
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.run{startActivity(this)}
             }
         }
