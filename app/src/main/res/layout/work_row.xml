@@ -143,7 +143,6 @@
             android:fontFamily="@font/esamanru_light"
             android:inputType="textMultiLine|textNoSuggestions"
             android:lineSpacingExtra="5dp"
-            android:lines="2"
             android:padding="10dp"
             android:text="1. 팀 대시보드 디자인 완료하기\n2. recyclerView row 파일 다 만들기"
             android:textColor="@color/black"
