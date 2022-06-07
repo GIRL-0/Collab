@@ -57,7 +57,7 @@ class DetailWorkActivity : AppCompatActivity() {
         val dialog = Dialog(context)
         dialog.setContentView(R.layout.detail_work_add_dialog)
         dialog.window!!.setLayout(
-            WindowManager.LayoutParams.WRAP_CONTENT,
+            WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT
         )
         dialog.setCanceledOnTouchOutside(true)
