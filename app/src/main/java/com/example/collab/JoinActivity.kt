@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.example.collab.UserInfo.userInfoEmail
 import com.example.collab.databinding.ActivityJoinBinding
 import com.example.collab.databinding.ActivityLoginBinding
@@ -28,16 +29,16 @@ class JoinActivity : AppCompatActivity() {
 
     private fun initJoin() {
         joinBtn.setOnClickListener {
-            userName = binding.nameInputEdit.text.toString()
-            userField = binding.majorTagInputEdit.text.toString()
-            userIntro = binding.userIntroduce.text.toString()
+            userName = nameInputEdit.text.toString()
+            userField = majorTagInputEdit.text.toString()
+            userIntro = userIntroduce.text.toString()
 
             val userData = hashMapOf(
                 "email" to userInfoEmail,
                 "field" to userField,
                 "introduction" to userIntro,
                 "name" to userName,
-                "rating" to null,
+                "rating" to "0",
             )
 
             val db = Firebase.firestore
@@ -45,6 +46,8 @@ class JoinActivity : AppCompatActivity() {
                 .set(userData)
                 .addOnSuccessListener { Log.d("로그인", "DocumentSnapshot successfully written!") }
                 .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+
+            Toast.makeText(this, "회원가입 완료", Toast.LENGTH_SHORT).show()
 
             var intent = Intent(applicationContext, SearchTeamActivity::class.java)
             startActivity(intent)

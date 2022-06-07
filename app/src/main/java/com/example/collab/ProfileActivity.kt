@@ -4,22 +4,24 @@ import android.app.Activity
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.collab.UserInfo.userInfoEmail
-import com.example.collab.UserInfo.userInfoName
 import com.example.collab.databinding.ActivityProfileBinding
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_team_search.*
 import java.util.*
+
 
 class ProfileActivity : AppCompatActivity() {
     lateinit var binding: ActivityProfileBinding
@@ -27,8 +29,7 @@ class ProfileActivity : AppCompatActivity() {
     val profileNoticeData: ArrayList<ProfileNoticeData> = ArrayList()
     var context = this
     lateinit var adapter: ProfileNoticeAdapter
-    var firestore: FirebaseFirestore? = null
-
+    var storage = FirebaseStorage.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,9 +47,8 @@ class ProfileActivity : AppCompatActivity() {
         var textUserName = binding.userName.text.toString()
         var textUserMajorTag = binding.userMajorTag.text.toString()
         var textUserIntroduce = binding.userIntroduce.text.toString()
-
-        //TODO: db에서 로딩해 xml init
-        binding.userRatingTitle.setOnClickListener {
+        //변경사항 저장
+        binding.saveChangesBtn.setOnClickListener {
             val userData = hashMapOf(
                 "email" to userInfoEmail,
                 "field" to binding.userMajorTag.text.toString(),
@@ -63,12 +63,13 @@ class ProfileActivity : AppCompatActivity() {
                 .addOnSuccessListener { Log.d("테스트", "DocumentSnapshot successfully written!") }
                 .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
 
+            Toast.makeText(applicationContext, "변경 사항이 저장되었습니다", Toast.LENGTH_SHORT).show()
             Log.d("테스트", "$test")
         }
 
 
 
-        //TODO: db에서 불러오기 xml init
+        //db에서 불러오기 xml init
         val db = Firebase.firestore
         val docRef = db.collection("User").document(userInfoEmail!!)
         docRef.get()
@@ -78,6 +79,23 @@ class ProfileActivity : AppCompatActivity() {
                     binding.userIntroduce.setText(document.get("introduction").toString())
                     binding.userName.setText(document.get("name").toString())
                     binding.userGradeNum.setText(document.get("rating").toString())
+                    var profilePath = document.get("profilePic").toString()
+
+                    ///////////////////////
+                    val storageRef = storage.reference
+                    var profilePic = storageRef.child("images/$userInfoEmail/$profilePath")
+                    val url = storageRef.child("images/$userInfoEmail/$profilePath").downloadUrl.addOnSuccessListener {
+                        // Got the download URL for 'users/me/profile.png'
+                        Log.d("테스트","$profilePath.jpg")
+                    }.addOnFailureListener {
+                        // Handle any errors
+                        Log.d("테스트","fail to get"+"  images/$userInfoEmail/$profilePath.jpg")
+                    }
+                    Glide.with(applicationContext /* context */)
+                        .load(profilePic)
+                        .into(binding.userImg)
+                    ///////////////////////
+
 
                     Log.d(TAG, "DocumentSnapshot data: ${document.data}")
                 } else {
@@ -87,13 +105,12 @@ class ProfileActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.d(TAG, "get failed with ", exception)
             }
-        //TODO: db에서 불러오기 xml init
 
 
 
-        var userProfileImg = binding.userImg
+        var changePfp = binding.changePfpBtn
 
-        userProfileImg.setOnClickListener {
+        changePfp.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.setType("image/*")
             startActivityForResult(intent, GALLERY)
@@ -103,17 +120,36 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
+
     @Override
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == GALLERY) {
-                var ImageData: Uri? = data?.data
-                Toast.makeText(this, ImageData.toString(), Toast.LENGTH_SHORT).show()
+                var imageData: Uri? = data?.data
+                val storageRef = storage.reference
+                val profileRef = storageRef.child("images/$userInfoEmail/${imageData?.lastPathSegment}")
+                val profilePathName = imageData?.lastPathSegment.toString()
+                val db = Firebase.firestore
+                val data = hashMapOf("profilePic" to profilePathName)
+                db.collection("User").document(userInfoEmail)
+                    .set(data, SetOptions.merge())
+                val uploadTask = profileRef.putFile(imageData!!)
+
+                // Register observers to listen for when the download is done or if it fails
+                uploadTask.addOnFailureListener {
+                    Log.d("테스트","실패")
+                    // Handle unsuccessful uploads
+                }.addOnSuccessListener { taskSnapshot ->
+                    // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
+                    // ...
+                }
+                Toast.makeText(this, imageData.toString(), Toast.LENGTH_SHORT).show()
                 try {
-                    val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, ImageData)
+                    val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageData)
                     //TODO: 데이터베이스에 저장하고 다시 ImageView로 불러오기
+
                     binding.userImg.setImageBitmap(bitmap)
                 } catch (e: Exception) {
                     e.printStackTrace()

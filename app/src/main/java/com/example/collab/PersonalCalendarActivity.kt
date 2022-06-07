@@ -66,7 +66,7 @@ class PersonalCalendarActivity : AppCompatActivity() {
     private fun initCalendarData() {
         val scan = Scanner(resources.openRawResource(R.raw.words))
         while (scan.hasNextLine()) {
-            //TODO: 데이터베이스 불러오기
+            //TODO: 데이터베이스 불러오기 + 데이터베이스에 추가하기
             val val1 = scan.nextLine()
             val val2 = scan.nextLine()
             val val3 = scan.nextLine()
