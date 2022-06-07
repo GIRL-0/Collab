@@ -42,6 +42,22 @@ class LoginActivity : AppCompatActivity() {
         val signInGoogleBtn: SignInButton = findViewById(R.id.googleLoginBtn)
         setGoogleButtonText(signInGoogleBtn, "Google 계정으로 로그인")
 
+
+        /////////////////////////
+        val user = Firebase.auth.currentUser
+        if (user != null) {
+            // User is signed in
+            val signInIntent = googleSignInClient!!.signInIntent
+            startActivityForResult(signInIntent, 9001)
+        } else {
+            // No user is signed in
+        }
+
+
+
+        /////////////////////////
+
+
         signInGoogleBtn.setOnClickListener {
             val signInIntent = googleSignInClient!!.signInIntent
             startActivityForResult(signInIntent, 9001)
@@ -58,6 +74,7 @@ class LoginActivity : AppCompatActivity() {
             try {
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
+
             } catch (e: ApiException) {
                 Toast.makeText(this, "Failed Google Login $e", Toast.LENGTH_SHORT).show()
             }
