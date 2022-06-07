@@ -144,7 +144,7 @@
             android:inputType="textMultiLine|textNoSuggestions"
             android:lineSpacingExtra="5dp"
             android:padding="10dp"
-            android:text="1. 팀 대시보드 디자인 완료하기\n2. recyclerView row 파일 다 만들기"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="12sp" />
 
