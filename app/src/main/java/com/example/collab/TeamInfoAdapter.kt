@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.team_info_row.view.*
 
 class TeamInfoAdapter(val items: ArrayList<UserData>,val name:String): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-
+    val starArray = arrayOf("☆☆☆☆☆","★☆☆☆☆", "★★☆☆☆", "★★★☆☆", "★★★★☆", "★★★★★" )
     var firestore : FirebaseFirestore?= null
     var data : ArrayList<String>? = null
 
@@ -70,6 +70,17 @@ class TeamInfoAdapter(val items: ArrayList<UserData>,val name:String): RecyclerV
         viewHolder.userName.text = items[position].name.toString()
         viewHolder.userMajorTag.text = items[position].field.toString()
         viewHolder.userIntroduce.text = items[position].introduction.toString()
+        //viewHolder.userGradeStar.text = items[position].rating.toString()
+        //viewHolder.userGradeNum.text = items[position].rating.toString()
+
+        if(items[position].rating == null){
+            viewHolder.userGradeStar.visibility = LinearLayout.GONE
+            viewHolder.userGrade.visibility  = LinearLayout.GONE    }
+        else{
+            viewHolder.userGradeStar.text = starArray[items[position].rating.toString().toInt()]
+            viewHolder.userGradeNum.text = items[position].rating.toString()
+        }
+
         var email = items[position].email
         val docRef = firestore?.collection("User")?.document(email!!)
 
