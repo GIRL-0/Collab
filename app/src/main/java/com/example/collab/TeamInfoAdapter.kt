@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.collab.UserInfo.userInfoEmail
@@ -69,8 +70,16 @@ class TeamInfoAdapter(val items: ArrayList<UserData>,val name:String): RecyclerV
         viewHolder.userName.text = items[position].name.toString()
         viewHolder.userMajorTag.text = items[position].field.toString()
         viewHolder.userIntroduce.text = items[position].introduction.toString()
-        viewHolder.userGradeStar.text = items[position].rating.toString()
-        viewHolder.userGradeNum.text = items[position].rating.toString()
+        //viewHolder.userGradeStar.text = items[position].rating.toString()
+        //viewHolder.userGradeNum.text = items[position].rating.toString()
+
+        if(items[position].rating == null){
+            viewHolder.userGradeStar.visibility = LinearLayout.GONE
+            viewHolder.userGrade.visibility  = LinearLayout.GONE    }
+        else{
+            viewHolder.userGradeStar.text = items[position].rating.toString()
+            viewHolder.userGradeNum.text = items[position].rating.toString()
+        }
 
         var email = items[position].email
         val docRef = firestore?.collection("User")?.document(email!!)

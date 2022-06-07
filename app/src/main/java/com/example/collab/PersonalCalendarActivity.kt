@@ -96,7 +96,7 @@ class PersonalCalendarActivity : AppCompatActivity() {
         personalCalendarRecyclerView.adapter = adapter
         adapter.itemClickListener = object : PersonalCalendarAdapter.OnItemClickListener {
             override fun OnItemClick(data: CalendarData) {
-                Toast.makeText(applicationContext, data.planDate, Toast.LENGTH_SHORT).show()
+               // Toast.makeText(applicationContext, data.planDate, Toast.LENGTH_SHORT).show()
             }
         }
 
