@@ -20,7 +20,6 @@ class SearchTeamAdapter(val items: ArrayList<TeamData>): RecyclerView.Adapter<Re
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 items.clear()
                 for (snapshot in querySnapshot!!.documents) {
-                    Log.i("testt",snapshot.toString())
                     var item = snapshot.toObject(TeamData::class.java)
                     items.add(item!!)
                 }

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.collab.UserInfo.userInfoEmail
+import com.example.collab.UserInfo.userInfoName
 import com.example.collab.databinding.ActivityPersonalCalendarBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -34,6 +35,7 @@ class PersonalCalendarActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPersonalCalendarBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.userName.text = userInfoName
         Log.d("life_cycle", "onCreate")
 //        Toast.makeText(applicationContext, "onCreate() 실행", Toast.LENGTH_SHORT).show()
         initlayout()
@@ -128,6 +130,7 @@ class PersonalCalendarActivity : AppCompatActivity() {
             titleTextView.setOnClickListener {
                 Toast.makeText(applicationContext, "Signout", Toast.LENGTH_SHORT).show()
             }
+
         }
     }
 
