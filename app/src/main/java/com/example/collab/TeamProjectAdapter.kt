@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.collab.UserInfo.userInfoEmail
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.team_info_row.view.*
 
@@ -14,24 +15,22 @@ class TeamProjectAdapter(val items: ArrayList<TeamProject>): RecyclerView.Adapte
     var data : ArrayList<String>? =null
     init {
         firestore = FirebaseFirestore.getInstance()
-        val email = "mindonghun99@naver.com"
+        val email = "testemail"
+        Log.i("email", email)
         firestore?.collection("User")
             ?.document(email)
             ?.addSnapshotListener { value, error ->
-                Log.i("test1", value?.data.toString())
-                if(value?.data != null) {
-                    Log.i("test1", "test")
-                    data = value?.get("team") as ArrayList<String>
+                if(value?.contains("teams")==true)
+                    data = value?.get("teams") as ArrayList<String>
                     for (team in data!!) {
                         firestore?.collection("Team")?.document(team)
                             ?.addSnapshotListener { value2, error ->
                                 var item = value2?.toObject(TeamProject::class.java)
                                 items.add(item!!)
-                                Log.i("test2", item.toString())
                                 notifyDataSetChanged()
                             }
                     }
-                }
+
             }
 
     }
@@ -66,26 +65,4 @@ class TeamProjectAdapter(val items: ArrayList<TeamProject>): RecyclerView.Adapte
         return items.size
     }
 
-//    fun searchTeam(searchWord: String) {
-//        firestore?.collection("Team")
-//            ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-//                teamProject.clear()
-//
-//                for (snapshot in querySnapshot!!.documents) {
-//                    if (snapshot.toString().contains(searchWord)) {
-//                        var item = snapshot.toObject(TeamProject::class.java)
-//                        teamProject.add(item!!)
-//                    }
-//                    else{
-////                        Toast.makeText(
-////                            applicationContext,
-////                            "검색 결과가 없습니다",
-////                            Toast.LENGTH_SHORT
-////                        ).show()
-//                    }
-//                }
-//                notifyDataSetChanged()
-//            }
-//
-//    }
 }
