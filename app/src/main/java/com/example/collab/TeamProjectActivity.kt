@@ -31,7 +31,10 @@ class TeamProjectActivity : AppCompatActivity() {
         adapter = TeamProjectAdapter(teamProject)
         adapter.itemClickListener = object: TeamProjectAdapter.OnItemClickListener{
             override fun OnItemClick(data: TeamProject, position: Int) {
-                Toast.makeText(applicationContext, "test success", Toast.LENGTH_SHORT).show()
+                Intent(this@TeamProjectActivity,DashBoardActivity::class.java).apply{
+                    putExtra("teamName", data.teamName)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }.run{startActivity(this)}
             }
         }
 
