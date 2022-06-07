@@ -24,9 +24,9 @@ class TeamProjectAdapter(val items: ArrayList<TeamProject>): RecyclerView.Adapte
                 Log.i("test1", data.toString())
             }
 
-        for(teamName in data!!){
-
-        }
+//        for(teamName in data!!){
+//
+//        }
         firestore?.collection("Team")
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
                 teamProject.clear()
