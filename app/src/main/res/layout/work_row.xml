@@ -127,19 +127,25 @@
             </LinearLayout>
         </LinearLayout>
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginVertical="10dp"
+            android:background="@color/deep_green" />
+
+
         <TextView
             android:id="@+id/detailWorkListText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:background="@drawable/edge"
             android:fontFamily="@font/esamanru_light"
             android:inputType="textMultiLine|textNoSuggestions"
             android:lineSpacingExtra="5dp"
             android:lines="2"
             android:padding="10dp"
-            android:text="상세 진행사항 1 \n상세 진행사항 2"
+            android:text="1. 팀 대시보드 디자인 완료하기\n2. recyclerView row 파일 다 만들기"
             android:textColor="@color/black"
             android:textSize="12sp" />
 
