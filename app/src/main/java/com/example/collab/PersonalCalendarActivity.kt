@@ -4,22 +4,17 @@ import PersonalCalendarAdapter
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils.split
+import android.provider.CalendarContract
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.collab.UserInfo.userInfoEmail
 import com.example.collab.databinding.ActivityPersonalCalendarBinding
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class PersonalCalendarActivity : AppCompatActivity() {
@@ -27,8 +22,9 @@ class PersonalCalendarActivity : AppCompatActivity() {
     lateinit var personalCalendarRecyclerView: RecyclerView
     val calendarData: ArrayList<CalendarData> = ArrayList()
     val tmpData: ArrayList<CalendarData> = ArrayList()
+    val blankData: ArrayList<CalendarData> = arrayListOf(CalendarData("0","0","0","0","0"))
     var context = this
-    lateinit var adapter: PersonalCalendarAdapter
+    var adapter: PersonalCalendarAdapter = PersonalCalendarAdapter(calendarData)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +36,11 @@ class PersonalCalendarActivity : AppCompatActivity() {
         initCalendarData()
         initDialog()
         initRecyclerView()
+    }
+
+    fun clearData() {
+//        calendarData.clear() // clear list
+//        adapter.notifyDataSetChanged() // let your adapter know about the changes and reload view.
     }
 
     override fun onResume() {
@@ -142,6 +143,9 @@ class PersonalCalendarActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         val db = Firebase.firestore
         val docRef = db.collection("User").document(userInfoEmail)
+        calendarData.clear() // clear list
+        adapter.notifyDataSetChanged() // let your adapter know about the changes and reload view.
+
         docRef.get()
             .addOnSuccessListener { document ->
                 if (document?.get("plans") != null) {
@@ -157,32 +161,33 @@ class PersonalCalendarActivity : AppCompatActivity() {
                                 container[2].split("/")[1]
                             )
                         )
-                        Toast.makeText(
-                            applicationContext,
-                            "initCalendarRecyclerView()",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        personalCalendarRecyclerView =
-                            findViewById(R.id.personalPlanRecyclerView)
-                        personalCalendarRecyclerView.layoutManager = LinearLayoutManager(
-                            this,
-                            LinearLayoutManager.VERTICAL, false
-                        )
-                        adapter = PersonalCalendarAdapter(calendarData)
-                        personalCalendarRecyclerView.adapter = adapter
-                        adapter.itemClickListener =
-                            object : PersonalCalendarAdapter.OnItemClickListener {
-                                override fun OnItemClick(data: CalendarData) {
-                                    Toast.makeText(
-                                        applicationContext,
-                                        data.planContent,
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                }
-                            }
                     }
+                    Toast.makeText(
+                        applicationContext,
+                        "initCalendarRecyclerView()",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    personalCalendarRecyclerView =
+                        findViewById(R.id.personalPlanRecyclerView)
+                    personalCalendarRecyclerView.layoutManager = LinearLayoutManager(
+                        this,
+                        LinearLayoutManager.VERTICAL, false
+                    )
+                    adapter = PersonalCalendarAdapter(calendarData)
+                    personalCalendarRecyclerView.adapter = adapter
+                    adapter.itemClickListener =
+                        object : PersonalCalendarAdapter.OnItemClickListener {
+                            override fun OnItemClick(data: CalendarData) {
+                                Toast.makeText(
+                                    applicationContext,
+                                    data.planContent,
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+
                     Log.d("calendarData 테스트", calendarData.toString())
-                    Log.d("calendarData 테스트", calendarData[0].planContent.toString())
+//                    Log.d("calendarData 테스트", calendarData[0].planContent.toString())
                 } else {
                 }
             }
