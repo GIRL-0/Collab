@@ -102,8 +102,6 @@ class TeamInfoAdapter(val items: ArrayList<UserData>,val name:String): RecyclerV
             viewHolder.userGradeStar.text = items[position].rating.toString()
             viewHolder.userGradeNum.text = items[position].rating.toString()
         }
-
-
     }
 
     override fun getItemCount(): Int {

@@ -29,7 +29,6 @@ class TeamInfoActivity : AppCompatActivity() {
         }
         init()
 
-
     }
 
     private fun init(){

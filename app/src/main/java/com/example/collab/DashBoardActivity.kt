@@ -45,7 +45,7 @@ class DashBoardActivity : AppCompatActivity() {
             teamSetting.setOnClickListener{
                 Intent(this@DashBoardActivity,ManageTeamActivity::class.java).apply{
                     putExtra("teamName", teamName)
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    //addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.run{startActivity(this)}
             }
 
@@ -74,8 +74,6 @@ class DashBoardActivity : AppCompatActivity() {
                                     container[2].split("/")[1])) } }
                     teamPlanRecyclerView.adapter?.notifyDataSetChanged()
                 }
-
-
 
         }
     }
