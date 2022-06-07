@@ -19,6 +19,9 @@ import com.bumptech.glide.module.AppGlideModule
 import com.example.collab.UserInfo.userInfoEmail
 import com.example.collab.databinding.ActivityProfileBinding
 import com.firebase.ui.storage.images.FirebaseImageLoader
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -51,14 +54,16 @@ class ProfileActivity : AppCompatActivity() {
             putExtra("email", binding.userName.text.toString())
         }
 
+        binding.logoutBtn.setOnClickListener{
+            firebaseAuthSignOut()
+        }
 
     }
 
     private val GALLERY = 1
     private fun initProfile() {
         var textUserName = binding.userName.text.toString()
-        var textUserMajorTag = binding.userMajorTag.text.toString()
-        var textUserIntroduce = binding.userIntroduce.text.toString()
+
         //변경사항 저장
         binding.saveChangesBtn.setOnClickListener {
             val userData = hashMapOf(
@@ -186,6 +191,16 @@ class ProfileActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, data.alarmContent, Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun firebaseAuthSignOut() {
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        val googleSignInClient = GoogleSignIn.getClient(this, gso)
+        Firebase.auth.signOut()
+        googleSignInClient!!.signOut()
     }
 
     private fun initlayout() {

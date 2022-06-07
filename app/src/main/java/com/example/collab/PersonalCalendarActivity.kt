@@ -9,11 +9,15 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.collab.UserInfo.userInfoEmail
 import com.example.collab.databinding.ActivityPersonalCalendarBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.SetOptions
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
@@ -35,7 +39,7 @@ class PersonalCalendarActivity : AppCompatActivity() {
         initlayout()
         initCal()
         initCalendarData()
-        initRecyclerView()
+//        initRecyclerView()
         initDialog()
     }
 
@@ -66,11 +70,17 @@ class PersonalCalendarActivity : AppCompatActivity() {
     private fun initCalendarData() {
         val scan = Scanner(resources.openRawResource(R.raw.words))
         while (scan.hasNextLine()) {
-            //TODO: 데이터베이스 불러오기 + 데이터베이스에 추가하기
+            //TODO: 데이터베이스에 푸쉬하고 가져오기
+            val db = Firebase.firestore
+            val washingtonRef = db.collection("User").document(userInfoEmail)
+            washingtonRef.update("plans", FieldValue.arrayUnion("3"))
+//            val data = hashMapOf("plans" to arrayListOf(2, 2, 4),)
+//            data.put("plans",)
+//            db.collection("User").document(UserInfo.userInfoEmail)
+//                .set(data, SetOptions.merge())
             val val1 = scan.nextLine()
             val val2 = scan.nextLine()
             val val3 = scan.nextLine()
-            calendarData.add(CalendarData(val1, val2, val3))
         }
     }
 
@@ -89,6 +99,7 @@ class PersonalCalendarActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, data.planDate, Toast.LENGTH_SHORT).show()
             }
         }
+
     }
 
 
@@ -116,18 +127,9 @@ class PersonalCalendarActivity : AppCompatActivity() {
             }
             titleTextView.setOnClickListener {
                 Toast.makeText(applicationContext, "Signout", Toast.LENGTH_SHORT).show()
-                firebaseAuthSignOut()
             }
         }
     }
 
-    private fun firebaseAuthSignOut() {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id))
-            .requestEmail()
-            .build()
-        val googleSignInClient = GoogleSignIn.getClient(this, gso)
-        Firebase.auth.signOut()
-        googleSignInClient!!.signOut()
-    }
+
 }
