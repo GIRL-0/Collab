@@ -18,16 +18,19 @@ class TeamProjectAdapter(val items: ArrayList<TeamProject>): RecyclerView.Adapte
         firestore?.collection("User")
             ?.document(email)
             ?.addSnapshotListener { value, error ->
-                data = value?.get("team") as ArrayList<String>
-                Log.i("test1", data.toString())
-                for(team in data!!) {
-                    firestore?.collection("Team")?.document(team)
-                        ?.addSnapshotListener { value2, error ->
-                            var item = value2?.toObject(TeamProject::class.java)
-                            items.add(item!!)
-                            Log.i("test2", item.toString())
-                            notifyDataSetChanged()
-                        }
+                Log.i("test1", value?.data.toString())
+                if(value?.data != null) {
+                    Log.i("test1", "test")
+                    data = value?.get("team") as ArrayList<String>
+                    for (team in data!!) {
+                        firestore?.collection("Team")?.document(team)
+                            ?.addSnapshotListener { value2, error ->
+                                var item = value2?.toObject(TeamProject::class.java)
+                                items.add(item!!)
+                                Log.i("test2", item.toString())
+                                notifyDataSetChanged()
+                            }
+                    }
                 }
             }
 
