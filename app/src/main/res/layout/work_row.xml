@@ -52,7 +52,7 @@
             android:layout_gravity="center"
             android:fontFamily="@font/esamanru_bold"
             android:gravity="center"
-            android:inputType="textMultiLine"
+            android:inputType="textMultiLine|textNoSuggestions"
             android:text="UI 구성 완료하기"
             android:textColor="@color/white_gray"
             android:textSize="14sp" />
@@ -133,7 +133,7 @@
             android:layout_margin="10dp"
             android:background="@drawable/edge"
             android:fontFamily="@font/esamanru_light"
-            android:inputType="textMultiLine"
+            android:inputType="textMultiLine|textNoSuggestions"
             android:lines="2"
             android:padding="10dp"
             android:text="상세 진행사항 1 \n상세 진행사항 2"
