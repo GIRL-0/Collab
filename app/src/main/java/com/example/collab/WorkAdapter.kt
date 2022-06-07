@@ -22,6 +22,7 @@ class WorkAdapter(val items: ArrayList<String>,val teamName:String): RecyclerVie
         firestore?.collection("Team")
             ?.document(teamName)
             ?.addSnapshotListener { value, error ->
+                items.clear()
                 if(value?.contains("todoList")==true) {
                     val data = value?.get("todoList") as ArrayList<String>
                     for (tmp in data!!) {
