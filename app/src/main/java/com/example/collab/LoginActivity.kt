@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         val signInGoogleBtn: SignInButton = findViewById(R.id.googleLoginBtn)
-        setGoogleButtonText(signInGoogleBtn, "google 계정으로 로그인")
+        setGoogleButtonText(signInGoogleBtn, "Google 계정으로 로그인")
 
         signInGoogleBtn.setOnClickListener {
             val signInIntent = googleSignInClient!!.signInIntent
@@ -77,19 +77,24 @@ class LoginActivity : AppCompatActivity() {
                     userInfoName = name!!
 
                     //db 연동
-                    val userData = hashMapOf(
-                        "email" to email,
-                        "field" to null,
-                        "introduction" to null,
-                        "name" to name ,
-                        "rating" to null,
-                        "teams" to null,
-                    )
+
                     val db = Firebase.firestore
-                    db.collection("User").document(email!!)
-                        .set(userData)
-                        .addOnSuccessListener { Log.d("테스트", "DocumentSnapshot successfully written!") }
-                        .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+                    //////////////////////////////////
+                    val docRef = db.collection("User").document(email!!)
+                    docRef.get()
+                        .addOnSuccessListener { document ->
+                            if (document.data != null) {
+                                Log.d(TAG, "User data found: ${document.data}")
+                            } else {
+                                Log.d(TAG, "No document data, loading joinActivity")
+                                var intent = Intent(applicationContext, JoinActivity::class.java)
+                                startActivity(intent)
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.d(TAG, "get failed with ", exception)
+                        }
+                    /////////////////////////////
 
                     Toast.makeText(
                         applicationContext,
