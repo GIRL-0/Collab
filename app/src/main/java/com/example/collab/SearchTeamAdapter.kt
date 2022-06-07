@@ -1,16 +1,13 @@
 package com.example.collab
 
-import android.content.Context
-import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.collab.databinding.TeamInfoRowBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.team_info_row.view.*
 
-class SearchTeamAdapter(val items: ArrayList<TeamData>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class SearchTeamAdapter(val items: ArrayList<TeamData>): RecyclerView.Adapter<SearchTeamAdapter.ViewHolder>() {
 
     var firestore : FirebaseFirestore?= null
     var teamInfo: ArrayList<TeamData> = arrayListOf()
@@ -29,26 +26,24 @@ class SearchTeamAdapter(val items: ArrayList<TeamData>): RecyclerView.Adapter<Re
     }
 
     interface OnItemClickListener{
-        fun OnItemClick(data: TeamData , position: Int)
+        fun OnItemClick(position: Int)
     }
     var itemClickListener:OnItemClickListener?=null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        var view =
-            LayoutInflater.from(parent.context).inflate(R.layout.team_info_row, parent, false)
-        return ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = TeamInfoRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return ViewHolder(binding)
     }
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(val binding: TeamInfoRowBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
-            view.setOnClickListener {
-                itemClickListener?.OnItemClick(items[adapterPosition], adapterPosition)
+            binding.root.setOnClickListener {
+                itemClickListener!!.OnItemClick(bindingAdapterPosition)
             }
         }
-
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var viewHolder = (holder as ViewHolder).itemView
         viewHolder.teamName.text = teamInfo[position].teamName
         viewHolder.teamSubject.text = teamInfo[position].Subject
