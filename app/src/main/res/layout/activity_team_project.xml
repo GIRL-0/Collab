@@ -24,18 +24,18 @@
                 android:id="@+id/userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/esamanru_bold"
                 android:text="KU"
-                android:textSize="15sp"
-                android:fontFamily="@font/digital_bold"
-                android:textColor="@color/olive_green" />
+                android:textColor="@color/olive_green"
+                android:textSize="15sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="님이 참여 중인 팀"
-                android:textSize="15sp"
-                android:fontFamily="@font/digital_bold"
-                android:textColor="@color/black" />
+                android:fontFamily="@font/esamanru_bold"
+                android:text=" 님이 참여 중인 팀"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <View
@@ -44,11 +44,11 @@
             android:layout_marginHorizontal="10dp"
             android:background="@color/black_green" />
 
-       <androidx.recyclerview.widget.RecyclerView
-           android:id="@+id/belongTeamRecyclerView"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:layout_margin="10dp"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/belongTeamRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp" />
 
 
     </LinearLayout>
@@ -83,9 +83,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:fontFamily="@font/digital_bold"
+                android:fontFamily="@font/esamanru_medium"
                 android:gravity="center"
-                android:text="팀찾기"
+                android:text="팀 찾 기"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="12sp" />
@@ -115,9 +115,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:fontFamily="@font/digital_bold"
+                android:fontFamily="@font/esamanru_medium"
                 android:gravity="center"
-                android:text="팀플"
+                android:text="팀 플"
                 android:textAlignment="center"
                 android:textColor="@color/deep_green"
                 android:textSize="12sp" />
@@ -147,9 +147,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:fontFamily="@font/digital_bold"
+                android:fontFamily="@font/esamanru_medium"
                 android:gravity="center"
-                android:text="팀생성"
+                android:text="팀 생 성"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="12sp" />
@@ -178,9 +178,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:fontFamily="@font/digital_bold"
+                android:fontFamily="@font/esamanru_medium"
                 android:gravity="center"
-                android:text="달력"
+                android:text="달 력"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="12sp" />
@@ -209,9 +209,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:fontFamily="@font/digital_bold"
+                android:fontFamily="@font/esamanru_medium"
                 android:gravity="center"
-                android:text="프로필"
+                android:text="프 로 필"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="12sp" />

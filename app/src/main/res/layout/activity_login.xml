@@ -27,18 +27,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:fontFamily="@font/digital_bold"
+            android:fontFamily="@font/esamanru_bold"
             android:text="COLLAB"
             android:textAlignment="center"
             android:textColor="@color/olive_green"
-            android:textSize="45sp" />
+            android:textSize="40sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/digital_regular"
-            android:text="팀플의 새로운 방향"
-            android:textAlignment="center" />
+            android:fontFamily="@font/esamanru_medium"
+            android:text="팀 플 의   새 로 운   방 향"
+            android:textAlignment="center"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

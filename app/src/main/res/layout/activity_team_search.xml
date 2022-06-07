@@ -18,8 +18,8 @@
             android:id="@+id/test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/digital_bold"
-            android:text="팀검색"
+            android:fontFamily="@font/esamanru_bold"
+            android:text="팀 검 색"
             android:textColor="@color/black_green"
             android:textSize="15sp" />
 
@@ -44,11 +44,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="5"
-                android:fontFamily="@font/digital_regular"
-                android:textColor="@color/black"
+                android:fontFamily="@font/esamanru_light"
                 android:gravity="center"
                 android:hint="팀명으로 검색하세요"
                 android:textAlignment="center"
+                android:textColor="@color/black"
                 android:textSize="14sp" />
 
             <Button
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1.5"
-                android:fontFamily="@font/digital_regular"
+                android:fontFamily="@font/esamanru_medium"
                 android:gravity="center"
                 android:text="검색" />
 
@@ -109,9 +109,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:fontFamily="@font/digital_bold"
+                android:fontFamily="@font/esamanru_medium"
                 android:gravity="center"
-                android:text="팀찾기"
+                android:text="팀 찾 기"
                 android:textAlignment="center"
                 android:textColor="@color/deep_green"
                 android:textSize="12sp" />
@@ -141,9 +141,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:fontFamily="@font/digital_bold"
+                android:fontFamily="@font/esamanru_medium"
                 android:gravity="center"
-                android:text="팀플"
+                android:text="팀 플"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="12sp" />
@@ -173,9 +173,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:fontFamily="@font/digital_bold"
+                android:fontFamily="@font/esamanru_medium"
                 android:gravity="center"
-                android:text="팀생성"
+                android:text="팀 생 성"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="12sp" />
@@ -204,9 +204,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:fontFamily="@font/digital_bold"
+                android:fontFamily="@font/esamanru_medium"
                 android:gravity="center"
-                android:text="달력"
+                android:text="달 력"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="12sp" />
@@ -235,9 +235,9 @@
                 android:layout_height="0dp"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:fontFamily="@font/digital_bold"
+                android:fontFamily="@font/esamanru_medium"
                 android:gravity="center"
-                android:text="프로필"
+                android:text="프 로 필"
                 android:textAlignment="center"
                 android:textColor="@color/gray"
                 android:textSize="12sp" />
