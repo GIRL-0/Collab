@@ -4,6 +4,8 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.collab.UserInfo.userInfoEmail
@@ -38,6 +40,7 @@ class LoginActivity : AppCompatActivity() {
             .build()
         googleSignInClient = GoogleSignIn.getClient(this, gso)
         val signInGoogleBtn: SignInButton = findViewById(R.id.googleLoginBtn)
+        setGoogleButtonText(signInGoogleBtn, "google 계정으로 로그인")
 
         signInGoogleBtn.setOnClickListener {
             val signInIntent = googleSignInClient!!.signInIntent
@@ -107,5 +110,20 @@ class LoginActivity : AppCompatActivity() {
                     Log.d("googleLogin", "signInWithCredential: failure", task.exception)
                 }
             }
+    }
+
+    private fun setGoogleButtonText(loginButton: SignInButton, buttonText: String){
+        var i = 0
+        while (i < loginButton.childCount){
+            var v = loginButton.getChildAt(i)
+            if (v is TextView) {
+                var tv = v
+                tv.text = buttonText
+                tv.gravity = Gravity.CENTER
+                tv.textSize = 14.0f
+                return
+            }
+            i++
+        }
     }
 }
