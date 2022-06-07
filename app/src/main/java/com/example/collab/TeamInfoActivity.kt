@@ -16,12 +16,8 @@ class TeamInfoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTeamInfoBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_team_info)
-        teamName.text = intent.getStringExtra("teamName")
-        projectSubject.text = intent.getStringExtra("Subject")
-        subjectDetail.text = intent.getStringExtra("SubjectDetail")
-        projectStartTime.text = intent.getIntExtra("TimeStart",0).toString()
-        projectfinishTime.text = intent.getIntExtra("TimeFinish",0).toString()
+        setContentView(binding.root)
+
 
         cancel_button.setOnClickListener{
             var intent = Intent(this@TeamInfoActivity, SearchTeamActivity::class.java)
@@ -31,7 +27,14 @@ class TeamInfoActivity : AppCompatActivity() {
     }
 
     private fun init(){
-        adapter = TeamInfoAdapter(userinfo)
+        val teamname = intent.getStringExtra("teamName")
+        teamName.text = teamname
+        projectSubject.text = intent.getStringExtra("Subject")
+        subjectDetail.text = intent.getStringExtra("SubjectDetail")
+        projectStartTime.text = intent.getIntExtra("TimeStart",0).toString()
+        projectfinishTime.text = intent.getIntExtra("TimeFinish",0).toString()
+
+        adapter = TeamInfoAdapter(userinfo,teamname.toString())
         binding.teamMemberRecyclerView.adapter = adapter
         binding.teamMemberRecyclerView.layoutManager = LinearLayoutManager(this)
     }

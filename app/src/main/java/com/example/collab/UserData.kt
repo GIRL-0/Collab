@@ -1,9 +1,9 @@
 package com.example.collab
 
 data class UserData(
-    var userEmail:String? = null,
-    var userField:String? = null,
-    var userIntroduction:String? = null,
-    var userName:String? = null,
-    var userRating:String? = null
+    var email:String? = null,
+    var field:String? = null,
+    var introduction:String? = null,
+    var name:String? = null,
+    var rating:String? = null
 )
