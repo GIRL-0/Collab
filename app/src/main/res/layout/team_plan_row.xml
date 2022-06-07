@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
-            android:fontFamily="@font/digital_regular"
+            android:fontFamily="@font/esamanru_light"
             android:text="팀원A"
             android:textColor="@color/black"
             android:textSize="11sp" />
@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
-            android:fontFamily="@font/digital_regular"
+            android:fontFamily="@font/esamanru_light"
             android:text="/"
             android:textColor="@color/black"
             android:textSize="11sp" />
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
-            android:fontFamily="@font/digital_regular"
+            android:fontFamily="@font/esamanru_light"
             android:text="2022-05-30"
             android:textColor="@color/black"
             android:textSize="11sp" />
@@ -48,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
-            android:fontFamily="@font/digital_regular"
+            android:fontFamily="@font/esamanru_light"
             android:text="/"
             android:textColor="@color/black"
             android:textSize="11sp" />
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
-            android:fontFamily="@font/digital_regular"
+            android:fontFamily="@font/esamanru_light"
             android:text="17:30"
             android:textColor="@color/black"
             android:textSize="11sp" />
@@ -67,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
-            android:fontFamily="@font/digital_regular"
+            android:fontFamily="@font/esamanru_light"
             android:text="/"
             android:textColor="@color/black"
             android:textSize="11sp" />
@@ -77,9 +77,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="5dp"
-            android:fontFamily="@font/digital_regular"
-            android:text="2차 회의"
+            android:fontFamily="@font/esamanru_light"
             android:inputType="textMultiLine"
+            android:text="2차 회의"
             android:textColor="@color/black"
             android:textSize="11sp" />
 

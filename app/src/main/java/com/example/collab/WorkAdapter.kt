@@ -1,9 +1,12 @@
 package com.example.collab
 
+import android.content.Intent
+import android.opengl.Visibility
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.team_info_row.view.*
@@ -31,9 +34,7 @@ class WorkAdapter(val items: ArrayList<String>,val teamName:String): RecyclerVie
                             ?.addSnapshotListener{value2,error->
                                 if(value2?.contains(tmp + "_content")==true) {
                                     val data2 = value2?.get(tmp + "_content") as ArrayList<String>
-                                    Log.i("test", data2.toString())
                                     todoList.put(tmp, data2)
-                                    Log.i("test", todoList.toString())
                                 }
                                 notifyDataSetChanged()
                             }
@@ -44,7 +45,10 @@ class WorkAdapter(val items: ArrayList<String>,val teamName:String): RecyclerVie
 
     }
 
-
+    interface OnItemClickListener{
+        fun OnItemClick(data: String , position: Int)
+    }
+    var itemClickListener:OnItemClickListener?=null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         var view =
@@ -54,8 +58,15 @@ class WorkAdapter(val items: ArrayList<String>,val teamName:String): RecyclerVie
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         init {
-            view.setOnClickListener {
-
+            view.workItem.setOnClickListener {
+                if(view.detailWorkContents.visibility == LinearLayout.VISIBLE) {
+                    view.detailWorkContents.visibility = LinearLayout.GONE
+                }else if(view.detailWorkContents.visibility == LinearLayout.GONE){
+                    view.detailWorkContents.visibility = LinearLayout.VISIBLE
+                }
+            }
+            view.detailBtn.setOnClickListener {
+                itemClickListener?.OnItemClick(items[absoluteAdapterPosition], absoluteAdapterPosition)
             }
         }
 

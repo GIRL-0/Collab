@@ -4,56 +4,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:layout_margin="10dp"
+    android:orientation="vertical"
     tools:context=".WorkActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="'"
-            android:textSize="15sp"
-            android:textColor="@color/olive_green"
-            android:fontFamily="@font/digital_bold"
             android:layout_gravity="center"
-            android:gravity="center"/>
+            android:fontFamily="@font/esamanru_bold"
+            android:gravity="center"
+            android:text="'"
+            android:textColor="@color/olive_green"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/teamName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="7890"
-            android:textSize="15sp"
-            android:textColor="@color/olive_green"
-            android:fontFamily="@font/digital_bold"
             android:layout_gravity="center"
-            android:gravity="center"/>
+            android:fontFamily="@font/esamanru_bold"
+            android:gravity="center"
+            android:text="7890"
+            android:textColor="@color/olive_green"
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="' 팀의 할 일"
-            android:textSize="15sp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/digital_bold"
             android:layout_gravity="center"
-            android:gravity="center"/>
+            android:fontFamily="@font/esamanru_bold"
+            android:gravity="center"
+            android:text="' 팀의 할 일"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
 
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:src="@drawable/ic_plus"
-            app:tint="@color/olive_green"/>
+            app:tint="@color/olive_green" />
 
     </LinearLayout>
 
@@ -67,6 +68,6 @@
         android:id="@+id/teamWorkRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp" />
 
 </LinearLayout>

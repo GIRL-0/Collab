@@ -14,7 +14,7 @@
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="3dp"
-        android:fontFamily="@font/digital_bold"
+        android:fontFamily="@font/esamanru_bold"
         android:text="회원가입을 위해"
         android:textColor="@color/black_green"
         android:textSize="17sp" />
@@ -31,7 +31,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/digital_bold"
+            android:fontFamily="@font/esamanru_bold"
             android:text="프로필"
             android:textColor="@color/olive_green"
             android:textSize="17sp" />
@@ -39,7 +39,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/digital_bold"
+            android:fontFamily="@font/esamanru_bold"
             android:text="을 작성해주세요"
             android:textColor="@color/black_green"
             android:textSize="17sp" />
@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
         android:layout_marginVertical="10dp"
-        android:fontFamily="@font/digital_bold"
+        android:fontFamily="@font/esamanru_medium"
         android:text="이름"
         android:textSize="15sp" />
 
@@ -69,7 +69,7 @@
         android:layout_marginHorizontal="15dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/edge"
-        android:fontFamily="@font/digital_regular"
+        android:fontFamily="@font/esamanru_light"
         android:padding="10dp"
         android:textSize="16sp" />
 
@@ -78,7 +78,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
         android:layout_marginVertical="10dp"
-        android:fontFamily="@font/digital_bold"
+        android:fontFamily="@font/esamanru_medium"
         android:text="분야"
         android:textSize="15sp" />
 
@@ -89,7 +89,7 @@
         android:layout_marginHorizontal="15dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/edge"
-        android:fontFamily="@font/digital_regular"
+        android:fontFamily="@font/esamanru_light"
         android:hint="#개발자 #백엔드"
         android:padding="10dp"
         android:textSize="16sp" />
@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
         android:layout_marginVertical="10dp"
-        android:fontFamily="@font/digital_bold"
+        android:fontFamily="@font/esamanru_medium"
         android:text="간략한 소개"
         android:textSize="15sp" />
 
@@ -111,7 +111,7 @@
         android:layout_marginHorizontal="15dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/edge"
-        android:fontFamily="@font/digital_regular"
+        android:fontFamily="@font/esamanru_light"
         android:hint="건국대학교 소프트웨어 19학번"
         android:inputType="textMultiLine"
         android:padding="10dp"
@@ -128,8 +128,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
+        android:fontFamily="@font/esamanru_medium"
         android:padding="5dp"
-        android:fontFamily="@font/digital_bold"
         android:text="가입 완료"
         android:textSize="15sp" />
 

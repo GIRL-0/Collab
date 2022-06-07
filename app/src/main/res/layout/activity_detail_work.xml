@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/digital_bold"
+                android:fontFamily="@font/esamanru_bold"
                 android:text="할 일 "
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/digital_bold"
+                android:fontFamily="@font/esamanru_bold"
                 android:text="1"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -44,7 +44,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/digital_bold"
+                android:fontFamily="@font/esamanru_bold"
                 android:text=" - "
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/digital_bold"
+                android:fontFamily="@font/esamanru_bold"
                 android:text="UI 완성하기"
                 android:textColor="@color/olive_green"
                 android:textSize="14sp" />
@@ -63,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/digital_bold"
+                android:fontFamily="@font/esamanru_bold"
                 android:text="의"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -73,8 +73,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
-            android:fontFamily="@font/digital_bold"
-            android:text="상세 진행 사항"
+            android:fontFamily="@font/esamanru_bold"
+            android:text="상 세   진 행   사 항"
             android:textColor="@color/black"
             android:textSize="14sp" />
     </LinearLayout>
@@ -98,7 +98,7 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="5dp"
             android:layout_weight="1"
-            android:fontFamily="@font/digital_regular"
+            android:fontFamily="@font/esamanru_medium"
             android:text="진행률"
             android:textColor="@color/black"
             android:textSize="13sp" />
@@ -127,7 +127,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:fontFamily="@font/digital_regular"
+                android:fontFamily="@font/esamanru_medium"
                 android:text="65"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
@@ -137,7 +137,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginHorizontal="2dp"
-                android:fontFamily="@font/digital_regular"
+                android:fontFamily="@font/esamanru_medium"
                 android:text="%"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
