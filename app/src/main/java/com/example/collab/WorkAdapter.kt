@@ -34,9 +34,7 @@ class WorkAdapter(val items: ArrayList<String>,val teamName:String): RecyclerVie
                             ?.addSnapshotListener{value2,error->
                                 if(value2?.contains(tmp + "_content")==true) {
                                     val data2 = value2?.get(tmp + "_content") as ArrayList<String>
-                                    Log.i("test", data2.toString())
                                     todoList.put(tmp, data2)
-                                    Log.i("test", todoList.toString())
                                 }
                                 notifyDataSetChanged()
                             }

@@ -28,6 +28,7 @@ class WorkActivity : AppCompatActivity() {
         adapter.itemClickListener = object:WorkAdapter.OnItemClickListener{
             override fun OnItemClick(data: String, position: Int) {
                 Intent(this@WorkActivity,DetailWorkActivity::class.java).apply{
+                    putExtra("teamName", iteamName)
                     putExtra("todo", data)
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.run{startActivity(this)}
