@@ -39,14 +39,18 @@ class SearchTeamActivity : AppCompatActivity() {
 //            LinearLayoutManager.VERTICAL,false)
         adapter = SearchTeamAdapter(teamInfo)
         adapter.itemClickListener = object: SearchTeamAdapter.OnItemClickListener{
-            override fun OnItemClick(position : Int) {
+            override fun OnItemClick(data: TeamData, position : Int) {
                 Intent(this@SearchTeamActivity, TeamInfoActivity::class.java).apply {
-                    putExtra("teamName", teamName.text.toString())
-                    putExtra("Subject", teamSubject.text.toString())
-
+                    putExtra("teamName", data.teamName)
+                    putExtra("Subject", data.Subject)
+                    putExtra("SubjectDetail", data.SubjectDetail)
+                    putExtra("TimeStart", data.TimeStart)
+                    putExtra("TimeFinish", data.TimeFinish)
+                    putExtra("MemberCount",data.MemberCount)
 
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.run { startActivity(this) }
+
             }
         }
         //binding.teamRecyclerView.adapter = SearchTeamAdapter(teamInfo)
