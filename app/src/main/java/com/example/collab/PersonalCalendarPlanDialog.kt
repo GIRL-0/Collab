@@ -3,6 +3,9 @@ package com.example.collab
 import android.app.Dialog
 import android.view.WindowManager
 import android.widget.*
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 
 class PersonalCalendarPlanDialog(context: PersonalCalendarActivity) {
@@ -32,7 +35,12 @@ class PersonalCalendarPlanDialog(context: PersonalCalendarActivity) {
 
             if (isValidPlan(planTitle,planStartTime,planFinishTime)) {
                 //TODO: 데이터베이스에 추가하기
+                val db = Firebase.firestore
+                val doc = db.collection("User").document(UserInfo.userInfoEmail)
+                doc.update("plans", FieldValue.arrayUnion("$planTitle!$planStartTime!$planFinishTime"))
                 dialog.dismiss()
+            }else{
+                Toast.makeText(dialog.context, "잘못 입력하셨습니다. 다시 입력해주세요", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -52,8 +60,8 @@ class PersonalCalendarPlanDialog(context: PersonalCalendarActivity) {
     }
 
     private fun isValidPlan(planTitle: String, planStartTime: String, planFinishTime: String): Boolean {
-        //TODO: isValid 만들기
-        return true;
+        //isValid
+        return !(planTitle==""||planStartTime==""||planFinishTime=="")
     }
 
     interface onPlanCreateClickListener {

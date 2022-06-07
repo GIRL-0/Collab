@@ -1,25 +1,24 @@
 package com.example.collab
 
 import PersonalCalendarAdapter
+import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.collab.UserInfo.userInfoEmail
 import com.example.collab.databinding.ActivityPersonalCalendarBinding
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class PersonalCalendarActivity : AppCompatActivity() {
@@ -29,18 +28,16 @@ class PersonalCalendarActivity : AppCompatActivity() {
     var context = this
     lateinit var adapter: PersonalCalendarAdapter
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPersonalCalendarBinding.inflate(layoutInflater)
         setContentView(binding.root)
         Log.d("life_cycle", "onCreate")
-//        Toast.makeText(applicationContext, "onCreate() 실행", Toast.LENGTH_SHORT).show()
         initlayout()
         initCal()
         initCalendarData()
-//        initRecyclerView()
         initDialog()
+        initRecyclerView()
     }
 
     override fun onResume() {
@@ -53,10 +50,12 @@ class PersonalCalendarActivity : AppCompatActivity() {
         binding.personalPlanAddBtn.setOnClickListener {
             val dialog = PersonalCalendarPlanDialog(this)
             dialog.showDialog()
-            dialog.onDismissedClickListener(object : PersonalCalendarPlanDialog.onPlanCreateClickListener {
+            dialog.onDismissedClickListener(object :
+                PersonalCalendarPlanDialog.onPlanCreateClickListener {
                 override fun onPlanCreateClick(name: String) {
-//                    binding.titleTextView.text = name
-                    initRecyclerView()}})
+                    initRecyclerView()
+                }
+            })
         }
     }
 
@@ -68,37 +67,74 @@ class PersonalCalendarActivity : AppCompatActivity() {
     }
 
     private fun initCalendarData() {
-        val scan = Scanner(resources.openRawResource(R.raw.words))
-        while (scan.hasNextLine()) {
             //TODO: 데이터베이스에 푸쉬하고 가져오기
-            val db = Firebase.firestore
-            val washingtonRef = db.collection("User").document(userInfoEmail)
-            washingtonRef.update("plans", FieldValue.arrayUnion("3"))
+//            val db = Firebase.firestore
+//            val docRef = db.collection("User").document(userInfoEmail)
+//            docRef.get()
+//                .addOnSuccessListener { document ->
+//                    if (document != null) {
+//                        var planData = document.get("plans") as ArrayList<String>
+//                        for (plan in planData) {
+//                            val container = plan.split("!")
+//                            calendarData.add(CalendarData(container[0], container[1].split("/")[0], container[1].split("/")[1],
+//                                container[2].split("/")[0], container[2].split("/")[1]))
+//                            Log.d("calendarData 테스트", calendarData.toString())
+//
+//                        }
+//                        Log.d("테스트", planData.toString())
+//                    } else {
+//                    }
+//                }
+//                .addOnFailureListener { exception ->
+//                    Log.d(ContentValues.TAG, "get failed with ", exception)
+//                }
+//            doc.update("plans", FieldValue.arrayUnion("3"))
+
 //            val data = hashMapOf("plans" to arrayListOf(2, 2, 4),)
 //            data.put("plans",)
 //            db.collection("User").document(UserInfo.userInfoEmail)
 //                .set(data, SetOptions.merge())
-            val val1 = scan.nextLine()
-            val val2 = scan.nextLine()
-            val val3 = scan.nextLine()
-        }
     }
 
 
     private fun initRecyclerView() {
-        Toast.makeText(applicationContext, "initCalendarRecyclerView()", Toast.LENGTH_SHORT).show()
-        personalCalendarRecyclerView = findViewById(R.id.personalPlanRecyclerView)
-        personalCalendarRecyclerView.layoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.VERTICAL, false
-        )
-        adapter = PersonalCalendarAdapter(calendarData)
-        personalCalendarRecyclerView.adapter = adapter
-        adapter.itemClickListener = object : PersonalCalendarAdapter.OnItemClickListener {
-            override fun OnItemClick(data: CalendarData) {
-                Toast.makeText(applicationContext, data.planDate, Toast.LENGTH_SHORT).show()
+        ////
+        val db = Firebase.firestore
+        val docRef = db.collection("User").document(userInfoEmail)
+        docRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    var planData = document.get("plans") as ArrayList<String>
+                    for (plan in planData) {
+                        val container = plan.split("!")
+                        calendarData.add(CalendarData(container[0], container[1].split("/")[0], container[1].split("/")[1],
+                            container[2].split("/")[0], container[2].split("/")[1]))
+                        Toast.makeText(applicationContext, "initCalendarRecyclerView()", Toast.LENGTH_SHORT).show()
+                        personalCalendarRecyclerView = findViewById(R.id.personalPlanRecyclerView)
+                        personalCalendarRecyclerView.layoutManager = LinearLayoutManager(
+                            this,
+                            LinearLayoutManager.VERTICAL, false
+                        )
+                        adapter = PersonalCalendarAdapter(calendarData)
+                        personalCalendarRecyclerView.adapter = adapter
+                        adapter.itemClickListener = object : PersonalCalendarAdapter.OnItemClickListener {
+                            override fun OnItemClick(data: CalendarData) {
+                                Toast.makeText(applicationContext, data.planContent, Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                    Log.d("calendarData 테스트", calendarData.toString())
+                    Log.d("calendarData 테스트", calendarData[0].planContent.toString())
+                } else {
+                }
             }
-        }
+            .addOnFailureListener { exception ->
+                Log.d(ContentValues.TAG, "get failed with ", exception)
+            }
+        ////
+
+
+
 
     }
 
