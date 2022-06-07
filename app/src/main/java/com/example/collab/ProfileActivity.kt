@@ -40,6 +40,12 @@ class ProfileActivity : AppCompatActivity() {
         initProfileNoticeData()
         initRecyclerView()
 
+        Intent(this@ProfileActivity, CreateTeamActivity::class.java).apply{
+            putExtra("email",binding.userName.text.toString())
+        }
+
+
+
     }
 
     private val GALLERY = 1

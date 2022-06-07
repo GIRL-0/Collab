@@ -7,5 +7,6 @@ data class TeamData(
     var SubjectDetail:String? = null,
     var TimeStart:Int? = null,
     var TimeFinish:Int? = null,
-    var MemberCount:Int? = null
+    var MemberCount:Int? = null,
+
     )

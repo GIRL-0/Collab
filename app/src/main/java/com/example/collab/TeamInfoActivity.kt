@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.collab.databinding.ActivityTeamInfoBinding
 import kotlinx.android.synthetic.main.activity_team_info.*
+import kotlinx.android.synthetic.main.activity_team_info.view.*
 
 class TeamInfoActivity : AppCompatActivity() {
 
@@ -18,12 +19,17 @@ class TeamInfoActivity : AppCompatActivity() {
         binding = ActivityTeamInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        join_button.setOnClickListener {
+
+        }
 
         cancel_button.setOnClickListener{
             var intent = Intent(this@TeamInfoActivity, SearchTeamActivity::class.java)
             startActivity(intent)
         }
         init()
+
+
     }
 
     private fun init(){

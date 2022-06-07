@@ -3,16 +3,20 @@ package com.example.collab
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.collab.UserInfo.userInfoEmail
 import com.example.collab.databinding.ActivityCreateTeamBinding
 import com.example.collab.databinding.ActivityPersonalCalendarBinding
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class CreateTeamActivity : AppCompatActivity() {
     lateinit var binding : ActivityCreateTeamBinding
     val db = Firebase.firestore
+    val rdb = FirebaseFirestore.getInstance()
     var context = this
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +62,7 @@ class CreateTeamActivity : AppCompatActivity() {
 
                 db.collection("Team").document(teamNameEdit.text.toString())
                     .set(item)
+
                     .addOnSuccessListener {
                         teamNameEdit.text.clear()
                         subjectEdit.text.clear()
@@ -66,6 +71,12 @@ class CreateTeamActivity : AppCompatActivity() {
                         finishTimeEdit.text.clear()
                         memberCountEdit.text.clear()
                     }
+
+                val master = rdb.collection("Team").document(teamNameEdit.text.toString())
+                master.update("member",FieldValue.arrayUnion(userInfoEmail))
+                val team  = rdb.collection("User").document(userInfoEmail)
+                team.update("teams",FieldValue.arrayUnion(teamNameEdit.text.toString()))
+
 
             }
         }

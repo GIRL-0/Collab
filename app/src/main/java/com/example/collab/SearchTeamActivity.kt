@@ -41,11 +41,11 @@ class SearchTeamActivity : AppCompatActivity() {
         adapter.itemClickListener = object: SearchTeamAdapter.OnItemClickListener{
             override fun OnItemClick(data: TeamData, position : Int) {
                 Intent(this@SearchTeamActivity, TeamInfoActivity::class.java).apply {
-                    putExtra("teamName", data.teamName)
-                    putExtra("Subject", data.Subject)
-                    putExtra("SubjectDetail", data.SubjectDetail)
-                    putExtra("TimeStart", data.TimeStart)
-                    putExtra("TimeFinish", data.TimeFinish)
+                        putExtra("teamName", data.teamName)
+                        putExtra("Subject", data.Subject)
+                        putExtra("SubjectDetail", data.SubjectDetail)
+                        putExtra("TimeStart", data.TimeStart)
+                        putExtra("TimeFinish", data.TimeFinish)
                     putExtra("MemberCount",data.MemberCount)
 
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
