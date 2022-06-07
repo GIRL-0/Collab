@@ -1,67 +1,71 @@
 package com.example.collab
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.collab.databinding.TeamInfoRowBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.team_info_row.view.*
 
-class SearchTeamAdapter(val items: ArrayList<TeamData>): RecyclerView.Adapter<SearchTeamAdapter.ViewHolder>() {
+class SearchTeamAdapter(val items: ArrayList<TeamData>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var firestore : FirebaseFirestore?= null
-    var teamInfo: ArrayList<TeamData> = arrayListOf()
+    // var teamInfo: ArrayList<TeamData>? =null
 
     init {
         firestore = FirebaseFirestore.getInstance()
         firestore?.collection("Team")
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-                teamInfo.clear()
+                items.clear()
                 for (snapshot in querySnapshot!!.documents) {
+                    Log.i("testt",snapshot.toString())
                     var item = snapshot.toObject(TeamData::class.java)
-                    teamInfo.add(item!!)
+                    items.add(item!!)
                 }
                 notifyDataSetChanged()
             }
     }
 
     interface OnItemClickListener{
-        fun OnItemClick(position: Int)
+        fun OnItemClick(data: TeamData, position: Int)
     }
     var itemClickListener:OnItemClickListener?=null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = TeamInfoRowBinding.inflate(LayoutInflater.from(parent.context),parent,false)
-        return ViewHolder(binding)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        var view =
+            LayoutInflater.from(parent.context).inflate(R.layout.team_info_row, parent, false)
+        return ViewHolder(view)
     }
 
-    inner class ViewHolder(val binding: TeamInfoRowBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         init {
-            binding.root.setOnClickListener {
-                itemClickListener!!.OnItemClick(bindingAdapterPosition)
+            view.setOnClickListener {
+                itemClickListener?.OnItemClick(items[absoluteAdapterPosition], absoluteAdapterPosition)
             }
         }
+
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         var viewHolder = (holder as ViewHolder).itemView
-        viewHolder.teamName.text = teamInfo[position].teamName
-        viewHolder.teamSubject.text = teamInfo[position].Subject
+        viewHolder.teamName.text = items[position].teamName
+        viewHolder.teamSubject.text = items[position].Subject
     }
 
     override fun getItemCount(): Int {
-        return teamInfo.size
+        return items.size
     }
 
     fun searchTeam(searchWord: String) {
         firestore?.collection("Team")
             ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
-                teamInfo.clear()
-
+                items.clear()
                 for (snapshot in querySnapshot!!.documents) {
                     if (snapshot.toString().contains(searchWord)) {
                         var item = snapshot.toObject(TeamData::class.java)
-                        teamInfo.add(item!!)
+                        items.add(item!!)
                     }
                     else{
 //                        Toast.makeText(

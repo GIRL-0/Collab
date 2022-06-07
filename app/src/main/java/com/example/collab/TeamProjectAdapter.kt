@@ -30,7 +30,6 @@ class TeamProjectAdapter(val items: ArrayList<TeamProject>): RecyclerView.Adapte
                                 notifyDataSetChanged()
                             }
                     }
-
             }
 
     }
