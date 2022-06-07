@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/esamanru_bold"
+                android:letterSpacing="0.1"
                 android:text="할 일 "
                 android:textColor="@color/black"
                 android:textSize="14sp" />
@@ -56,6 +57,7 @@
                 android:layout_gravity="center"
                 android:fontFamily="@font/esamanru_bold"
                 android:text="UI 완성하기"
+                android:letterSpacing="0.1"
                 android:textColor="@color/olive_green"
                 android:textSize="14sp" />
 
@@ -74,7 +76,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:fontFamily="@font/esamanru_bold"
-            android:text="상 세   진 행   사 항"
+            android:letterSpacing="0.1"
+            android:text="상세 진행 사항"
             android:textColor="@color/black"
             android:textSize="14sp" />
     </LinearLayout>

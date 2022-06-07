@@ -18,6 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/esamanru_bold"
+            android:letterSpacing="0.1"
             android:text="7890"
             android:textColor="@color/deep_green"
             android:textSize="15sp" />
@@ -26,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/esamanru_bold"
+            android:letterSpacing="0.1"
             android:text="팀 관리"
             android:textColor="@color/black"
             android:textSize="15sp" />

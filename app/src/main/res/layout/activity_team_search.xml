@@ -19,7 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/esamanru_bold"
-            android:text="팀 검 색"
+            android:letterSpacing="0.1"
+            android:text="팀검색"
             android:textColor="@color/black_green"
             android:textSize="15sp" />
 

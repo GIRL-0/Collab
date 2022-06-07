@@ -24,7 +24,8 @@
         android:layout_marginBottom="10dp"
         android:fontFamily="@font/esamanru_bold"
         android:gravity="center"
-        android:text="상 세   진 행   사 항   추 가"
+        android:letterSpacing="0.1"
+        android:text="상세 진행 사항 추가"
         android:textColor="@color/black_green"
         android:textSize="14sp" />
 
