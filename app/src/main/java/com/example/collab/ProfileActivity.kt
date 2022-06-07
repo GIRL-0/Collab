@@ -2,6 +2,7 @@ package com.example.collab
 
 import android.app.Activity
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,14 +13,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.Registry
+import com.bumptech.glide.annotation.GlideModule
+import com.bumptech.glide.module.AppGlideModule
 import com.example.collab.UserInfo.userInfoEmail
 import com.example.collab.databinding.ActivityProfileBinding
+import com.firebase.ui.storage.images.FirebaseImageLoader
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_team_search.*
+import java.io.InputStream
 import java.util.*
 
 
@@ -40,10 +47,9 @@ class ProfileActivity : AppCompatActivity() {
         initProfileNoticeData()
         initRecyclerView()
 
-        Intent(this@ProfileActivity, CreateTeamActivity::class.java).apply{
-            putExtra("email",binding.userName.text.toString())
+        Intent(this@ProfileActivity, CreateTeamActivity::class.java).apply {
+            putExtra("email", binding.userName.text.toString())
         }
-
 
 
     }
@@ -59,7 +65,7 @@ class ProfileActivity : AppCompatActivity() {
                 "email" to userInfoEmail,
                 "field" to binding.userMajorTag.text.toString(),
                 "introduction" to binding.userIntroduce.text.toString(),
-                "name" to binding.userName.text.toString() ,
+                "name" to binding.userName.text.toString(),
                 "rating" to null,
             )
 
@@ -74,7 +80,6 @@ class ProfileActivity : AppCompatActivity() {
         }
 
 
-
         //db에서 불러오기 xml init
         val db = Firebase.firestore
         val docRef = db.collection("User").document(userInfoEmail!!)
@@ -87,27 +92,13 @@ class ProfileActivity : AppCompatActivity() {
                     binding.userGradeNum.setText(document.get("rating").toString())
                     var profilePath = document.get("profilePic").toString()
 
-                    ///////////////////////
-                    val storageRef = storage.reference
-                    var profilePic = storageRef.child("images/$userInfoEmail/$profilePath")
-                    Log.d("테스트","$profilePath")
                     //TODO : 프로필 사진 작업
-//                    val url = storageRef.child("images/$userInfoEmail/$profilePath").downloadUrl.addOnSuccessListener {
-//                        // Got the download URL for 'users/me/profile.png'
-//
-//                        Log.d("테스트","$")
-//                    }.addOnFailureListener {
-//                        // Handle any errors
-//                        Log.d("테스트","fail to get"+"  images/$userInfoEmail/$profilePath")
-//                    }
-//                    val url1 = url.getResult()
-//                    Log.d("테스트트가","$url1")
-//
-//                    Glide.with(context /* context */)
-//                        .load(url.result)
-//                        .into(binding.userImg)
-//                    ///////////////////////
 
+                    Firebase.storage.reference.child("images/$userInfoEmail/$profilePath").downloadUrl.addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            Glide.with(context).load(it.result).into(binding.userImg)
+                        }
+                    }
 
                     Log.d(TAG, "DocumentSnapshot data: ${document.data}")
                 } else {
@@ -139,7 +130,8 @@ class ProfileActivity : AppCompatActivity() {
             if (requestCode == GALLERY) {
                 var imageData: Uri? = data?.data
                 val storageRef = storage.reference
-                val profileRef = storageRef.child("images/$userInfoEmail/${imageData?.lastPathSegment}")
+                val profileRef =
+                    storageRef.child("images/$userInfoEmail/${imageData?.lastPathSegment}")
                 val profilePathName = imageData?.lastPathSegment.toString()
                 val db = Firebase.firestore
                 val data = hashMapOf("profilePic" to profilePathName)
@@ -149,7 +141,7 @@ class ProfileActivity : AppCompatActivity() {
 
                 // Register observers to listen for when the download is done or if it fails
                 uploadTask.addOnFailureListener {
-                    Log.d("테스트","실패")
+                    Log.d("테스트", "실패")
                     // Handle unsuccessful uploads
                 }.addOnSuccessListener { taskSnapshot ->
                     // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
