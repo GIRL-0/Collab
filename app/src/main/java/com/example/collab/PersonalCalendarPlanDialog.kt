@@ -2,10 +2,7 @@ package com.example.collab
 
 import android.app.Dialog
 import android.view.WindowManager
-import android.widget.Button
-import android.widget.CalendarView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 
 
 class PersonalCalendarPlanDialog(context: PersonalCalendarActivity) {
@@ -38,6 +35,11 @@ class PersonalCalendarPlanDialog(context: PersonalCalendarActivity) {
                 dialog.dismiss()
             }
         }
+
+        dialog.findViewById<ImageView>(R.id.createCancelBtn).setOnClickListener {
+            dialog.dismiss()
+        }
+
         dialog.findViewById<CalendarView>(R.id.calendar).setOnDateChangeListener { calendarView, year, month, dayOfMonth ->
             var toast = String.format("%d / %d / %d", year, month + 1, dayOfMonth)
             Toast.makeText(dialog.context, toast, Toast.LENGTH_SHORT).show()
