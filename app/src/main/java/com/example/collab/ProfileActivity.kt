@@ -84,17 +84,23 @@ class ProfileActivity : AppCompatActivity() {
                     ///////////////////////
                     val storageRef = storage.reference
                     var profilePic = storageRef.child("images/$userInfoEmail/$profilePath")
-                    val url = storageRef.child("images/$userInfoEmail/$profilePath").downloadUrl.addOnSuccessListener {
-                        // Got the download URL for 'users/me/profile.png'
-                        Log.d("테스트","$profilePath.jpg")
-                    }.addOnFailureListener {
-                        // Handle any errors
-                        Log.d("테스트","fail to get"+"  images/$userInfoEmail/$profilePath.jpg")
-                    }
-                    Glide.with(applicationContext /* context */)
-                        .load(profilePic)
-                        .into(binding.userImg)
-                    ///////////////////////
+                    Log.d("테스트","$profilePath")
+                    //TODO : 프로필 사진 작업
+//                    val url = storageRef.child("images/$userInfoEmail/$profilePath").downloadUrl.addOnSuccessListener {
+//                        // Got the download URL for 'users/me/profile.png'
+//
+//                        Log.d("테스트","$")
+//                    }.addOnFailureListener {
+//                        // Handle any errors
+//                        Log.d("테스트","fail to get"+"  images/$userInfoEmail/$profilePath")
+//                    }
+//                    val url1 = url.getResult()
+//                    Log.d("테스트트가","$url1")
+//
+//                    Glide.with(context /* context */)
+//                        .load(url.result)
+//                        .into(binding.userImg)
+//                    ///////////////////////
 
 
                     Log.d(TAG, "DocumentSnapshot data: ${document.data}")
@@ -105,8 +111,6 @@ class ProfileActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.d(TAG, "get failed with ", exception)
             }
-
-
 
         var changePfp = binding.changePfpBtn
 
