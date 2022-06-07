@@ -27,6 +27,12 @@ class DashBoardActivity : AppCompatActivity() {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.run{startActivity(this)}
             }
+            teamSetting.setOnClickListener{
+                Intent(this@DashBoardActivity,ManageTeamActivity::class.java).apply{
+                    putExtra("teamName", teamName)
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }.run{startActivity(this)}
+            }
 
 
 
