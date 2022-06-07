@@ -2,4 +2,8 @@
 <font-family xmlns:android="http://schemas.android.com/apk/res/android">
     <font android:font="@font/digital_bold" />
     <font android:font="@font/digital_regular" />
+
+    <font android:font="@font/esamanru_light"/>
+    <font android:font="@font/esamanru_bold"/>
+    <font android:font="@font/esamanru_medium"/>
 </font-family>
