@@ -217,22 +217,24 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/changePfpBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="사진 변경"
                 android:layout_marginHorizontal="10dp"
+                android:layout_weight="1"
                 android:fontFamily="@font/digital_bold"
-                android:textSize="11sp"/>
+                android:text="사진 변경"
+                android:textSize="11sp" />
 
             <Button
+                android:id="@+id/saveChangesBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
                 android:layout_weight="1"
                 android:fontFamily="@font/digital_bold"
-                android:layout_marginHorizontal="10dp"
-                android:textSize="11sp"
-                android:text="변경 사항 수정"/>
+                android:text="변경 사항 수정"
+                android:textSize="11sp" />
 
         </LinearLayout>
 
