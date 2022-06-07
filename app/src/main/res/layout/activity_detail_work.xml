@@ -114,7 +114,7 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="5dp"
             android:layout_weight="16"
-            android:progress="65"
+            android:progress="0"
             android:progressBackgroundTint="@color/gray"
             android:progressTint="@color/olive_green"
             android:scaleY="4" />
@@ -131,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:fontFamily="@font/esamanru_medium"
-                android:text="65"
+                android:text="0"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
 
