@@ -55,7 +55,6 @@ class ProfileActivity : AppCompatActivity() {
                 "introduction" to binding.userIntroduce.text.toString(),
                 "name" to binding.userName.text.toString() ,
                 "rating" to null,
-                "teams" to null,
             )
 
             val db = Firebase.firestore
@@ -66,7 +65,30 @@ class ProfileActivity : AppCompatActivity() {
 
             Log.d("테스트", "$test")
         }
-        //TODO: db에서 로딩해 xml init
+
+
+
+        //TODO: db에서 불러오기 xml init
+        val db = Firebase.firestore
+        val docRef = db.collection("User").document(userInfoEmail!!)
+        docRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    binding.userMajorTag.setText(document.get("field").toString())
+                    binding.userIntroduce.setText(document.get("introduction").toString())
+                    binding.userName.setText(document.get("name").toString())
+                    binding.userGradeNum.setText(document.get("rating").toString())
+
+                    Log.d(TAG, "DocumentSnapshot data: ${document.data}")
+                } else {
+                    Log.d(TAG, "No such document")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "get failed with ", exception)
+            }
+        //TODO: db에서 불러오기 xml init
+
 
 
         var userProfileImg = binding.userImg
