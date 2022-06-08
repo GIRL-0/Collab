@@ -1,11 +1,18 @@
 package com.example.collab
 
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.collab.databinding.ActivityTeamCalendarBinding
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
+import kotlinx.android.synthetic.main.activity_create_plan.*
+import kotlinx.android.synthetic.main.activity_create_plan.view.*
 import java.util.ArrayList
 
 class TeamCalendarActivity : AppCompatActivity() {
@@ -13,7 +20,9 @@ class TeamCalendarActivity : AppCompatActivity() {
     var iteamName:String = ""
     val calendarData: ArrayList<CalendarTeamData> = ArrayList()
     val tmpData: ArrayList<CalendarTeamData> = ArrayList()
+    val tmpData2: ArrayList<CalendarTeamData> = ArrayList()
     var firestore : FirebaseFirestore?= null
+    var context = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +35,10 @@ class TeamCalendarActivity : AppCompatActivity() {
     private fun init() {
         iteamName = intent.getStringExtra("teamName")!!
         binding.apply{
-            this.teamName.text = iteamName
-
+            teamName.text = iteamName
+            teamPlanAddBtn.setOnClickListener {
+                addTeamPalnDlg()
+            }
         }
         firestore = FirebaseFirestore.getInstance()
         firestore?.collection("Team")
@@ -69,6 +80,10 @@ class TeamCalendarActivity : AppCompatActivity() {
                 }
                 Log.i("test", calendarData.toString())
             }
+
+
+
+
     }
 
     private fun initCal() {
@@ -96,6 +111,64 @@ class TeamCalendarActivity : AppCompatActivity() {
             binding.teamPlanRecyclerView.layoutManager = LinearLayoutManager(this)
 
         }
+    }
+
+    fun addTeamPalnDlg(){
+        val dialog = Dialog(context)
+        dialog.setContentView(R.layout.activity_create_plan)
+        dialog.window!!.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.MATCH_PARENT
+        )
+        dialog.setCanceledOnTouchOutside(true)
+        dialog.setCancelable(true)
+        dialog.show()
+
+
+        val planTitle = dialog.findViewById<EditText>(R.id.planTitle)
+        val planStartTime = dialog.findViewById<EditText>(R.id.planStartTime)
+        val planFinishTime = dialog.findViewById<EditText>(R.id.planFinishTime)
+
+
+
+        dialog.findViewById<CalendarView>(R.id.calendar).setOnDateChangeListener { calendarView, year, month, dayOfMonth ->
+            val start = year.toString()+"-"+(month+1).toString()+"-"+dayOfMonth.toString()+"/12:00"
+            val end =year.toString()+"-"+(month+1).toString()+"-"+(dayOfMonth+1).toString()+"/12:00"
+            planStartTime.setText(start)
+            planFinishTime.setText(end)
+            updateRecyclerVeiw(start,end)
+        }
+
+        dialog.findViewById<Button>(R.id.detailWorkAddBtn).setOnClickListener {
+            val plan = planTitle.text.toString()+"!"+planStartTime.text.toString()+"!"+planFinishTime.text.toString()
+            firestore?.collection("Team")
+                ?.document(iteamName)
+                ?.get()?.addOnSuccessListener {
+                    if(it.contains("plans")==true){
+                        firestore?.collection("Team")
+                            ?.document(iteamName)
+                            ?.update("plans", FieldValue.arrayUnion(plan))
+                    }else{
+                        val docData = hashMapOf(
+                            "plans" to arrayListOf(plan)
+                        )
+                        firestore?.collection("Team")
+                            ?.document(iteamName)
+                            ?.set(docData, SetOptions.merge())
+                    }
+                }
+            dialog.dismiss()
+        }
+
+        dialog.findViewById<ImageView>(R.id.createCancelBtn).setOnClickListener {
+            dialog.dismiss()
+        }
+
+    }
+
+    fun updateRecyclerVeiw(start:String, end:String){
+
+
     }
 
 

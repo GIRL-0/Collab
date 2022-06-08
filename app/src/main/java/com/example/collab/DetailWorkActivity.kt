@@ -21,6 +21,7 @@ class DetailWorkActivity : AppCompatActivity() {
     var firestore : FirebaseFirestore?= null
     var itodo:String = ""
     var iteamName:String = ""
+    var iworkNum:Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,12 +33,14 @@ class DetailWorkActivity : AppCompatActivity() {
     private fun initLayout() {
         itodo = intent.getStringExtra("todo")!!
         iteamName = intent.getStringExtra("teamName")!!
+        iworkNum = intent.getIntExtra("workNum",0)!!
+
 
         adapter = DetailWorkAdapter(todoList,iteamName,itodo,context)
 
         binding.apply{
             workTitle.text = itodo
-
+            workNum.text= iworkNum.toString()
             detailWorkRecyclerView.adapter = adapter
             detailWorkRecyclerView.layoutManager = LinearLayoutManager(context)
 

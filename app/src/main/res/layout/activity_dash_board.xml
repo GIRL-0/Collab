@@ -97,7 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/esamanru_medium"
-                android:text="65"
+                android:text="0"
                 android:textColor="@color/black_green"
                 android:textSize="13sp" />
 
@@ -119,7 +119,7 @@
             android:layout_height="15dp"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="3dp"
-            android:progress="65"
+            android:progress="0"
             android:progressBackgroundTint="@color/gray"
             android:progressTint="@color/olive_green"
             android:scaleY="4" />

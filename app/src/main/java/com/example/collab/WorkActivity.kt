@@ -39,6 +39,7 @@ class WorkActivity : AppCompatActivity() {
                 Intent(this@WorkActivity,DetailWorkActivity::class.java).apply{
                     putExtra("teamName", iteamName)
                     putExtra("todo", data)
+                    putExtra("workNum",position+1)
                     addFlags(FLAG_ACTIVITY_NO_HISTORY)
                 }.run{startActivity(this)}
             }

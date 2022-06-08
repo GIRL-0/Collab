@@ -4,6 +4,7 @@ import PersonalCalendarAdapter
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,6 +63,9 @@ class DashBoardActivity : AppCompatActivity() {
             firestore?.collection("Team")
                 ?.document(teamName!!)
                 ?.addSnapshotListener { value, error ->
+                    Log.i("data", value?.data.toString())
+
+                    items.clear()
                     if(value?.contains("plans")==true){
                         val list = value?.get("plans") as ArrayList<String>
                         for(str in list!!){
@@ -73,7 +77,37 @@ class DashBoardActivity : AppCompatActivity() {
                                     container[2].split("/")[0],
                                     container[2].split("/")[1])) } }
                     teamPlanRecyclerView.adapter?.notifyDataSetChanged()
+                    if(value?.contains("todoList")==true){
+                        val todoList = value?.get("todoList") as ArrayList<String>
+                        firestore?.collection("Team")
+                            ?.document(teamName!!)
+                            ?.collection("info")
+                            ?.document("todoList")
+                            ?.addSnapshotListener { value2, error ->
+                                var progress = 0
+                                var progress_count = 0
+                                if(value2?.exists()==true){
+                                    for(todo in todoList){
+                                        if(value2?.contains(todo+"_progress")){
+                                            progress += (value2?.get(todo+"_progress") as Number).toInt()
+                                            progress_count++
+                                        }
+                                    }
+                                    if(progress_count == 0)
+                                        progress = 0
+                                    else
+                                        progress /= progress_count
+                                    totalProgressRateNum.text = progress.toString()
+                                    totalProgressRate.progress = progress
+                                }
+                            }
+                    }
+
+
+
                 }
+
+
 
 
 

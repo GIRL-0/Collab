@@ -100,6 +100,8 @@ class WorkAdapter(val items: ArrayList<String>,val teamName:String): RecyclerVie
             viewHolder.workProgressRate.progress = progress
             viewHolder.workProgressNum.text = progress.toString()
         }
+        viewHolder.workNum.text = (position+1).toString()
+
     }
 
     override fun getItemCount(): Int {

@@ -20,6 +20,7 @@ class TeamProjectAdapter(val items: ArrayList<TeamProject>): RecyclerView.Adapte
         firestore?.collection("User")
             ?.document(email)
             ?.addSnapshotListener { value, error ->
+                items.clear()
                 if(value?.contains("teams")==true)
                     data = value?.get("teams") as ArrayList<String>
                     for (team in data!!) {
