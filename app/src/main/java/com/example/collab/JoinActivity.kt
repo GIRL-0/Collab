@@ -38,7 +38,7 @@ class JoinActivity : AppCompatActivity() {
                 "field" to userField,
                 "introduction" to userIntro,
                 "name" to userName,
-                "rating" to "0",
+                "rating" to null,
                 "plans" to null,
                 "notifications" to null,
                 "profilePic" to null,
