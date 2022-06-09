@@ -146,11 +146,7 @@ class PersonalCalendarActivity : AppCompatActivity() {
                             )
                         )
                     }
-//                    Toast.makeText(
-//                        applicationContext,
-//                        "initCalendarRecyclerView()",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
+
                     personalCalendarRecyclerView =
                         findViewById(R.id.personalPlanRecyclerView)
                     personalCalendarRecyclerView.layoutManager = LinearLayoutManager(
