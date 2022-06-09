@@ -42,6 +42,7 @@ class ManageTeamActivity : AppCompatActivity() {
 
     private fun init(){
         var teamname = intent.getStringExtra("teamName")
+        binding.teamName.text = teamname
         binding.teamNameEdit.text = teamname
         firestore = FirebaseFirestore.getInstance()
         firestore?.collection("Team")
