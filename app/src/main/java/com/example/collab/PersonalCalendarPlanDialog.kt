@@ -34,7 +34,7 @@ class PersonalCalendarPlanDialog(context: PersonalCalendarActivity) {
             var planFinishTime = dialog.findViewById<TextView>(R.id.planFinishTime).text.toString()
 
             if (isValidPlan(planTitle,planStartTime,planFinishTime)) {
-                //TODO: 데이터베이스에 추가하기
+                //db 추가
                 val db = Firebase.firestore
                 val doc = db.collection("User").document(UserInfo.userInfoEmail)
                 doc.update("plans", FieldValue.arrayUnion("$planTitle!$planStartTime!$planFinishTime"))

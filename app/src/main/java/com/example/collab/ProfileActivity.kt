@@ -1,8 +1,9 @@
 package com.example.collab
 
+import PersonalCalendarAdapter
 import android.app.Activity
+import android.content.ContentValues
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -11,15 +12,12 @@ import android.util.Log
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.Registry
-import com.bumptech.glide.annotation.GlideModule
-import com.bumptech.glide.module.AppGlideModule
 import com.example.collab.UserInfo.userInfoEmail
 import com.example.collab.databinding.ActivityProfileBinding
-import com.firebase.ui.storage.images.FirebaseImageLoader
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.ktx.auth
@@ -27,21 +25,19 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import kotlinx.android.synthetic.main.activity_team_search.*
-import java.io.InputStream
 import java.util.*
 
 
 class ProfileActivity : AppCompatActivity() {
     lateinit var binding: ActivityProfileBinding
-    lateinit var profileNoticeRecyclerView: RecyclerView
-    val profileNoticeData: ArrayList<ProfileNoticeData> = ArrayList()
     var context = this
-    lateinit var adapter: ProfileNoticeAdapter
+    lateinit var notifRecyclerView: RecyclerView
+    val profileNoticeData: ArrayList<ProfileNoticeData> = ArrayList()
+    var adapter: ProfileNoticeAdapter  = ProfileNoticeAdapter(profileNoticeData)
     var storage = FirebaseStorage.getInstance()
-    val starArray = arrayOf("☆☆☆☆☆","★☆☆☆☆", "★★☆☆☆", "★★★☆☆", "★★★★☆", "★★★★★" )
+    val starArray = arrayOf("☆☆☆☆☆", "★☆☆☆☆", "★★☆☆☆", "★★★☆☆", "★★★★☆", "★★★★★")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +52,7 @@ class ProfileActivity : AppCompatActivity() {
             putExtra("email", binding.userName.text.toString())
         }
 
-        binding.logoutBtn.setOnClickListener{
+        binding.logoutBtn.setOnClickListener {
             firebaseAuthSignOut()
             var intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
@@ -99,11 +95,12 @@ class ProfileActivity : AppCompatActivity() {
                     binding.userIntroduce.setText(document.get("introduction").toString())
                     binding.userName.setText(document.get("name").toString())
 
-                    if(document.get("rating") == null){
+                    if (document.get("rating") == null) {
                         binding.userGrade.visibility = LinearLayout.GONE
-                    }else{
+                    } else {
                         binding.userGradeNum.setText(document.get("rating").toString())
-                        binding.userGradeStar.text = starArray[document.get("rating").toString().toInt()]
+                        binding.userGradeStar.text =
+                            starArray[document.get("rating").toString().toInt()]
                     }
 
                     var profilePath = document.get("profilePic").toString()
@@ -175,31 +172,57 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     private fun initProfileNoticeData() {
-        val scan = Scanner(resources.openRawResource(R.raw.words))
-        while (scan.hasNextLine()) {
-            //TODO: 데이터베이스 불러오기
-            val val1 = scan.nextLine()
-            val val2 = scan.nextLine()
-            val val3 = scan.nextLine()
-            profileNoticeData.add(ProfileNoticeData(val3))
-        }
+//        val scan = Scanner(resources.openRawResource(R.raw.words))
+//        while (scan.hasNextLine()) {
+//            //데이터베이스 불러오기
+//            val val1 = scan.nextLine()
+//            val val2 = scan.nextLine()
+//            val val3 = scan.nextLine()
+//            profileNoticeData.add(ProfileNoticeData(val3))
+//        }
     }
 
     private fun initRecyclerView() {
-        Toast.makeText(applicationContext, "initProfileRecyclerView()", Toast.LENGTH_SHORT).show()
-        profileNoticeRecyclerView = findViewById(R.id.profileAlarmRecyclerView)
-        profileNoticeRecyclerView.layoutManager = LinearLayoutManager(
-            this,
-            LinearLayoutManager.VERTICAL, false
-        )
-
-        adapter = ProfileNoticeAdapter(profileNoticeData)
-        profileNoticeRecyclerView.adapter = adapter
-        adapter.itemClickListener = object : ProfileNoticeAdapter.OnItemClickListener {
-            override fun OnItemClick(data: ProfileNoticeData) {
-                Toast.makeText(applicationContext, data.alarmContent, Toast.LENGTH_SHORT).show()
+        val db = Firebase.firestore
+        val docRef = db.collection("User").document(userInfoEmail)
+        profileNoticeData.clear() // clear list
+        adapter.notifyDataSetChanged() // let your adapter know about the changes and reload view.
+        //get db
+        docRef.get()
+            .addOnSuccessListener { document ->
+                if (document?.get("plans") != null) {
+                    var notifications = document.get("notifications") as ArrayList<String>
+                    for (notification in notifications) {
+                        profileNoticeData.add(
+                            ProfileNoticeData(
+                                notification
+                            )
+                        )
+                    }
+                    Toast.makeText(
+                        applicationContext,
+                        "initProfileNoticeRecyclerView()",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    notifRecyclerView =
+                        findViewById(R.id.profileNotifRecyclerView)
+                    notifRecyclerView.layoutManager = LinearLayoutManager(
+                        this,
+                        LinearLayoutManager.VERTICAL, false
+                    )
+                    adapter = ProfileNoticeAdapter(profileNoticeData)
+                    notifRecyclerView.adapter = adapter
+                    adapter.itemClickListener = object : ProfileNoticeAdapter.OnItemClickListener {
+                        override fun OnItemClick(data: ProfileNoticeData) {
+                            Toast.makeText(applicationContext, data.alarmContent, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                } else {
+                }
             }
-        }
+            .addOnFailureListener { exception ->
+                Log.d(ContentValues.TAG, "get failed with ", exception)
+            }
     }
 
     private fun firebaseAuthSignOut() {

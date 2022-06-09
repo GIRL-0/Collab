@@ -21,9 +21,8 @@ import java.util.*
 class PersonalCalendarActivity : AppCompatActivity() {
     lateinit var binding: ActivityPersonalCalendarBinding
     lateinit var personalCalendarRecyclerView: RecyclerView
-    val calendarData: ArrayList<CalendarData> = ArrayList()
-    val tmpData: ArrayList<CalendarData> = ArrayList()
-    val blankData: ArrayList<CalendarData> = arrayListOf(CalendarData("0","0","0","0","0"))
+    private val calendarData: ArrayList<CalendarData> = ArrayList()
+    private val tmpData: ArrayList<CalendarData> = ArrayList()
     var context = this
     var adapter: PersonalCalendarAdapter = PersonalCalendarAdapter(calendarData)
 
