@@ -94,12 +94,54 @@ class ManageTeamActivity : AppCompatActivity() {
                         firestore?.collection("User")
                             ?.document(data.email!!)
                             ?.update("teams",FieldValue.arrayRemove(teamname!!))
+                        dialog.dismiss()
                     }
                     dialog.findViewById<ImageView>(R.id.workAddCancelBtn).setOnClickListener {
                         dialog.dismiss()
                     }
 
                 }else{
+                    val dialog = Dialog(context)
+                    dialog.setContentView(R.layout.request_member_dialog)
+                    dialog.window!!.setLayout(
+                        WindowManager.LayoutParams.MATCH_PARENT,
+                        WindowManager.LayoutParams.WRAP_CONTENT
+                    )
+                    dialog.setCanceledOnTouchOutside(true)
+                    dialog.setCancelable(true)
+                    dialog.show()
+
+                    dialog.findViewById<TextView>(R.id.userName).text = data.name
+                    dialog.findViewById<TextView>(R.id.userMajorTag).text = data.field
+                    dialog.findViewById<TextView>(R.id.userIntroduce).text = data.introduction
+                    if (data.rating == null){// rating 이 null 인경우
+                        dialog.findViewById<LinearLayout>(R.id.userGrade).visibility = LinearLayout.GONE
+                    }else{
+                        dialog.findViewById<TextView>(R.id.userGradeNum).text = data.rating
+                    }
+
+                    dialog.findViewById<Button>(R.id.acceptBtn).setOnClickListener{
+                        firestore?.collection("Team")
+                            ?.document(teamname!!)
+                            ?.update("join", FieldValue.arrayRemove(data.email))
+                        firestore?.collection("Team")
+                            ?.document(teamname!!)
+                            ?.update("member", FieldValue.arrayUnion(data.email))
+                        firestore?.collection("User")
+                            ?.document(data.email!!)
+                            ?.update("teams",FieldValue.arrayUnion(teamname!!))
+                        dialog.dismiss()
+                    }
+                    dialog.findViewById<Button>(R.id.rejectBtn).setOnClickListener {
+                        firestore?.collection("Team")
+                            ?.document(teamname!!)
+                            ?.update("join", FieldValue.arrayRemove(data.email))
+                        dialog.dismiss()
+                    }
+
+                    dialog.findViewById<ImageView>(R.id.workAddCancelBtn).setOnClickListener {
+                        dialog.dismiss()
+                    }
 
                 }
             }
