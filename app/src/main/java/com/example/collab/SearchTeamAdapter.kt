@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.team_info_row.view.*
 class SearchTeamAdapter(val items: ArrayList<TeamData>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var firestore : FirebaseFirestore?= null
-    // var teamInfo: ArrayList<TeamData>? =null
 
     init {
         firestore = FirebaseFirestore.getInstance()

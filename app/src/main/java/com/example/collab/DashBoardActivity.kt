@@ -13,6 +13,7 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.collab.UserInfo.userInfoEmail
 import com.example.collab.databinding.ActivityDashBoardBinding
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -35,7 +36,7 @@ class DashBoardActivity : AppCompatActivity() {
     }
 
     private fun initLayout() {
-            var teamName = intent.getStringExtra("teamName")
+        var teamName = intent.getStringExtra("teamName")
 
         binding.apply{
             projectName.text = teamName
@@ -46,6 +47,7 @@ class DashBoardActivity : AppCompatActivity() {
                     addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 }.run{startActivity(this)}
             }
+            // 팀장인 경우만 팀 관리 버튼 신청할 수 있도록해야 함
             teamSetting.setOnClickListener{
                 Intent(this@DashBoardActivity,ManageTeamActivity::class.java).apply{
                     putExtra("teamName", teamName)

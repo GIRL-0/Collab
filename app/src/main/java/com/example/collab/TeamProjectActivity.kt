@@ -17,6 +17,7 @@ import kotlinx.android.synthetic.main.activity_team_search.*
 class TeamProjectActivity : AppCompatActivity() {
     lateinit var binding : ActivityTeamProjectBinding
     lateinit var adapter : TeamProjectAdapter
+
     var context = this
     var teamProject: ArrayList<TeamProject> = arrayListOf()
 
