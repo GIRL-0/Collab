@@ -39,14 +39,15 @@ class JoinActivity : AppCompatActivity() {
                 "introduction" to userIntro,
                 "name" to userName,
                 "rating" to "0",
-                "plans" to null
+                "plans" to null,
+                "notifications" to null,
             )
 
             val db = Firebase.firestore
             db.collection("User").document(userInfoEmail)
                 .set(userData)
                 .addOnSuccessListener { Log.d("로그인", "DocumentSnapshot successfully written!") }
-                .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
+                .addOnFailureListener { exception -> Log.w(TAG, "Error writing document", exception) }
 
             Toast.makeText(this, "회원가입 완료", Toast.LENGTH_SHORT).show()
 
