@@ -1,9 +1,16 @@
 package com.example.collab
 
+import android.app.Dialog
 import android.content.ContentValues
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.collab.databinding.ActivityManageTeamBinding
@@ -22,6 +29,7 @@ class ManageTeamActivity : AppCompatActivity() {
     lateinit var binding: ActivityManageTeamBinding
     var firestore : FirebaseFirestore?= null
     var userinfo: ArrayList<UserData> = arrayListOf()
+    var context = this
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityManageTeamBinding.inflate(layoutInflater)
@@ -56,6 +64,42 @@ class ManageTeamActivity : AppCompatActivity() {
         }
 
         adapter = ManageAdapter(userinfo,teamname.toString())
+        adapter.itemClickListener = object:ManageAdapter.OnItemClickListener{
+            override fun OnItemClick(data: UserData, isMember: Boolean) {
+                if(isMember){
+                    val dialog = Dialog(context)
+                    dialog.setContentView(R.layout.manage_member_dialog)
+                    dialog.window!!.setLayout(
+                        WindowManager.LayoutParams.WRAP_CONTENT,
+                        WindowManager.LayoutParams.WRAP_CONTENT
+                    )
+                    dialog.setCanceledOnTouchOutside(true)
+                    dialog.setCancelable(true)
+                    dialog.show()
+
+                    dialog.findViewById<TextView>(R.id.userName).text = data.name
+                    dialog.findViewById<TextView>(R.id.userMajorTag).text = data.field
+                    dialog.findViewById<TextView>(R.id.userIntroduce).text = data.introduction
+                    if (data.rating == null){// rating 이 null 인경우
+                        dialog.findViewById<LinearLayout>(R.id.userGrade).visibility = LinearLayout.GONE
+                    }else{
+                        dialog.findViewById<TextView>(R.id.userGradeNum).text = data.rating
+                    }
+
+
+                    dialog.findViewById<Button>(R.id.KickOutBtn).setOnClickListener {
+
+                    }
+                    dialog.findViewById<ImageView>(R.id.workAddCancelBtn).setOnClickListener {
+                        dialog.dismiss()
+                    }
+
+                }else{
+
+                }
+            }
+
+        }
         binding.teamMemberRecyclerView.adapter = adapter
         binding.teamMemberRecyclerView.layoutManager = LinearLayoutManager(this)
     }
