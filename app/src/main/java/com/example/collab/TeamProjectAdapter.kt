@@ -15,13 +15,13 @@ class TeamProjectAdapter(val items: ArrayList<TeamProject>): RecyclerView.Adapte
     var data : ArrayList<String>? =null
     init {
         firestore = FirebaseFirestore.getInstance()
-        val email = "testemail"
+        val email = userInfoEmail
         Log.i("email", email)
         firestore?.collection("User")
             ?.document(email)
             ?.addSnapshotListener { value, error ->
                 items.clear()
-                if(value?.contains("teams")==true)
+                if(value?.contains("teams")==true){
                     data = value?.get("teams") as ArrayList<String>
                     for (team in data!!) {
                         firestore?.collection("Team")?.document(team)
@@ -31,6 +31,7 @@ class TeamProjectAdapter(val items: ArrayList<TeamProject>): RecyclerView.Adapte
                                 notifyDataSetChanged()
                             }
                     }
+                }
             }
 
     }
