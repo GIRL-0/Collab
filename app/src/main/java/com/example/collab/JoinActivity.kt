@@ -41,6 +41,7 @@ class JoinActivity : AppCompatActivity() {
                 "rating" to "0",
                 "plans" to null,
                 "notifications" to null,
+                "profilePic" to null,
             )
 
             val db = Firebase.firestore
