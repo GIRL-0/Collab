@@ -38,6 +38,8 @@ class PersonalCalendarPlanDialog(context: PersonalCalendarActivity) {
                 val db = Firebase.firestore
                 val doc = db.collection("User").document(UserInfo.userInfoEmail)
                 doc.update("plans", FieldValue.arrayUnion("$planTitle!$planStartTime!$planFinishTime"))
+                Toast.makeText(dialog.context, "일정이 추가되었습니다", Toast.LENGTH_SHORT).show()
+
                 dialog.dismiss()
             }else{
                 Toast.makeText(dialog.context, "잘못 입력하셨습니다. 다시 입력해주세요", Toast.LENGTH_SHORT).show()
