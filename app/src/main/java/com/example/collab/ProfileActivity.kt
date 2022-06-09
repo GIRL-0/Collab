@@ -54,6 +54,7 @@ class ProfileActivity : AppCompatActivity() {
 
         binding.logoutBtn.setOnClickListener {
             firebaseAuthSignOut()
+            Toast.makeText(applicationContext, "로그아웃되었습니다. 다시 로그인해주세요", Toast.LENGTH_SHORT).show()
             var intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
         }
@@ -128,7 +129,7 @@ class ProfileActivity : AppCompatActivity() {
             startActivityForResult(intent, GALLERY)
 
         }
-        Toast.makeText(applicationContext, textUserName, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(applicationContext, textUserName, Toast.LENGTH_SHORT).show()
 
     }
 
@@ -158,7 +159,7 @@ class ProfileActivity : AppCompatActivity() {
                     // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
                     // ...
                 }
-                Toast.makeText(this, imageData.toString(), Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, imageData.toString(), Toast.LENGTH_SHORT).show()
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageData)
                     //데이터베이스에 저장하고 다시 ImageView로 불러오기
@@ -181,12 +182,14 @@ class ProfileActivity : AppCompatActivity() {
 //            profileNoticeData.add(ProfileNoticeData(val3))
 //        }
     }
-
+    fun clearData() {
+        profileNoticeData.clear() // clear list
+        adapter.notifyDataSetChanged() // let your adapter know about the changes and reload view.
+    }
     private fun initRecyclerView() {
         val db = Firebase.firestore
         val docRef = db.collection("User").document(userInfoEmail)
-        profileNoticeData.clear() // clear list
-        adapter.notifyDataSetChanged() // let your adapter know about the changes and reload view.
+        clearData()
         //get db
         docRef.get()
             .addOnSuccessListener { document ->
@@ -199,11 +202,11 @@ class ProfileActivity : AppCompatActivity() {
                             )
                         )
                     }
-                    Toast.makeText(
-                        applicationContext,
-                        "initProfileNoticeRecyclerView()",
-                        Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                        applicationContext,
+//                        "initProfileNoticeRecyclerView()",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
                     notifRecyclerView =
                         findViewById(R.id.profileNotifRecyclerView)
                     notifRecyclerView.layoutManager = LinearLayoutManager(
@@ -214,7 +217,7 @@ class ProfileActivity : AppCompatActivity() {
                     notifRecyclerView.adapter = adapter
                     adapter.itemClickListener = object : ProfileNoticeAdapter.OnItemClickListener {
                         override fun OnItemClick(data: ProfileNoticeData) {
-                            Toast.makeText(applicationContext, data.alarmContent, Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(applicationContext, data.alarmContent, Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {

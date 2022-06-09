@@ -49,7 +49,7 @@ class JoinActivity : AppCompatActivity() {
                 .addOnSuccessListener { Log.d("로그인", "DocumentSnapshot successfully written!") }
                 .addOnFailureListener { exception -> Log.w(TAG, "Error writing document", exception) }
 
-            Toast.makeText(this, "회원가입 완료", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "회원가입이 완료되었습니다", Toast.LENGTH_SHORT).show()
 
             var intent = Intent(applicationContext, SearchTeamActivity::class.java)
             startActivity(intent)

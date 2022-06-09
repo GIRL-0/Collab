@@ -41,8 +41,6 @@ class LoginActivity : AppCompatActivity() {
         val signInGoogleBtn: SignInButton = findViewById(R.id.googleLoginBtn)
         setGoogleButtonText(signInGoogleBtn, "Google 계정으로 로그인")
 
-
-        /////////////////////////
         val user = Firebase.auth.currentUser
         if (user != null) {
             // User is signed in
@@ -51,12 +49,7 @@ class LoginActivity : AppCompatActivity() {
         } else {
             // No user is signed in
         }
-
-
-
-        /////////////////////////
-
-
+        //TODO: Log.d 추가하기
         signInGoogleBtn.setOnClickListener {
             val signInIntent = googleSignInClient!!.signInIntent
             startActivityForResult(signInIntent, 9001)
@@ -75,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
                 firebaseAuthWithGoogle(account.idToken!!)
 
             } catch (e: ApiException) {
-                Toast.makeText(this, "Failed Google Login $e", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "로그인 실패, 잠시 후 다시 시도해주세요", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -88,14 +81,11 @@ class LoginActivity : AppCompatActivity() {
                     val user = auth.currentUser
                     val email = auth.currentUser?.email
                     val name = auth.currentUser?.displayName
-                    val photoUrl = auth.currentUser?.photoUrl
                     userInfoEmail = email!!
                     userInfoName = name!!
 
                     //db 연동
-
                     val db = Firebase.firestore
-                    //////////////////////////////////
                     val docRef = db.collection("User").document(email!!)
                     docRef.get()
                         .addOnSuccessListener { document ->
@@ -110,19 +100,19 @@ class LoginActivity : AppCompatActivity() {
                         .addOnFailureListener { exception ->
                             Log.d(TAG, "get failed with ", exception)
                         }
-                    /////////////////////////////
-
-                    Toast.makeText(
-                        applicationContext,
-                        "Login Success with ${email.toString()} ${name.toString()}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    //로그인 완료
+//                    Toast.makeText(
+//                        applicationContext,
+//                        "Login Success with ${email.toString()} ${name.toString()}",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
                     Toast.makeText(
                         applicationContext, "${name.toString()}님 환영합니다",
                         Toast.LENGTH_SHORT
                     ).show()
                     Log.d("googleLogin", user.toString())
 
+                    //스택 클리어
                     var intent = Intent(context, SearchTeamActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                     startActivity(intent)

@@ -50,7 +50,7 @@ class PersonalCalendarPlanDialog(context: PersonalCalendarActivity) {
 
         dialog.findViewById<CalendarView>(R.id.calendar).setOnDateChangeListener { calendarView, year, month, dayOfMonth ->
             var toast = String.format("%d / %d / %d", year, month + 1, dayOfMonth)
-            Toast.makeText(dialog.context, toast, Toast.LENGTH_SHORT).show()
+//            Toast.makeText(dialog.context, toast, Toast.LENGTH_SHORT).show()
             dialog.findViewById<TextView>(R.id.planStartTime).text =
                 year.toString()+"-"+(month+1).toString()+"-"+dayOfMonth.toString()+"/12:00"
             dialog.findViewById<TextView>(R.id.planFinishTime).text =
