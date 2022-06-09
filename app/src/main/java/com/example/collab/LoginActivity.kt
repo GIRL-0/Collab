@@ -102,11 +102,7 @@ class LoginActivity : AppCompatActivity() {
                             Log.d(TAG, "get failed with ", exception)
                         }
                     //로그인 완료
-//                    Toast.makeText(
-//                        applicationContext,
-//                        "Login Success with ${email.toString()} ${name.toString()}",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
+
                     Toast.makeText(
                         applicationContext, "${name.toString()}님 환영합니다",
                         Toast.LENGTH_SHORT
