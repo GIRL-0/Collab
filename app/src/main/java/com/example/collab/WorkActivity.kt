@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.collab.databinding.ActivityWorkBinding
 import com.google.firebase.firestore.FieldValue
@@ -89,6 +90,9 @@ class WorkActivity : AppCompatActivity() {
                             ?.set(docData, SetOptions.merge())
                     }
                 }
+            dialog.dismiss()
+        }
+        dialog.findViewById<ImageView>(R.id.workAddCancelBtn).setOnClickListener {
             dialog.dismiss()
         }
     }

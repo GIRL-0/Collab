@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -11,6 +12,7 @@ import com.example.collab.databinding.ActivityDetailWorkBinding
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import kotlinx.android.synthetic.main.activity_detail_work.*
 import kotlinx.android.synthetic.main.activity_work.*
 
 class DetailWorkActivity : AppCompatActivity() {
@@ -69,7 +71,38 @@ class DetailWorkActivity : AppCompatActivity() {
         dialog.findViewById<Button>(R.id.detailWorkAddBtn).setOnClickListener{
             var contentStr = dialog.findViewById<EditText>(R.id.detailWorkContentEdit).text.toString()
 
+
             firestore = FirebaseFirestore.getInstance()
+            if(dialog.findViewById<CheckBox>(R.id.alarmCheck).isChecked){
+                var notice_str = iteamName+"팀의 할 일 "+iworkNum+" / "+itodo+"에 상세 진행 사항 \""+contentStr+"\"가 추가되었습니다."
+                firestore?.collection("Team")
+                    ?.document(iteamName)
+                    ?.get()?.addOnSuccessListener {
+                        if(it?.contains("member")==true){
+                            val list = it?.get("member") as ArrayList<String>
+                            for(member in list!!){
+                                firestore?.collection("User")
+                                    ?.document(member)
+                                    ?.get()?.addOnSuccessListener {it2->
+                                        if(it2?.contains("notifications")==true){
+                                            firestore?.collection("User")
+                                                ?.document(member)
+                                                ?.update("notifications", FieldValue.arrayUnion(notice_str))
+                                        }else{
+                                            val docData = hashMapOf(
+                                                "notifications" to arrayListOf(notice_str)
+                                            )
+                                            firestore?.collection("User")
+                                                ?.document(member)
+                                                ?.set(docData, SetOptions.merge())
+
+                                        }
+                                    }
+                            }
+                        }
+                    }
+            }
+
             firestore?.collection("Team")
                 ?.document(iteamName)
                 ?.collection("info")
