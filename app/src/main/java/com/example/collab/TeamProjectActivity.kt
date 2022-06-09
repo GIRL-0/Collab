@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.collab.UserInfo.userInfoName
 import com.example.collab.databinding.ActivityTeamProjectBinding
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
@@ -41,6 +42,9 @@ class TeamProjectActivity : AppCompatActivity() {
 
             belongTeamRecyclerView.adapter = adapter
             belongTeamRecyclerView.layoutManager = LinearLayoutManager(context)
+
+            userName.text = userInfoName
+
             // 화면전환
             teamSearchTabMenu.setOnClickListener {
                 var intent = Intent(context, SearchTeamActivity::class.java)

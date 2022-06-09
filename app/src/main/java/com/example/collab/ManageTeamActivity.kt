@@ -53,8 +53,8 @@ class ManageTeamActivity : AppCompatActivity() {
             firestore?.collection("Team")
                 ?.document(teamname!!)
                 ?.set(dataDoc, SetOptions.merge())
-
         }
+
         adapter = ManageAdapter(userinfo,teamname.toString())
         binding.teamMemberRecyclerView.adapter = adapter
         binding.teamMemberRecyclerView.layoutManager = LinearLayoutManager(this)
