@@ -38,36 +38,13 @@ class PersonalCalendarActivity : AppCompatActivity() {
         initDialog()
         initRecyclerView()
     }
-
-    fun clearData() {
-//        calendarData.clear() // clear list
-//        adapter.notifyDataSetChanged() // let your adapter know about the changes and reload view.
-    }
-
     override fun onResume() {
         super.onResume()
         Log.d("life_cycle", "onResume")
     }
 
-    private fun initDialog() {
-//        Toast.makeText(applicationContext, "일정 추가", Toast.LENGTH_SHORT).show()
-        binding.personalPlanAddBtn.setOnClickListener {
-            val dialog = PersonalCalendarPlanDialog(this)
-            dialog.showDialog()
-            dialog.onDismissedClickListener(object :
-                PersonalCalendarPlanDialog.onPlanCreateClickListener {
-                override fun onPlanCreateClick(name: String) {
-                    initRecyclerView()
-                }
-            })
-        }
-    }
-
     private fun initCal() {
         binding.personalCalendar.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            var toast = String.format("%d / %d / %d", year, month + 1, dayOfMonth)
-            Toast.makeText(applicationContext, toast, Toast.LENGTH_SHORT).show()
-
             tmpData.clear()
             for (data in calendarData) {
                 val selectStartYear = data.planStartDate.split("-")[0].toInt()
@@ -84,11 +61,11 @@ class PersonalCalendarActivity : AppCompatActivity() {
                 }
 
             }
-            Toast.makeText(
-                applicationContext,
-                "initCalendarRecyclerView()",
-                Toast.LENGTH_SHORT
-            ).show()
+//            Toast.makeText(
+//                applicationContext,
+//                "initCalendarRecyclerView()",
+//                Toast.LENGTH_SHORT
+//            ).show()
             personalCalendarRecyclerView =
                 findViewById(R.id.personalPlanRecyclerView)
             personalCalendarRecyclerView.layoutManager = LinearLayoutManager(
@@ -100,13 +77,26 @@ class PersonalCalendarActivity : AppCompatActivity() {
             adapter.itemClickListener =
                 object : PersonalCalendarAdapter.OnItemClickListener {
                     override fun OnItemClick(data: CalendarData) {
-                        Toast.makeText(
-                            applicationContext,
-                            data.planContent,
-                            Toast.LENGTH_SHORT
-                        ).show()
+//                        Toast.makeText(
+//                            applicationContext,
+//                            data.planContent,
+//                            Toast.LENGTH_SHORT
+//                        ).show()
                     }
                 }
+        }
+    }
+
+    private fun initDialog() {
+        binding.personalPlanAddBtn.setOnClickListener {
+            val dialog = PersonalCalendarPlanDialog(this)
+            dialog.showDialog()
+            dialog.onDismissedClickListener(object :
+                PersonalCalendarPlanDialog.onPlanCreateClickListener {
+                override fun onPlanCreateClick(name: String) {
+                    initRecyclerView()
+                }
+            })
         }
     }
 
@@ -140,13 +130,11 @@ class PersonalCalendarActivity : AppCompatActivity() {
 //                .set(data, SetOptions.merge())
     }
 
-
     private fun initRecyclerView() {
         val db = Firebase.firestore
         val docRef = db.collection("User").document(userInfoEmail)
-        calendarData.clear() // clear list
-        adapter.notifyDataSetChanged() // let your adapter know about the changes and reload view.
-
+        clearData()
+        //get db
         docRef.get()
             .addOnSuccessListener { document ->
                 if (document?.get("plans") != null) {
@@ -155,19 +143,16 @@ class PersonalCalendarActivity : AppCompatActivity() {
                         val container = plan.split("!")
                         calendarData.add(
                             CalendarData(
-                                container[0],
-                                container[1].split("/")[0],
-                                container[1].split("/")[1],
-                                container[2].split("/")[0],
-                                container[2].split("/")[1]
+                                container[0], container[1].split("/")[0], container[1].split("/")[1],
+                                container[2].split("/")[0], container[2].split("/")[1]
                             )
                         )
                     }
-                    Toast.makeText(
-                        applicationContext,
-                        "initCalendarRecyclerView()",
-                        Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                        applicationContext,
+//                        "initCalendarRecyclerView()",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
                     personalCalendarRecyclerView =
                         findViewById(R.id.personalPlanRecyclerView)
                     personalCalendarRecyclerView.layoutManager = LinearLayoutManager(
@@ -179,11 +164,11 @@ class PersonalCalendarActivity : AppCompatActivity() {
                     adapter.itemClickListener =
                         object : PersonalCalendarAdapter.OnItemClickListener {
                             override fun OnItemClick(data: CalendarData) {
-                                Toast.makeText(
-                                    applicationContext,
-                                    data.planContent,
-                                    Toast.LENGTH_SHORT
-                                ).show()
+//                                Toast.makeText(
+//                                    applicationContext,
+//                                    data.planContent,
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
                             }
                         }
 
@@ -195,6 +180,12 @@ class PersonalCalendarActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 Log.d(ContentValues.TAG, "get failed with ", exception)
             }
+    }
+
+
+    fun clearData() {
+        calendarData.clear() // clear list
+        adapter.notifyDataSetChanged() // let your adapter know about the changes and reload view.
     }
 
 
@@ -220,9 +211,9 @@ class PersonalCalendarActivity : AppCompatActivity() {
 //                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
             }
-            titleTextView.setOnClickListener {
-                Toast.makeText(applicationContext, "Signout", Toast.LENGTH_SHORT).show()
-            }
+//            titleTextView.setOnClickListener {
+//                Toast.makeText(applicationContext, "로그아웃 되었습니다", Toast.LENGTH_SHORT).show()
+//            }
 
         }
     }
