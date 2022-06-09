@@ -1,5 +1,6 @@
 package com.example.collab
 
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.view.WindowManager
 import android.widget.*
@@ -11,10 +12,14 @@ import com.google.firebase.ktx.Firebase
 class PersonalCalendarPlanDialog(context: PersonalCalendarActivity) {
     var context = this
     private val dialog = Dialog(context)
-    private lateinit var onDismissedClickListener: onPlanCreateClickListener
+    private lateinit var onDismissedClickListener: OnPlanCreateClickListener
 
-    fun onDismissedClickListener(listener: onPlanCreateClickListener) {
+    fun onDismissedClickListener(listener: OnPlanCreateClickListener) {
         onDismissedClickListener = listener
+    }
+
+    interface OnPlanCreateClickListener {
+        fun onPlanCreateClick(name: String)
     }
 
     fun showDialog() {
@@ -38,8 +43,6 @@ class PersonalCalendarPlanDialog(context: PersonalCalendarActivity) {
                 val db = Firebase.firestore
                 val doc = db.collection("User").document(UserInfo.userInfoEmail)
                 doc.update("plans", FieldValue.arrayUnion("$planTitle!$planStartTime!$planFinishTime"))
-                Toast.makeText(dialog.context, "일정이 추가되었습니다", Toast.LENGTH_SHORT).show()
-
                 dialog.dismiss()
             }else{
                 Toast.makeText(dialog.context, "잘못 입력하셨습니다. 다시 입력해주세요", Toast.LENGTH_SHORT).show()
@@ -66,8 +69,6 @@ class PersonalCalendarPlanDialog(context: PersonalCalendarActivity) {
         return !(planTitle==""||planStartTime==""||planFinishTime=="")
     }
 
-    interface onPlanCreateClickListener {
-        fun onPlanCreateClick(name: String)
-    }
+
 
 }

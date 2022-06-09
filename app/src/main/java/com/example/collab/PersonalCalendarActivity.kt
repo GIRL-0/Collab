@@ -4,9 +4,7 @@ import PersonalCalendarAdapter
 import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
-import android.provider.CalendarContract
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -92,7 +90,7 @@ class PersonalCalendarActivity : AppCompatActivity() {
             val dialog = PersonalCalendarPlanDialog(this)
             dialog.showDialog()
             dialog.onDismissedClickListener(object :
-                PersonalCalendarPlanDialog.onPlanCreateClickListener {
+                PersonalCalendarPlanDialog.OnPlanCreateClickListener {
                 override fun onPlanCreateClick(name: String) {
                     initRecyclerView()
                 }
