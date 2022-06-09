@@ -25,7 +25,7 @@ class TeamProjectAdapter(val items: ArrayList<TeamProject>): RecyclerView.Adapte
                     data = value?.get("teams") as ArrayList<String>
                     for (team in data!!) {
                         firestore?.collection("Team")?.document(team)
-                            ?.addSnapshotListener { value2, error ->
+                            ?.get()?.addOnSuccessListener { value2->
                                 var item = value2?.toObject(TeamProject::class.java)
                                 items.add(item!!)
                                 notifyDataSetChanged()

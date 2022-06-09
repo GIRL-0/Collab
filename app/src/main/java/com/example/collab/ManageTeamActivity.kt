@@ -14,6 +14,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.collab.databinding.ActivityManageTeamBinding
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 
@@ -70,7 +71,7 @@ class ManageTeamActivity : AppCompatActivity() {
                     val dialog = Dialog(context)
                     dialog.setContentView(R.layout.manage_member_dialog)
                     dialog.window!!.setLayout(
-                        WindowManager.LayoutParams.WRAP_CONTENT,
+                        WindowManager.LayoutParams.MATCH_PARENT,
                         WindowManager.LayoutParams.WRAP_CONTENT
                     )
                     dialog.setCanceledOnTouchOutside(true)
@@ -86,9 +87,13 @@ class ManageTeamActivity : AppCompatActivity() {
                         dialog.findViewById<TextView>(R.id.userGradeNum).text = data.rating
                     }
 
-
                     dialog.findViewById<Button>(R.id.KickOutBtn).setOnClickListener {
-
+                        firestore?.collection("Team")
+                            ?.document(teamname!!)
+                            ?.update("member", FieldValue.arrayRemove(data.email))
+                        firestore?.collection("User")
+                            ?.document(data.email!!)
+                            ?.update("teams",FieldValue.arrayRemove(teamname!!))
                     }
                     dialog.findViewById<ImageView>(R.id.workAddCancelBtn).setOnClickListener {
                         dialog.dismiss()
