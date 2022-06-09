@@ -30,14 +30,15 @@ import kotlinx.android.synthetic.main.activity_team_search.*
 import java.util.*
 
 
+@Suppress("DEPRECATION")
 class ProfileActivity : AppCompatActivity() {
     lateinit var binding: ActivityProfileBinding
     var context = this
     lateinit var notifRecyclerView: RecyclerView
-    val profileNoticeData: ArrayList<ProfileNoticeData> = ArrayList()
-    var adapter: ProfileNoticeAdapter  = ProfileNoticeAdapter(profileNoticeData)
+    private val profileNoticeData: ArrayList<ProfileNoticeData> = ArrayList()
+    var adapter: ProfileNoticeAdapter = ProfileNoticeAdapter(profileNoticeData)
     var storage = FirebaseStorage.getInstance()
-    val starArray = arrayOf("☆☆☆☆☆", "★☆☆☆☆", "★★☆☆☆", "★★★☆☆", "★★★★☆", "★★★★★")
+    private val starArray = arrayOf("☆☆☆☆☆", "★☆☆☆☆", "★★☆☆☆", "★★★☆☆", "★★★★☆", "★★★★★")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +46,6 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
         initlayout()
         initProfile()
-        initProfileNoticeData()
         initRecyclerView()
 
         Intent(this@ProfileActivity, CreateTeamActivity::class.java).apply {
@@ -57,14 +57,13 @@ class ProfileActivity : AppCompatActivity() {
             Toast.makeText(applicationContext, "로그아웃되었습니다. 다시 로그인해주세요", Toast.LENGTH_SHORT).show()
             var intent = Intent(context, LoginActivity::class.java)
             startActivity(intent)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         }
 
     }
 
     private val GALLERY = 1
     private fun initProfile() {
-        var textUserName = binding.userName.text.toString()
-
         //변경사항 저장
         binding.saveChangesBtn.setOnClickListener {
             val userData = hashMapOf(
@@ -82,7 +81,6 @@ class ProfileActivity : AppCompatActivity() {
                 .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
 
             Toast.makeText(applicationContext, "변경 사항이 저장되었습니다", Toast.LENGTH_SHORT).show()
-            Log.d("테스트", "$test")
         }
 
 
@@ -105,11 +103,16 @@ class ProfileActivity : AppCompatActivity() {
                     }
 
                     var profilePath = document.get("profilePic").toString()
-                    //프로필 사진
-                    Firebase.storage.reference.child("images/$userInfoEmail/$profilePath").downloadUrl.addOnCompleteListener {
-                        if (it.isSuccessful) {
-                            Glide.with(context).load(it.result).into(binding.userImg)
-                        }
+//                    프로필 사진
+                    if (profilePath != "null") {
+                        Firebase.storage.reference.child("images/$userInfoEmail/$profilePath")
+                            .downloadUrl.addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    Glide.with(context)
+                                        .load(it.result)
+                                        .into(binding.userImg)
+                                }
+                            }
                     }
 
                     Log.d(TAG, "DocumentSnapshot data: ${document.data}")
@@ -121,16 +124,13 @@ class ProfileActivity : AppCompatActivity() {
                 Log.d(TAG, "get failed with ", exception)
             }
 
-        var changePfp = binding.changePfpBtn
+        val changePfp = binding.changePfpBtn
 
         changePfp.setOnClickListener {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
-            intent.setType("image/*")
+            intent.type = "image/*"
             startActivityForResult(intent, GALLERY)
-
         }
-//        Toast.makeText(applicationContext, textUserName, Toast.LENGTH_SHORT).show()
-
     }
 
 
@@ -149,21 +149,15 @@ class ProfileActivity : AppCompatActivity() {
                 val data = hashMapOf("profilePic" to profilePathName)
                 db.collection("User").document(userInfoEmail)
                     .set(data, SetOptions.merge())
-                val uploadTask = profileRef.putFile(imageData!!)
 
-                // Register observers to listen for when the download is done or if it fails
+                val uploadTask = profileRef.putFile(imageData!!)
                 uploadTask.addOnFailureListener {
-                    Log.d("테스트", "실패")
                     // Handle unsuccessful uploads
                 }.addOnSuccessListener { taskSnapshot ->
                     // taskSnapshot.metadata contains file metadata such as size, content-type, etc.
-                    // ...
                 }
-//                Toast.makeText(this, imageData.toString(), Toast.LENGTH_SHORT).show()
                 try {
                     val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageData)
-                    //데이터베이스에 저장하고 다시 ImageView로 불러오기
-
                     binding.userImg.setImageBitmap(bitmap)
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -172,20 +166,11 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
-    private fun initProfileNoticeData() {
-//        val scan = Scanner(resources.openRawResource(R.raw.words))
-//        while (scan.hasNextLine()) {
-//            //데이터베이스 불러오기
-//            val val1 = scan.nextLine()
-//            val val2 = scan.nextLine()
-//            val val3 = scan.nextLine()
-//            profileNoticeData.add(ProfileNoticeData(val3))
-//        }
-    }
-    fun clearData() {
+    private fun clearData() {
         profileNoticeData.clear() // clear list
         adapter.notifyDataSetChanged() // let your adapter know about the changes and reload view.
     }
+
     private fun initRecyclerView() {
         val db = Firebase.firestore
         val docRef = db.collection("User").document(userInfoEmail)
@@ -193,7 +178,7 @@ class ProfileActivity : AppCompatActivity() {
         //get db
         docRef.get()
             .addOnSuccessListener { document ->
-                if (document?.get("plans") != null) {
+                if (document?.get("notifications") != null) {
                     var notifications = document.get("notifications") as ArrayList<String>
                     for (notification in notifications) {
                         profileNoticeData.add(
@@ -202,11 +187,6 @@ class ProfileActivity : AppCompatActivity() {
                             )
                         )
                     }
-//                    Toast.makeText(
-//                        applicationContext,
-//                        "initProfileNoticeRecyclerView()",
-//                        Toast.LENGTH_SHORT
-//                    ).show()
                     notifRecyclerView =
                         findViewById(R.id.profileNotifRecyclerView)
                     notifRecyclerView.layoutManager = LinearLayoutManager(
@@ -217,7 +197,6 @@ class ProfileActivity : AppCompatActivity() {
                     notifRecyclerView.adapter = adapter
                     adapter.itemClickListener = object : ProfileNoticeAdapter.OnItemClickListener {
                         override fun OnItemClick(data: ProfileNoticeData) {
-//                            Toast.makeText(applicationContext, data.alarmContent, Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
