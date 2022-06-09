@@ -22,6 +22,7 @@ class PersonalCalendarPlanDialog(context: PersonalCalendarActivity) {
         fun onPlanCreateClick(name: String)
     }
 
+    @SuppressLint("CutPasteId", "SetTextI18n")
     fun showDialog() {
         dialog.setContentView(R.layout.activity_create_plan)
         dialog.window!!.setLayout(
@@ -55,17 +56,15 @@ class PersonalCalendarPlanDialog(context: PersonalCalendarActivity) {
 
         dialog.findViewById<CalendarView>(R.id.calendar).setOnDateChangeListener { calendarView, year, month, dayOfMonth ->
             var toast = String.format("%d / %d / %d", year, month + 1, dayOfMonth)
-//            Toast.makeText(dialog.context, toast, Toast.LENGTH_SHORT).show()
+            Toast.makeText(dialog.context, toast, Toast.LENGTH_SHORT).show()
             dialog.findViewById<TextView>(R.id.planStartTime).text =
                 year.toString()+"-"+(month+1).toString()+"-"+dayOfMonth.toString()+"/12:00"
             dialog.findViewById<TextView>(R.id.planFinishTime).text =
                 year.toString()+"-"+(month+1).toString()+"-"+(dayOfMonth+1).toString()+"/12:00"
         }
-//        dialog.setOnDismissListener {}
     }
 
     private fun isValidPlan(planTitle: String, planStartTime: String, planFinishTime: String): Boolean {
-        //isValid
         return !(planTitle==""||planStartTime==""||planFinishTime=="")
     }
 
